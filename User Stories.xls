@@ -1,0 +1,2564 @@
+<html xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:x="urn:schemas-microsoft-com:office:excel"
+xmlns="http://www.w3.org/TR/REC-html40">
+<head>
+<title>SEF Jira</title>
+<style type="text/css">
+table {
+    mso-displayed-decimal-separator:"\.";
+    mso-displayed-thousand-separator:"\,";
+}
+body
+{
+    margin: 0px;
+    font-size: 12px;
+    font-family: Arial, sans-serif;
+    color:black;
+}
+
+</style>
+<META HTTP-EQUIV="Content-Type" Content="application/vnd.ms-excel; charset=UTF-8">
+<!-- JRA-7598 - ensure fields (e.g. description) occupy only one cell - even fields containing newlines. -->
+<!--
+Vertical align all cells to the top, in order to align all issue rows of issuetable to the top,
+since Excel does not use or save the css files it is hardcoded here.
+-->
+<style>
+@page
+{
+mso-page-orientation:landscape;
+margin:.25in .25in .5in .25in;
+mso-header-margin:.5in;
+mso-footer-margin:.25in;
+mso-footer-data:"&R&P of &N";
+mso-horizontal-page-align:center;
+mso-vertical-page-align:center;
+}
+
+td.issuekey,
+td.issuetype,
+td.status {
+    mso-style-parent: "";
+    mso-number-format: \@;
+    text-align: left;
+}
+br
+{
+    mso-data-placement:same-cell;
+}
+
+td
+{
+    vertical-align: top;
+}
+</style>
+
+<!--[if gte mso 9]><xml>
+<x:ExcelWorkbook>
+<x:ExcelWorksheets>
+<x:ExcelWorksheet>
+<x:Name>general_report</x:Name>
+<x:WorksheetOptions>
+<x:Print>
+<x:ValidPrinterInfo/>
+</x:Print>
+</x:WorksheetOptions>
+</x:ExcelWorksheet>
+</x:ExcelWorksheets>
+</x:ExcelWorkbook>
+</xml><![endif]-->
+</head>
+<body>
+
+<table border="1">
+    <tr bgcolor="#205081" height="30">
+        <td colspan="41">
+            <img src="https://sefteach01.qut.edu.au/jira/images/icon-jira-logo.png" width="57" height="30" border="0" alt="SEF Jira">
+        </td>
+    </tr>
+    <tr>
+        <td colspan="41">
+            <a href="https://sefteach01.qut.edu.au/jira/secure/IssueNavigator.jspa?reset=true&jqlQuery=project+%3D+FOURTYFIVE+AND+resolution+%3D+Unresolved+ORDER+BY+priority+DESC%2C+key+DESC">SEF Jira</a>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="41">
+            Displaying <strong>27</strong> issues at <strong>30/Aug/17 4:07 PM</strong>.
+        </td>
+    </tr>
+</table>
+
+
+
+
+                                        <table id="issuetable"  border="1" cellpadding="3" cellspacing="1" width="100%">
+                        <thead>
+        <tr class="rowHeader">
+            
+                                                            <th class="colHeaderLink headerrow-project" data-id="project">
+                            Project
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-issuekey" data-id="issuekey">
+                            Key
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-summary" data-id="summary">
+                            Summary
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-issuetype" data-id="issuetype">
+                            Issue Type
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-status" data-id="status">
+                            Status
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-priority" data-id="priority">
+                            Priority
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-resolution" data-id="resolution">
+                            Resolution
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-assignee" data-id="assignee">
+                            Assignee
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-reporter" data-id="reporter">
+                            Reporter
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-creator" data-id="creator">
+                            Creator
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-created" data-id="created">
+                            Created
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-lastViewed" data-id="lastViewed">
+                            Last Viewed
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-updated" data-id="updated">
+                            Updated
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-resolutiondate" data-id="resolutiondate">
+                            Resolved
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-versions" data-id="versions">
+                            Affects Version/s
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-fixVersions" data-id="fixVersions">
+                            Fix Version/s
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-components" data-id="components">
+                            Component/s
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-duedate" data-id="duedate">
+                            Due Date
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-votes" data-id="votes">
+                            Votes
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-watches" data-id="watches">
+                            Watchers
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-thumbnail" data-id="thumbnail">
+                            Images
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-timeoriginalestimate" data-id="timeoriginalestimate">
+                            Original Estimate
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-timeestimate" data-id="timeestimate">
+                            Remaining Estimate
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-timespent" data-id="timespent">
+                            Time Spent
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-workratio" data-id="workratio">
+                            Work Ratio
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-subtasks" data-id="subtasks">
+                            Sub-Tasks
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-issuelinks" data-id="issuelinks">
+                            Linked Issues
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-environment" data-id="environment">
+                            Environment
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-description" data-id="description">
+                            Description
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-security" data-id="security">
+                            Security Level
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-progress" data-id="progress">
+                            Progress
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-aggregateprogress" data-id="aggregateprogress">
+                            Σ Progress
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-aggregatetimespent" data-id="aggregatetimespent">
+                            Σ Time Spent
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-aggregatetimeestimate" data-id="aggregatetimeestimate">
+                            Σ Remaining Estimate
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-aggregatetimeoriginalestimate" data-id="aggregatetimeoriginalestimate">
+                            Σ Original Estimate
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-labels" data-id="labels">
+                            Labels
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-customfield_10009" data-id="customfield_10009">
+                            Rank
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-customfield_10005" data-id="customfield_10005">
+                            Epic Link
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-customfield_10001" data-id="customfield_10001">
+                            Epic/Theme
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-customfield_10004" data-id="customfield_10004">
+                            Sprint
+                                                    </th>
+                                                
+                                                            <th class="colHeaderLink headerrow-customfield_10000" data-id="customfield_10000">
+                            Flagged
+                                                    </th>
+                                                                    </tr>
+    </thead>
+    <tbody>
+                    
+
+                <tr id="issuerow23276" rel="23276" data-issuekey="FOURTYFIVE-37" class="issuerow">
+                                            <td class="project">    IFB299 045
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="FOURTYFIVE-37" href="https://sefteach01.qut.edu.au/jira/browse/FOURTYFIVE-37">FOURTYFIVE-37</a>
+</td>
+                                            <td class="summary"><p>
+                User Search
+    </p>
+</td>
+                                            <td class="issuetype"> Story</td>
+                                            <td class="status">
+                Open
+    </td>
+                                            <td class="priority">   Must Have
+</td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="assignee">    <em>Unassigned</em>
+</td>
+                                            <td class="reporter">            Andrew Grant
+    </td>
+                                            <td class="creator">            Andrew Grant
+    </td>
+                                            <td class="created"> 23/Aug/17 10:40 AM </td>
+                                            <td class="lastViewed"> 30/Aug/17 4:07 PM </td>
+                                            <td class="updated"> 30/Aug/17 4:01 PM </td>
+                                            <td class="resolutiondate"> &nbsp; </td>
+                                            <td class="versions">    &nbsp;
+</td>
+                                            <td class="fixVersions">    &nbsp;
+</td>
+                                            <td class="components">    &nbsp;
+</td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                                            <td class="votes">0</td>
+                                            <td class="watches">1</td>
+                                            <td class="thumbnail"></td>
+                                            <td class="timeoriginalestimate"></td>
+                                            <td class="timeestimate"></td>
+                                            <td class="timespent"></td>
+                                            <td class="workratio">&nbsp;
+</td>
+                                            <td class="subtasks">                </td>
+                                            <td class="issuelinks">                </td>
+                                            <td class="environment"></td>
+                                            <td class="description">      User Story<br/>
+ - As a user I would like to search places to show all information relating to a word or certain words I input into a search bar to make it quicker for me to find certain places.<br/>
+<br/>
+Acceptance  Criteria:<br/>
+- The navigation bar anchored to the top of webpages will display a search bar and a search button on every page to allow me to look for places by typing keywords.<br/>
+- Clicking the &quot;search&quot; button will redirect me to the search result page showing relevant results.<br/>
+- The keyword entered on the search bar will be compared with the name of the places in the database<br/>
+- A list of  places with the name containing the keyword will be displayed after the user has pressed search.<br/>
+        - Search results will display the following:<br/>
+          Name of destination<br/>
+          User ratings if user ratings have been left for the destination<br/>
+          Address of destination  <br/>
+- The search results will be displayed in order of date added to the database.<br/>
+- Clicking on the result text will take the user to the individual item&#39;s page via a click through link.<br/>
+<br/>
+Tasks:<br/>
+1.Inside the navigation bar, add a form using bootstrap and appropriate event handler to manage form submission and request to the server. (1)<br/>
+1. Create a search result page with function to handle response from the server (1)<br/>
+2. Write a code to retrieve the results from the database using the search keyword (2)<br/>
+3. Write a code to display the results to the search page. (2)<br/>
+3. Write a test case (1)<br/>
+<br/>
+
+  </td>
+                                            <td class="security"></td>
+                                            <td class="progress">     
+</td>
+                                            <td class="aggregateprogress">     
+</td>
+                                            <td class="aggregatetimespent"></td>
+                                            <td class="aggregatetimeestimate"></td>
+                                            <td class="aggregatetimeoriginalestimate"></td>
+                                            <td class="labels">    </td>
+                                            <td class="customfield_10009">      0|ywo8z9:
+  </td>
+                                            <td class="customfield_10005"></td>
+                                            <td class="customfield_10001">    </td>
+                                            <td class="customfield_10004"></td>
+                                            <td class="customfield_10000">
+
+
+</td>
+                    </tr>
+
+
+                <tr id="issuerow22499" rel="22499" data-issuekey="FOURTYFIVE-24" class="issuerow">
+                                            <td class="project">    IFB299 045
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="FOURTYFIVE-24" href="https://sefteach01.qut.edu.au/jira/browse/FOURTYFIVE-24">FOURTYFIVE-24</a>
+</td>
+                                            <td class="summary"><p>
+                Individual Item Page
+    </p>
+</td>
+                                            <td class="issuetype"> Story</td>
+                                            <td class="status">
+                Open
+    </td>
+                                            <td class="priority">   Must Have
+</td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="assignee">    <em>Unassigned</em>
+</td>
+                                            <td class="reporter">            Sandra Finow
+    </td>
+                                            <td class="creator">            Sandra Finow
+    </td>
+                                            <td class="created"> 09/Aug/17 11:23 AM </td>
+                                            <td class="lastViewed"> 30/Aug/17 3:51 PM </td>
+                                            <td class="updated"> 30/Aug/17 3:51 PM </td>
+                                            <td class="resolutiondate"> &nbsp; </td>
+                                            <td class="versions">    &nbsp;
+</td>
+                                            <td class="fixVersions">    &nbsp;
+</td>
+                                            <td class="components">    &nbsp;
+</td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                                            <td class="votes">0</td>
+                                            <td class="watches">1</td>
+                                            <td class="thumbnail"></td>
+                                            <td class="timeoriginalestimate"></td>
+                                            <td class="timeestimate"></td>
+                                            <td class="timespent"></td>
+                                            <td class="workratio">&nbsp;
+</td>
+                                            <td class="subtasks">                </td>
+                                            <td class="issuelinks">                </td>
+                                            <td class="environment"></td>
+                                            <td class="description">      User Story:<br/>
+- As a user I want to be able to view detailed information about a place so that I can get more information<br/>
+<br/>
+Acceptance Criteria:<br/>
+- Clicking on each item (place) will redirect me to an individual item page<br/>
+- A web page will display information about a selected place including google map of the place, the place name, opening hours, location, contact numbers, email address, and description of the place.<br/>
+<br/>
+Task (Sprint 1):<br/>
+- Create unit tests for acceptance criteria<br/>
+- Write code to display destination&#39;s information including name, address, opening hours, contact number, and description of the place<br/>
+- Write client side code to handle Google Maps API <br/>
+- Perform unit tests/acceptance tests<br/>
+<br/>
+
+  </td>
+                                            <td class="security"></td>
+                                            <td class="progress">     
+</td>
+                                            <td class="aggregateprogress">     
+</td>
+                                            <td class="aggregatetimespent"></td>
+                                            <td class="aggregatetimeestimate"></td>
+                                            <td class="aggregatetimeoriginalestimate"></td>
+                                            <td class="labels">    </td>
+                                            <td class="customfield_10009">      0|ywo4hh:
+  </td>
+                                            <td class="customfield_10005"></td>
+                                            <td class="customfield_10001">    </td>
+                                            <td class="customfield_10004"></td>
+                                            <td class="customfield_10000">
+
+
+</td>
+                    </tr>
+
+
+                <tr id="issuerow22495" rel="22495" data-issuekey="FOURTYFIVE-20" class="issuerow">
+                                            <td class="project">    IFB299 045
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="FOURTYFIVE-20" href="https://sefteach01.qut.edu.au/jira/browse/FOURTYFIVE-20">FOURTYFIVE-20</a>
+</td>
+                                            <td class="summary"><p>
+                Anchored Navigation Bar
+    </p>
+</td>
+                                            <td class="issuetype"> Story</td>
+                                            <td class="status">
+                Open
+    </td>
+                                            <td class="priority">   Must Have
+</td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="assignee">    <em>Unassigned</em>
+</td>
+                                            <td class="reporter">            Sandra Finow
+    </td>
+                                            <td class="creator">            Sandra Finow
+    </td>
+                                            <td class="created"> 09/Aug/17 11:13 AM </td>
+                                            <td class="lastViewed"> 30/Aug/17 3:51 PM </td>
+                                            <td class="updated"> 30/Aug/17 3:51 PM </td>
+                                            <td class="resolutiondate"> &nbsp; </td>
+                                            <td class="versions">    &nbsp;
+</td>
+                                            <td class="fixVersions">    &nbsp;
+</td>
+                                            <td class="components">    &nbsp;
+</td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                                            <td class="votes">0</td>
+                                            <td class="watches">1</td>
+                                            <td class="thumbnail"></td>
+                                            <td class="timeoriginalestimate"></td>
+                                            <td class="timeestimate"></td>
+                                            <td class="timespent"></td>
+                                            <td class="workratio">&nbsp;
+</td>
+                                            <td class="subtasks">                </td>
+                                            <td class="issuelinks">                </td>
+                                            <td class="environment"></td>
+                                            <td class="description">      User Story:<br/>
+- As a user I want to have access to an anchored menu in every page so that I can navigate myself to key services whenever I want.<br/>
+<br/>
+Assessment Criteria:<br/>
+- A navigation menu will be anchored at the top of every webpage along with the search bar.<br/>
+- When I&#39;m logged in, the navigation bar will have following links:<br/>
+	2. &quot;Home&quot; link to redirect me to the welcome page.<br/>
+	3. &quot;User Account&quot; link to redirect me to my account information page<br/>
+	4. &quot;Saved Pages&quot; link to redirect me to the save pages page. <br/>
+	5. &quot;Log Out&quot; link to log me out of the website. <br/>
+- When I&#39;m logged out, the navigation bar will only show the logo that will redirect the user to the welcome page<br/>
+- When logged in as an admin, the navigation bar will also show a drop-down menu labelled &quot;Admin Controls&quot;. The drop down menu will contain &quot;admin creation&quot; and &quot;Add new place&quot; links. Admin creation will link to admin creation page and add new place will link to administrator control panel.<br/>
+<br/>
+Tasks (Sprint 1):<br/>
+- Create unit tests for acceptance criteria (1hr)<br/>
+- Create drop down menu of click through links to other important pages on the website (0.5hr)<br/>
+- Create &quot;Log out&quot; button and associated functionality to remove users session (1hr)<br/>
+- Perform unit tests/acceptance tests (1hr)
+  </td>
+                                            <td class="security"></td>
+                                            <td class="progress">     
+</td>
+                                            <td class="aggregateprogress">     
+</td>
+                                            <td class="aggregatetimespent"></td>
+                                            <td class="aggregatetimeestimate"></td>
+                                            <td class="aggregatetimeoriginalestimate"></td>
+                                            <td class="labels">    </td>
+                                            <td class="customfield_10009">      0|ywo4gl:
+  </td>
+                                            <td class="customfield_10005"></td>
+                                            <td class="customfield_10001">    </td>
+                                            <td class="customfield_10004"></td>
+                                            <td class="customfield_10000">
+
+
+</td>
+                    </tr>
+
+
+                <tr id="issuerow22482" rel="22482" data-issuekey="FOURTYFIVE-8" class="issuerow">
+                                            <td class="project">    IFB299 045
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="FOURTYFIVE-8" href="https://sefteach01.qut.edu.au/jira/browse/FOURTYFIVE-8">FOURTYFIVE-8</a>
+</td>
+                                            <td class="summary"><p>
+                Administrator Control Panel
+    </p>
+</td>
+                                            <td class="issuetype"> Story</td>
+                                            <td class="status">
+                Open
+    </td>
+                                            <td class="priority">   Must Have
+</td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="assignee">    <em>Unassigned</em>
+</td>
+                                            <td class="reporter">            Sandra Finow
+    </td>
+                                            <td class="creator">            Sandra Finow
+    </td>
+                                            <td class="created"> 09/Aug/17 10:56 AM </td>
+                                            <td class="lastViewed"> 30/Aug/17 3:52 PM </td>
+                                            <td class="updated"> 30/Aug/17 3:52 PM </td>
+                                            <td class="resolutiondate"> &nbsp; </td>
+                                            <td class="versions">    &nbsp;
+</td>
+                                            <td class="fixVersions">    &nbsp;
+</td>
+                                            <td class="components">    &nbsp;
+</td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                                            <td class="votes">0</td>
+                                            <td class="watches">1</td>
+                                            <td class="thumbnail"></td>
+                                            <td class="timeoriginalestimate"></td>
+                                            <td class="timeestimate"></td>
+                                            <td class="timespent"></td>
+                                            <td class="workratio">&nbsp;
+</td>
+                                            <td class="subtasks">                </td>
+                                            <td class="issuelinks">                </td>
+                                            <td class="environment"></td>
+                                            <td class="description">      User Story:<br/>
+- As an admin, I want a separate webpage with an interface for managing application data so that I can keep the service up to date and manage update/modify data quickly.<br/>
+<br/>
+Acceptance:<br/>
+<br/>
+	- Administrator control panel will have the following input fields:<br/>
+		        *Drop-down menu with categories to choose from.<br/>
+		        *Input fields: <br/>
+			*Place name<br/>
+			*Location<br/>
+			*Opening hours<br/>
+			*Contact numbers<br/>
+			*Description<br/>
+			*Events<br/>
+		<br/>
+	- Choosing the category, filling out the form and clicking on the submit button will add the new item to the database. <br/>
+	- If the place with the same name and location exist in the database, an error will be displayed and the item will not be added to the database. <br/>
+	<br/>
+	- On each individual place page, buttons labelled &quot;edit&quot; and &quot;delete&quot; will be displayed.<br/>
+	- Clicking on the edit button will display a form and &quot;submit&quot; button with the same input fields as above. <br/>
+	- Clicking on the submit button will update the chosen item in the database. <br/>
+	- Clicking on the &quot;delete&quot; button will remove the item from the database. <br/>
+<br/>
+Tasks:<br/>
+1. Create an admin control panel page and editing functionality to individual item page (1)<br/>
+2. Write a client side code to handle the request to the server and events (2)<br/>
+3. Write tests (1)<br/>
+4. Verify the story is complete using the acceptance criteria (1)<br/>
+
+  </td>
+                                            <td class="security"></td>
+                                            <td class="progress">     
+</td>
+                                            <td class="aggregateprogress">     
+</td>
+                                            <td class="aggregatetimespent"></td>
+                                            <td class="aggregatetimeestimate"></td>
+                                            <td class="aggregatetimeoriginalestimate"></td>
+                                            <td class="labels">    </td>
+                                            <td class="customfield_10009">      0|ywo4dx:
+  </td>
+                                            <td class="customfield_10005"></td>
+                                            <td class="customfield_10001">    </td>
+                                            <td class="customfield_10004"></td>
+                                            <td class="customfield_10000">
+
+
+</td>
+                    </tr>
+
+
+                <tr id="issuerow22481" rel="22481" data-issuekey="FOURTYFIVE-7" class="issuerow">
+                                            <td class="project">    IFB299 045
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="FOURTYFIVE-7" href="https://sefteach01.qut.edu.au/jira/browse/FOURTYFIVE-7">FOURTYFIVE-7</a>
+</td>
+                                            <td class="summary"><p>
+                 Administrator Account Creation
+    </p>
+</td>
+                                            <td class="issuetype"> Story</td>
+                                            <td class="status">
+                Open
+    </td>
+                                            <td class="priority">   Must Have
+</td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="assignee">    <em>Unassigned</em>
+</td>
+                                            <td class="reporter">            Sandra Finow
+    </td>
+                                            <td class="creator">            Sandra Finow
+    </td>
+                                            <td class="created"> 09/Aug/17 10:54 AM </td>
+                                            <td class="lastViewed"> 30/Aug/17 3:53 PM </td>
+                                            <td class="updated"> 30/Aug/17 3:53 PM </td>
+                                            <td class="resolutiondate"> &nbsp; </td>
+                                            <td class="versions">    &nbsp;
+</td>
+                                            <td class="fixVersions">    &nbsp;
+</td>
+                                            <td class="components">    &nbsp;
+</td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                                            <td class="votes">0</td>
+                                            <td class="watches">1</td>
+                                            <td class="thumbnail"></td>
+                                            <td class="timeoriginalestimate"></td>
+                                            <td class="timeestimate"></td>
+                                            <td class="timespent"></td>
+                                            <td class="workratio">&nbsp;
+</td>
+                                            <td class="subtasks">                </td>
+                                            <td class="issuelinks">                </td>
+                                            <td class="environment"></td>
+                                            <td class="description">      User Story:<br/>
+- As an admin, I want to be able to create other admin accounts so that more administrators can maintain the website as the application become larger and harder to maintain.<br/>
+<br/>
+Acceptance:<br/>
+- If I sign in to the website as an admin, a link &quot;Admin Account creation&quot; will appear on the navigation menu bar.<br/>
+- Clicking on the link will redirect me to the admin account creation page.<br/>
+- if a non-admin user requests the admin account creation page, he/she will be redirected to the welcome page<br/>
+- An error will be displayed and the request will be denied if the admin registration request is made by a non-admin user.<br/>
+- A &quot;submit&quot; button and a form with the following input fields will be displayed:<br/>
+	* first name<br/>
+	* last name<br/>
+	* email<br/>
+	* password<br/>
+- Clicking on the submit button will register the new user as an admin and confirmation message will be display upon completion. <br/>
+<br/>
+Tasks:<br/>
+1. Create admin account creation page and client side code (1)<br/>
+2. Write server side code to verify request and create admin account (1)<br/>
+3. Write Tests (1)<br/>
+4. Verify story is complete (1)
+  </td>
+                                            <td class="security"></td>
+                                            <td class="progress">     
+</td>
+                                            <td class="aggregateprogress">     
+</td>
+                                            <td class="aggregatetimespent"></td>
+                                            <td class="aggregatetimeestimate"></td>
+                                            <td class="aggregatetimeoriginalestimate"></td>
+                                            <td class="labels">    </td>
+                                            <td class="customfield_10009">      0|ywo4dp:
+  </td>
+                                            <td class="customfield_10005"></td>
+                                            <td class="customfield_10001">    </td>
+                                            <td class="customfield_10004"></td>
+                                            <td class="customfield_10000">
+
+
+</td>
+                    </tr>
+
+
+                <tr id="issuerow22479" rel="22479" data-issuekey="FOURTYFIVE-5" class="issuerow">
+                                            <td class="project">    IFB299 045
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="FOURTYFIVE-5" href="https://sefteach01.qut.edu.au/jira/browse/FOURTYFIVE-5">FOURTYFIVE-5</a>
+</td>
+                                            <td class="summary"><p>
+                Manage User Session
+    </p>
+</td>
+                                            <td class="issuetype"> Story</td>
+                                            <td class="status">
+                Open
+    </td>
+                                            <td class="priority">   Must Have
+</td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="assignee">    <em>Unassigned</em>
+</td>
+                                            <td class="reporter">            Sandra Finow
+    </td>
+                                            <td class="creator">            Sandra Finow
+    </td>
+                                            <td class="created"> 09/Aug/17 10:53 AM </td>
+                                            <td class="lastViewed"> 30/Aug/17 3:53 PM </td>
+                                            <td class="updated"> 30/Aug/17 3:53 PM </td>
+                                            <td class="resolutiondate"> &nbsp; </td>
+                                            <td class="versions">    &nbsp;
+</td>
+                                            <td class="fixVersions">    &nbsp;
+</td>
+                                            <td class="components">    &nbsp;
+</td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                                            <td class="votes">0</td>
+                                            <td class="watches">1</td>
+                                            <td class="thumbnail"></td>
+                                            <td class="timeoriginalestimate"></td>
+                                            <td class="timeestimate"></td>
+                                            <td class="timespent"></td>
+                                            <td class="workratio">&nbsp;
+</td>
+                                            <td class="subtasks">                </td>
+                                            <td class="issuelinks">                </td>
+                                            <td class="environment"></td>
+                                            <td class="description">      User Story:<br/>
+- As a user, I want to stay logged in for the duration of my usage of the service so that I don’t have to login every time I’m redirected to a new page or reloading a page. <br/>
+<br/>
+Acceptance:<br/>
+- Upon logging in to the website, my session is stored.<br/>
+- The header navigation bar will display my first name as long as I am logged in so that I know that I&#39;m logged in. <br/>
+- Clicking on the &quot;log out&quot; link on the navigation bar will log me out and end the session. <br/>
+- Leaving the application without logging out will still keep the session alive.<br/>
+<br/>
+Tasks (Sprint 1):<br/>
+- Write code to configure and manage user’s session<br/>
+- Write code to add the user&#39;s name to the header navigation bar while the session is active<br/>
+
+  </td>
+                                            <td class="security"></td>
+                                            <td class="progress">     
+</td>
+                                            <td class="aggregateprogress">     
+</td>
+                                            <td class="aggregatetimespent"></td>
+                                            <td class="aggregatetimeestimate"></td>
+                                            <td class="aggregatetimeoriginalestimate"></td>
+                                            <td class="labels">    </td>
+                                            <td class="customfield_10009">      0|ywo4d9:
+  </td>
+                                            <td class="customfield_10005"></td>
+                                            <td class="customfield_10001">    </td>
+                                            <td class="customfield_10004"></td>
+                                            <td class="customfield_10000">
+
+
+</td>
+                    </tr>
+
+
+                <tr id="issuerow22478" rel="22478" data-issuekey="FOURTYFIVE-4" class="issuerow">
+                                            <td class="project">    IFB299 045
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="FOURTYFIVE-4" href="https://sefteach01.qut.edu.au/jira/browse/FOURTYFIVE-4">FOURTYFIVE-4</a>
+</td>
+                                            <td class="summary"><p>
+                Login to Account
+    </p>
+</td>
+                                            <td class="issuetype"> Story</td>
+                                            <td class="status">
+                Open
+    </td>
+                                            <td class="priority">   Must Have
+</td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="assignee">    <em>Unassigned</em>
+</td>
+                                            <td class="reporter">            Sandra Finow
+    </td>
+                                            <td class="creator">            Sandra Finow
+    </td>
+                                            <td class="created"> 09/Aug/17 10:52 AM </td>
+                                            <td class="lastViewed"> 30/Aug/17 3:54 PM </td>
+                                            <td class="updated"> 30/Aug/17 3:53 PM </td>
+                                            <td class="resolutiondate"> &nbsp; </td>
+                                            <td class="versions">    &nbsp;
+</td>
+                                            <td class="fixVersions">    &nbsp;
+</td>
+                                            <td class="components">    &nbsp;
+</td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                                            <td class="votes">0</td>
+                                            <td class="watches">1</td>
+                                            <td class="thumbnail"></td>
+                                            <td class="timeoriginalestimate"></td>
+                                            <td class="timeestimate"></td>
+                                            <td class="timespent"></td>
+                                            <td class="workratio">&nbsp;
+</td>
+                                            <td class="subtasks">                </td>
+                                            <td class="issuelinks">                </td>
+                                            <td class="environment"></td>
+                                            <td class="description">      User Story:<br/>
+- As a student, I want to log into my account so that I can access the services designed for students and view my account details<br/>
+- Tourist &amp; businessman: same as above<br/>
+<br/>
+Acceptance:<br/>
+- The welcome page displays a form with a &quot;Login&quot; button, email input field and password input field.<br/>
+- An error message will be displayed if I login with incorrect login details. <br/>
+- If I press the &quot;Login&quot; button with the form filled in with valid email and password, a confirmation message will be displayed indicating that I have successfully logged in. <br/>
+- Upon successful login, the page will refresh and show confirmation message<br/>
+- The Login page will display a tick-box for ‘Remember me’, so that I will not have to fill in my details in next time I want to login.<br/>
+<br/>
+Tasks:<br/>
+- Create login form for users to specify their details.<br/>
+- Write client-side code to handle input validation and request response from the server<br/>
+- Write client-side code to handle request from the login form and establish user session<br/>
+- Write unit tests<br/>
+- Perform unit tests<br/>
+<br/>
+
+  </td>
+                                            <td class="security"></td>
+                                            <td class="progress">     
+</td>
+                                            <td class="aggregateprogress">     
+</td>
+                                            <td class="aggregatetimespent"></td>
+                                            <td class="aggregatetimeestimate"></td>
+                                            <td class="aggregatetimeoriginalestimate"></td>
+                                            <td class="labels">    </td>
+                                            <td class="customfield_10009">      0|ywo4d1:
+  </td>
+                                            <td class="customfield_10005"></td>
+                                            <td class="customfield_10001">    </td>
+                                            <td class="customfield_10004"></td>
+                                            <td class="customfield_10000">
+
+
+</td>
+                    </tr>
+
+
+                <tr id="issuerow22477" rel="22477" data-issuekey="FOURTYFIVE-3" class="issuerow">
+                                            <td class="project">    IFB299 045
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="FOURTYFIVE-3" href="https://sefteach01.qut.edu.au/jira/browse/FOURTYFIVE-3">FOURTYFIVE-3</a>
+</td>
+                                            <td class="summary"><p>
+                Create User Account 
+    </p>
+</td>
+                                            <td class="issuetype"> Story</td>
+                                            <td class="status">
+                Open
+    </td>
+                                            <td class="priority">   Must Have
+</td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="assignee">    <em>Unassigned</em>
+</td>
+                                            <td class="reporter">            Sandra Finow
+    </td>
+                                            <td class="creator">            Sandra Finow
+    </td>
+                                            <td class="created"> 09/Aug/17 10:50 AM </td>
+                                            <td class="lastViewed"> 30/Aug/17 3:54 PM </td>
+                                            <td class="updated"> 30/Aug/17 3:53 PM </td>
+                                            <td class="resolutiondate"> &nbsp; </td>
+                                            <td class="versions">    &nbsp;
+</td>
+                                            <td class="fixVersions">    &nbsp;
+</td>
+                                            <td class="components">    &nbsp;
+</td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                                            <td class="votes">0</td>
+                                            <td class="watches">1</td>
+                                            <td class="thumbnail"></td>
+                                            <td class="timeoriginalestimate"></td>
+                                            <td class="timeestimate"></td>
+                                            <td class="timespent"></td>
+                                            <td class="workratio">&nbsp;
+</td>
+                                            <td class="subtasks">                </td>
+                                            <td class="issuelinks">                </td>
+                                            <td class="environment"></td>
+                                            <td class="description">      User Story:<br/>
+- As a student, I want to create a student account so that the service remembers my information and allows me to use the service with student oriented recommendations.<br/>
+<br/>
+Acceptance:<br/>
+- The welcome page displays a form with a &quot;submit&quot; button, radio buttons, and input fields (first name, last name, email and password). The radio buttons allow the user to select their user account type and will have the options of: Student, businessman, tourist.<br/>
+- The form will also have optional fields:<br/>
+       phone number<br/>
+       residential address<br/>
+- If I submit the form with invalid input, an error message will be displayed under each invalid field to indicate that I need to correct it before submitting. <br/>
+    Name is considered invalid if it contains numeric characters or non-alphanumeric symbols. <br/>
+    Email is considered invalid if it does not have the correct email format<br/>
+ (email format must contain an &quot;@&quot; symbol as well as a &quot;.&quot; symbol)   Password is considered invalid if its length is less than 8 characters or more than 14 characters.<br/>
+- Clicking on the &quot;submit&quot; button will register my details to the database<br/>
+<br/>
+Tasks: <br/>
+- Write unit tests for acceptance criteria<br/>
+- Create user sign up form<br/>
+- Create client-side code for validation and request response from the server<br/>
+- Write client-side code to handle request from the signup form and add new users to the database<br/>
+- Perform unit tests<br/>
+
+  </td>
+                                            <td class="security"></td>
+                                            <td class="progress">     
+</td>
+                                            <td class="aggregateprogress">     
+</td>
+                                            <td class="aggregatetimespent"></td>
+                                            <td class="aggregatetimeestimate"></td>
+                                            <td class="aggregatetimeoriginalestimate"></td>
+                                            <td class="labels">    </td>
+                                            <td class="customfield_10009">      0|ywo4ct:
+  </td>
+                                            <td class="customfield_10005"></td>
+                                            <td class="customfield_10001">    </td>
+                                            <td class="customfield_10004"></td>
+                                            <td class="customfield_10000">
+
+
+</td>
+                    </tr>
+
+
+                <tr id="issuerow22475" rel="22475" data-issuekey="FOURTYFIVE-1" class="issuerow">
+                                            <td class="project">    IFB299 045
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="FOURTYFIVE-1" href="https://sefteach01.qut.edu.au/jira/browse/FOURTYFIVE-1">FOURTYFIVE-1</a>
+</td>
+                                            <td class="summary"><p>
+                Show Recommended Information
+    </p>
+</td>
+                                            <td class="issuetype"> Story</td>
+                                            <td class="status">
+                Open
+    </td>
+                                            <td class="priority">   Must Have
+</td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="assignee">    <em>Unassigned</em>
+</td>
+                                            <td class="reporter">            Sandra Finow
+    </td>
+                                            <td class="creator">            Sandra Finow
+    </td>
+                                            <td class="created"> 09/Aug/17 10:20 AM </td>
+                                            <td class="lastViewed"> 30/Aug/17 3:54 PM </td>
+                                            <td class="updated"> 30/Aug/17 3:54 PM </td>
+                                            <td class="resolutiondate"> &nbsp; </td>
+                                            <td class="versions">    &nbsp;
+</td>
+                                            <td class="fixVersions">    &nbsp;
+</td>
+                                            <td class="components">    &nbsp;
+</td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                                            <td class="votes">0</td>
+                                            <td class="watches">1</td>
+                                            <td class="thumbnail"></td>
+                                            <td class="timeoriginalestimate"></td>
+                                            <td class="timeestimate"></td>
+                                            <td class="timespent"></td>
+                                            <td class="workratio">&nbsp;
+</td>
+                                            <td class="subtasks">                </td>
+                                            <td class="issuelinks">                </td>
+                                            <td class="environment"></td>
+                                            <td class="description">      User Story:<br/>
+- As a student, I want the website to show information primarily about colleges, libraries and the city so that I know where to go to further my study.<br/>
+- As a tourist, I want the website to show information primarily about hotels, parks, zoos and the city so that I can quickly access information about the key destinations and places that I want to go<br/>
+- As a businessman, I want the website to show information primarily about  industries, hotels and city so that I can quickly access information about the places that I want to go. <br/>
+<br/>
+Acceptance:<br/>
+- If I&#39;m logged in, the welcome page displays a collection of recommended places for my user type. <br/>
+- If I&#39;m logged in as a student, a list of colleges, libraries and city information should be displayed<br/>
+- If I&#39;m logged in as a businessman, a list of hotels, industries and city information should be displayed <br/>
+- If I&#39;m logged in as a tourist, a list of hotels and city information should be displayed. <br/>
+<br/>
+Tasks (Sprint 1):<br/>
+- Create unit tests for acceptance criteria (1hr)<br/>
+- Create individual category buttons to show primary information based on reading user&#39;s session type and JQuery (2hr)<br/>
+- Create recommended click through links for randomised destinations based on user&#39;s session type (1.5hr)<br/>
+- Perform unit tests/acceptance tests (1hr)
+  </td>
+                                            <td class="security"></td>
+                                            <td class="progress">     
+</td>
+                                            <td class="aggregateprogress">     
+</td>
+                                            <td class="aggregatetimespent"></td>
+                                            <td class="aggregatetimeestimate"></td>
+                                            <td class="aggregatetimeoriginalestimate"></td>
+                                            <td class="labels">    </td>
+                                            <td class="customfield_10009">      0|ywo4cd:
+  </td>
+                                            <td class="customfield_10005"></td>
+                                            <td class="customfield_10001">    </td>
+                                            <td class="customfield_10004"></td>
+                                            <td class="customfield_10000">
+
+
+</td>
+                    </tr>
+
+
+                <tr id="issuerow22844" rel="22844" data-issuekey="FOURTYFIVE-36" class="issuerow">
+                                            <td class="project">    IFB299 045
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="FOURTYFIVE-36" href="https://sefteach01.qut.edu.au/jira/browse/FOURTYFIVE-36">FOURTYFIVE-36</a>
+</td>
+                                            <td class="summary"><p>
+                Forgot Password
+    </p>
+</td>
+                                            <td class="issuetype"> Story</td>
+                                            <td class="status">
+                Open
+    </td>
+                                            <td class="priority">   Should Have
+</td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="assignee">    <em>Unassigned</em>
+</td>
+                                            <td class="reporter">            Sandra Finow
+    </td>
+                                            <td class="creator">            Sandra Finow
+    </td>
+                                            <td class="created"> 16/Aug/17 3:58 PM </td>
+                                            <td class="lastViewed"> 30/Aug/17 3:54 PM </td>
+                                            <td class="updated"> 30/Aug/17 3:54 PM </td>
+                                            <td class="resolutiondate"> &nbsp; </td>
+                                            <td class="versions">    &nbsp;
+</td>
+                                            <td class="fixVersions">    &nbsp;
+</td>
+                                            <td class="components">    &nbsp;
+</td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                                            <td class="votes">0</td>
+                                            <td class="watches">1</td>
+                                            <td class="thumbnail"></td>
+                                            <td class="timeoriginalestimate"></td>
+                                            <td class="timeestimate"></td>
+                                            <td class="timespent"></td>
+                                            <td class="workratio">&nbsp;
+</td>
+                                            <td class="subtasks">                </td>
+                                            <td class="issuelinks">                </td>
+                                            <td class="environment"></td>
+                                            <td class="description">      User Story:<br/>
+- As a user, I want to be able to change my password if I forget my account password.<br/>
+<br/>
+Acceptance Criteria: <br/>
+- When on the login page, a link will be displayed under the password text field which says &quot;Forgot my password&quot;.<br/>
+- Clicking on &#39;Forgot my password’ will display a &quot;send&quot; button and an input field for the me to enter my login email address. <br/>
+- Clicking the &quot;send&quot; button will send the user an email with a new link which redirects the user to a password reset page which allows them to create a new password for their account.<br/>
+- The password reset page will display an input field for the new password and a &quot;enter&quot; button.<br/>
+- Clicking on the &quot;enter&quot; button will update the user&#39;s password and display confirmation message indicating that the password is reset. <br/>
+<br/>
+Tasks:<br/>
+- Add link to login page to begin reset password. (10min)<br/>
+- Create a form to be submit. (30min)<br/>
+- Add a field for inputting the address and a button for submitting the form. (30min)<br/>
+- Create a .html page to reset the password of the user with forms to be submitted. (2hr)<br/>
+- Implement code to send an email to the input address with a link to the password reset page. (4hr)<br/>
+- Verify the input detains and add confirmation message. (1hr)<br/>
+- Update user&#39;s password in the SQL database. (1hr)
+  </td>
+                                            <td class="security"></td>
+                                            <td class="progress">     
+</td>
+                                            <td class="aggregateprogress">     
+</td>
+                                            <td class="aggregatetimespent"></td>
+                                            <td class="aggregatetimeestimate"></td>
+                                            <td class="aggregatetimeoriginalestimate"></td>
+                                            <td class="labels">    </td>
+                                            <td class="customfield_10009">      0|ywo6kd:
+  </td>
+                                            <td class="customfield_10005"></td>
+                                            <td class="customfield_10001">    </td>
+                                            <td class="customfield_10004"></td>
+                                            <td class="customfield_10000">
+
+
+</td>
+                    </tr>
+
+
+                <tr id="issuerow22510" rel="22510" data-issuekey="FOURTYFIVE-34" class="issuerow">
+                                            <td class="project">    IFB299 045
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="FOURTYFIVE-34" href="https://sefteach01.qut.edu.au/jira/browse/FOURTYFIVE-34">FOURTYFIVE-34</a>
+</td>
+                                            <td class="summary"><p>
+                Spam Filtration 
+    </p>
+</td>
+                                            <td class="issuetype"> Story</td>
+                                            <td class="status">
+                Open
+    </td>
+                                            <td class="priority">   Should Have
+</td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="assignee">    <em>Unassigned</em>
+</td>
+                                            <td class="reporter">            Sandra Finow
+    </td>
+                                            <td class="creator">            Sandra Finow
+    </td>
+                                            <td class="created"> 09/Aug/17 11:34 AM </td>
+                                            <td class="lastViewed"> 30/Aug/17 3:56 PM </td>
+                                            <td class="updated"> 30/Aug/17 3:56 PM </td>
+                                            <td class="resolutiondate"> &nbsp; </td>
+                                            <td class="versions">    &nbsp;
+</td>
+                                            <td class="fixVersions">    &nbsp;
+</td>
+                                            <td class="components">    &nbsp;
+</td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                                            <td class="votes">0</td>
+                                            <td class="watches">1</td>
+                                            <td class="thumbnail"></td>
+                                            <td class="timeoriginalestimate"></td>
+                                            <td class="timeestimate"></td>
+                                            <td class="timespent"></td>
+                                            <td class="workratio">&nbsp;
+</td>
+                                            <td class="subtasks">                </td>
+                                            <td class="issuelinks">                </td>
+                                            <td class="environment"></td>
+                                            <td class="description">      User Story:<br/>
+- As an admin, I want to have a &quot;I am not a robot&quot; checkbox for when users try to sign up so that the web system does not get spammed by robots or fake users and keeps the web system safe. <br/>
+<br/>
+Acceptance Criteria:<br/>
+- When a user tries to sign up for the Smart City web system, a check box which states &quot;I am not a robot&quot; will be displayed which users will need to check off to help reduce spam/bots on the web system.
+  </td>
+                                            <td class="security"></td>
+                                            <td class="progress">     
+</td>
+                                            <td class="aggregateprogress">     
+</td>
+                                            <td class="aggregatetimespent"></td>
+                                            <td class="aggregatetimeestimate"></td>
+                                            <td class="aggregatetimeoriginalestimate"></td>
+                                            <td class="labels">    </td>
+                                            <td class="customfield_10009">      0|ywo4jx:
+  </td>
+                                            <td class="customfield_10005"></td>
+                                            <td class="customfield_10001">    </td>
+                                            <td class="customfield_10004"></td>
+                                            <td class="customfield_10000">
+
+
+</td>
+                    </tr>
+
+
+                <tr id="issuerow22509" rel="22509" data-issuekey="FOURTYFIVE-33" class="issuerow">
+                                            <td class="project">    IFB299 045
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="FOURTYFIVE-33" href="https://sefteach01.qut.edu.au/jira/browse/FOURTYFIVE-33">FOURTYFIVE-33</a>
+</td>
+                                            <td class="summary"><p>
+                Validate User email 
+    </p>
+</td>
+                                            <td class="issuetype"> Story</td>
+                                            <td class="status">
+                Open
+    </td>
+                                            <td class="priority">   Should Have
+</td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="assignee">    <em>Unassigned</em>
+</td>
+                                            <td class="reporter">            Andrew Grant
+    </td>
+                                            <td class="creator">            Andrew Grant
+    </td>
+                                            <td class="created"> 09/Aug/17 11:30 AM </td>
+                                            <td class="lastViewed"> 30/Aug/17 3:57 PM </td>
+                                            <td class="updated"> 30/Aug/17 3:57 PM </td>
+                                            <td class="resolutiondate"> &nbsp; </td>
+                                            <td class="versions">    &nbsp;
+</td>
+                                            <td class="fixVersions">    &nbsp;
+</td>
+                                            <td class="components">    &nbsp;
+</td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                                            <td class="votes">0</td>
+                                            <td class="watches">1</td>
+                                            <td class="thumbnail"></td>
+                                            <td class="timeoriginalestimate"></td>
+                                            <td class="timeestimate"></td>
+                                            <td class="timespent"></td>
+                                            <td class="workratio">&nbsp;
+</td>
+                                            <td class="subtasks">                </td>
+                                            <td class="issuelinks">                </td>
+                                            <td class="environment"></td>
+                                            <td class="description">      User Story:<br/>
+- As a user, I want my email address to be validated so that no one else can use my email address to register to the system.<br/>
+<br/>
+Acceptance Criteria: <br/>
+- Only after signing up with the website&#39;s local signup form, a confirmation message should be displayed saying, &quot;A confirmation email has been sent to your email address.&quot;<br/>
+- Users will receive an email from the website displaying a link labelled &quot;Confirm your email&quot;.<br/>
+- Clicking on the &quot;Confirm your email&quot; link will redirect the user to the website&#39;s confirmation service, displaying a message stating &quot;Your account has been confirmed&quot;<br/>
+
+  </td>
+                                            <td class="security"></td>
+                                            <td class="progress">     
+</td>
+                                            <td class="aggregateprogress">     
+</td>
+                                            <td class="aggregatetimespent"></td>
+                                            <td class="aggregatetimeestimate"></td>
+                                            <td class="aggregatetimeoriginalestimate"></td>
+                                            <td class="labels">    </td>
+                                            <td class="customfield_10009">      0|ywo4jp:
+  </td>
+                                            <td class="customfield_10005"></td>
+                                            <td class="customfield_10001">    </td>
+                                            <td class="customfield_10004"></td>
+                                            <td class="customfield_10000">
+
+
+</td>
+                    </tr>
+
+
+                <tr id="issuerow22497" rel="22497" data-issuekey="FOURTYFIVE-22" class="issuerow">
+                                            <td class="project">    IFB299 045
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="FOURTYFIVE-22" href="https://sefteach01.qut.edu.au/jira/browse/FOURTYFIVE-22">FOURTYFIVE-22</a>
+</td>
+                                            <td class="summary"><p>
+                User Profile
+    </p>
+</td>
+                                            <td class="issuetype"> Story</td>
+                                            <td class="status">
+                Open
+    </td>
+                                            <td class="priority">   Should Have
+</td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="assignee">    <em>Unassigned</em>
+</td>
+                                            <td class="reporter">            Sandra Finow
+    </td>
+                                            <td class="creator">            Sandra Finow
+    </td>
+                                            <td class="created"> 09/Aug/17 11:22 AM </td>
+                                            <td class="lastViewed"> 30/Aug/17 3:58 PM </td>
+                                            <td class="updated"> 30/Aug/17 3:58 PM </td>
+                                            <td class="resolutiondate"> &nbsp; </td>
+                                            <td class="versions">    &nbsp;
+</td>
+                                            <td class="fixVersions">    &nbsp;
+</td>
+                                            <td class="components">    &nbsp;
+</td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                                            <td class="votes">0</td>
+                                            <td class="watches">1</td>
+                                            <td class="thumbnail"></td>
+                                            <td class="timeoriginalestimate"></td>
+                                            <td class="timeestimate"></td>
+                                            <td class="timespent"></td>
+                                            <td class="workratio">&nbsp;
+</td>
+                                            <td class="subtasks">                </td>
+                                            <td class="issuelinks">                </td>
+                                            <td class="environment"></td>
+                                            <td class="description">      User Story:<br/>
+- As user I want to view my profile and be able to modify my account detail so that I can keep it up to date.<br/>
+<br/>
+Assessment Criteria:<br/>
+- The navigation menu will display a link labelled &quot;User Account&quot;.<br/>
+- Clicking on the &quot;User Account&quot; link will redirect me to my account information page.<br/>
+- The page displays a form prefilled with my personal information (First Name, Last Name, State, City and Summary.) including the details I registered with and additional information that I added later.<br/>
+- The form is set as read only. <br/>
+- The page displays a &quot;Edit Account&quot; button.<br/>
+- The account information page displays a button labelled &quot;Edit Account&quot;.<br/>
+- Clicking the &quot;Edit Account&quot; button will enable the form to be edited.<br/>
+- Clicking on the &quot;Submit&quot; button displays a popup prompt for me to confirm whether I want to submit the new details with separate &quot;Yes&quot; or &quot;No&quot; buttons to accept or decline the changes.<br/>
+<br/>
+Tasks:<br/>
+- Create a .html page for user account. (2hr)<br/>
+- Add link to the navigation menu to the account page. (10mins)<br/>
+- Add input fields and forms. (1hr)<br/>
+- Write code in django to populate the account page with the current user&#39;s info from the SQL database. (3hr)<br/>
+- Add an button for editing the user&#39;s information. (30min)<br/>
+- Implement code in django to update the user&#39;s info in the SQL database. (2hr)<br/>
+- Add error checking for the input fields. (1hr)<br/>
+- Add a popup to confirm form submission. (10mins)
+  </td>
+                                            <td class="security"></td>
+                                            <td class="progress">     
+</td>
+                                            <td class="aggregateprogress">     
+</td>
+                                            <td class="aggregatetimespent"></td>
+                                            <td class="aggregatetimeestimate"></td>
+                                            <td class="aggregatetimeoriginalestimate"></td>
+                                            <td class="labels">    </td>
+                                            <td class="customfield_10009">      0|ywo4h1:
+  </td>
+                                            <td class="customfield_10005"></td>
+                                            <td class="customfield_10001">    </td>
+                                            <td class="customfield_10004"></td>
+                                            <td class="customfield_10000">
+
+
+</td>
+                    </tr>
+
+
+                <tr id="issuerow22493" rel="22493" data-issuekey="FOURTYFIVE-18" class="issuerow">
+                                            <td class="project">    IFB299 045
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="FOURTYFIVE-18" href="https://sefteach01.qut.edu.au/jira/browse/FOURTYFIVE-18">FOURTYFIVE-18</a>
+</td>
+                                            <td class="summary"><p>
+                 Search Result Paging
+    </p>
+</td>
+                                            <td class="issuetype"> Story</td>
+                                            <td class="status">
+                Open
+    </td>
+                                            <td class="priority">   Should Have
+</td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="assignee">    <em>Unassigned</em>
+</td>
+                                            <td class="reporter">            Sandra Finow
+    </td>
+                                            <td class="creator">            Sandra Finow
+    </td>
+                                            <td class="created"> 09/Aug/17 11:10 AM </td>
+                                            <td class="lastViewed"> 30/Aug/17 3:58 PM </td>
+                                            <td class="updated"> 30/Aug/17 3:58 PM </td>
+                                            <td class="resolutiondate"> &nbsp; </td>
+                                            <td class="versions">    &nbsp;
+</td>
+                                            <td class="fixVersions">    &nbsp;
+</td>
+                                            <td class="components">    &nbsp;
+</td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                                            <td class="votes">1</td>
+                                            <td class="watches">2</td>
+                                            <td class="thumbnail"></td>
+                                            <td class="timeoriginalestimate"></td>
+                                            <td class="timeestimate"></td>
+                                            <td class="timespent"></td>
+                                            <td class="workratio">&nbsp;
+</td>
+                                            <td class="subtasks">                </td>
+                                            <td class="issuelinks">                </td>
+                                            <td class="environment"></td>
+                                            <td class="description">      User Story:<br/>
+- As a user, I want pagination for my search result so that I can easily use the search feature.<br/>
+<br/>
+Acceptance Criteria:<br/>
+- If the number of items in the search result exceeds a certain amount (20) there should be displayed a pagination that allows me to read through the results in multiple segments.<br/>
+<br/>
+- The pagination should show numbers starting from 1 to the number of available segments.<br/>
+<br/>
+- Clicking on a number will display results of that segment.<br/>
+<br/>
+- There will be buttons labelled &quot;Prev&quot; and &quot;Next&quot; which will appear next to the number so that I may click to go onto the next or previous segment of search results.<br/>
+<br/>
+Tasks:<br/>
+- Write code to determine the number of results found matching the query and how many have been shown on the current page. (3hr)<br/>
+- Calculate the number of pages to display 20 results per page. (1hr)<br/>
+- Add buttons with page numbers and link to the respective search pages. (1hr)<br/>
+- Create &#39;next&#39; and &#39;previous&#39; buttons with links. (20min)<br/>
+- Add search and page information details to session for continuity between pages. (2hr)
+  </td>
+                                            <td class="security"></td>
+                                            <td class="progress">     
+</td>
+                                            <td class="aggregateprogress">     
+</td>
+                                            <td class="aggregatetimespent"></td>
+                                            <td class="aggregatetimeestimate"></td>
+                                            <td class="aggregatetimeoriginalestimate"></td>
+                                            <td class="labels">    </td>
+                                            <td class="customfield_10009">      0|ywo4g5:
+  </td>
+                                            <td class="customfield_10005"></td>
+                                            <td class="customfield_10001">    </td>
+                                            <td class="customfield_10004"></td>
+                                            <td class="customfield_10000">
+
+
+</td>
+                    </tr>
+
+
+                <tr id="issuerow22490" rel="22490" data-issuekey="FOURTYFIVE-16" class="issuerow">
+                                            <td class="project">    IFB299 045
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="FOURTYFIVE-16" href="https://sefteach01.qut.edu.au/jira/browse/FOURTYFIVE-16">FOURTYFIVE-16</a>
+</td>
+                                            <td class="summary"><p>
+                Sort Search Results
+    </p>
+</td>
+                                            <td class="issuetype"> Story</td>
+                                            <td class="status">
+                Open
+    </td>
+                                            <td class="priority">   Should Have
+</td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="assignee">    <em>Unassigned</em>
+</td>
+                                            <td class="reporter">            Sandra Finow
+    </td>
+                                            <td class="creator">            Sandra Finow
+    </td>
+                                            <td class="created"> 09/Aug/17 11:06 AM </td>
+                                            <td class="lastViewed"> 30/Aug/17 3:58 PM </td>
+                                            <td class="updated"> 30/Aug/17 3:58 PM </td>
+                                            <td class="resolutiondate"> &nbsp; </td>
+                                            <td class="versions">    &nbsp;
+</td>
+                                            <td class="fixVersions">    &nbsp;
+</td>
+                                            <td class="components">    &nbsp;
+</td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                                            <td class="votes">0</td>
+                                            <td class="watches">1</td>
+                                            <td class="thumbnail"></td>
+                                            <td class="timeoriginalestimate"></td>
+                                            <td class="timeestimate"></td>
+                                            <td class="timespent"></td>
+                                            <td class="workratio">&nbsp;
+</td>
+                                            <td class="subtasks">                </td>
+                                            <td class="issuelinks">                </td>
+                                            <td class="environment"></td>
+                                            <td class="description">      User Story:<br/>
+- As a user, I want to be given the option of sorting my search results either by user ratings, category or by destinations closest to my current location instead of the default alphabetical ordering so that I can look through the results list to find what I want easily.<br/>
+<br/>
+Assessment Criteria:<br/>
+- The search result page displays a drop-down menu with the following sorting options:<br/>
+	*Alphabetical<br/>
+	*Date<br/>
+        *Category<br/>
+- Choosing &quot;alphabetical&quot; will sort the result alphabetically <br/>
+- Choosing date will sort the result such that newest will be displayed first<br/>
+- When the user selects one of these options and press the search button, only results from that category will be displayed in the search result.<br/>
+<br/>
+Tasks:<br/>
+- Add drop down menu to search result page. (30min)<br/>
+- Write django code to sort results from database with the specified criteria. (2hr)<br/>
+<br/>
+<br/>
+<br/>
+
+  </td>
+                                            <td class="security"></td>
+                                            <td class="progress">     
+</td>
+                                            <td class="aggregateprogress">     
+</td>
+                                            <td class="aggregatetimespent"></td>
+                                            <td class="aggregatetimeestimate"></td>
+                                            <td class="aggregatetimeoriginalestimate"></td>
+                                            <td class="labels">    </td>
+                                            <td class="customfield_10009">      0|ywo4fp:
+  </td>
+                                            <td class="customfield_10005"></td>
+                                            <td class="customfield_10001">    </td>
+                                            <td class="customfield_10004"></td>
+                                            <td class="customfield_10000">
+
+
+</td>
+                    </tr>
+
+
+                <tr id="issuerow22487" rel="22487" data-issuekey="FOURTYFIVE-13" class="issuerow">
+                                            <td class="project">    IFB299 045
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="FOURTYFIVE-13" href="https://sefteach01.qut.edu.au/jira/browse/FOURTYFIVE-13">FOURTYFIVE-13</a>
+</td>
+                                            <td class="summary"><p>
+                Extendable System
+    </p>
+</td>
+                                            <td class="issuetype"> Story</td>
+                                            <td class="status">
+                Open
+    </td>
+                                            <td class="priority">   Should Have
+</td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="assignee">    <em>Unassigned</em>
+</td>
+                                            <td class="reporter">            Sandra Finow
+    </td>
+                                            <td class="creator">            Sandra Finow
+    </td>
+                                            <td class="created"> 09/Aug/17 11:00 AM </td>
+                                            <td class="lastViewed"> 30/Aug/17 3:58 PM </td>
+                                            <td class="updated"> 30/Aug/17 3:58 PM </td>
+                                            <td class="resolutiondate"> &nbsp; </td>
+                                            <td class="versions">    &nbsp;
+</td>
+                                            <td class="fixVersions">    &nbsp;
+</td>
+                                            <td class="components">    &nbsp;
+</td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                                            <td class="votes">0</td>
+                                            <td class="watches">1</td>
+                                            <td class="thumbnail"></td>
+                                            <td class="timeoriginalestimate"></td>
+                                            <td class="timeestimate"></td>
+                                            <td class="timespent"></td>
+                                            <td class="workratio">&nbsp;
+</td>
+                                            <td class="subtasks">                </td>
+                                            <td class="issuelinks">                </td>
+                                            <td class="environment"></td>
+                                            <td class="description">      User Story:<br/>
+- As an admin, I want the control panel to have an interface to add new cities and places to the system so that in the future I can provide information for other types of users from different cities as well.<br/>
+<br/>
+Acceptance Criteria:<br/>
+- The database will be divided into &quot;State&quot; categories such as &quot;Queensland&quot;, &quot;New South Wales&quot;, &quot;Victoria&quot;, &quot;South Australia, &quot;ACT&quot;, &quot;Tasmania&quot;, &quot;Northern Territory&quot;, and &quot;Western Australia&quot;.<br/>
+- Initially the database will only have &quot;Queensland&quot; as a present &quot;State&quot; option. <br/>
+- There will be a &quot;Add State&quot; option for admins to add a new &quot;State&quot; into the database, other than &quot;Queensland&quot;<br/>
+- In the control panel, &quot;Add New City&quot; and &quot;Add New Category&quot; links should be displayed to allow admins to add new cities and categories into the system.<br/>
+- Clicking on &quot;Add New Category&quot; displays a list of places to choose from to add to the category including &quot;Colleges&quot;, &quot;Libraries&quot;, &quot;Industries&quot;, &quot;Hotels&quot;, &quot;Parks&quot;, &quot;Zoos&quot;, &quot;Museums&quot;, &quot;Restaurants&quot;, and &quot;Malls&quot;, with a submit link next to them. Once a category is selected, clicking on the submit button adds the new category into the database for a city.<br/>
+- When an admin adds a new category to a city, a new page is displayed where the admin will be able to type in a new destination and its relevant details such as (but not limited to) &quot;Address&quot;, &quot;Contact Number&quot;, &quot;Opening Hours&quot;, &quot;Other Information&quot; in separate text boxes.<br/>
+- Clicking on &quot;Add New City&quot; displays a text box to add the city with a submit link located next to it. Clicking on the submit button adds the new city into the database.<br/>
+- Once other cities are added, on the anchored top search bar will be a drop-down menu with the different states available to search through, as well as the states cities which have been added so that users can target search areas.<br/>
+- Once other cities are added, users can edit their default city (which will automatically be set up as Queensland) for their account so their recommendations are suited to their current area/location.<br/>
+- When users sign up after the addition of more states, a new check box will be added for each of the states available so they can set their default state preference immediately. <br/>
+<br/>
+Tasks:<br/>
+-  Add fields and databases to SQL. (30min)<br/>
+- Implement option for admins to add a state to the database. (1hr)<br/>
+- Implement option for admins to add a city to the database. (1hr)<br/>
+- Implement option for admins to add a category to the database. (1hr)<br/>
+- Add a .html page for admins to create a new destination. (2hr)<br/>
+- Add forms, input fields and submit button for adding the location to the database. (2hr)<br/>
+- Implement option for the user to search by states and cities on the anchored search bar. (1hr)<br/>
+- Add option for user to change their default city. (20min)<br/>
+- Write code to update the default city in the database. (10min)<br/>
+- Add options for the user to choose a default city with the registration form. (10min)
+  </td>
+                                            <td class="security"></td>
+                                            <td class="progress">     
+</td>
+                                            <td class="aggregateprogress">     
+</td>
+                                            <td class="aggregatetimespent"></td>
+                                            <td class="aggregatetimeestimate"></td>
+                                            <td class="aggregatetimeoriginalestimate"></td>
+                                            <td class="labels">    </td>
+                                            <td class="customfield_10009">      0|ywo4f1:
+  </td>
+                                            <td class="customfield_10005"></td>
+                                            <td class="customfield_10001">    </td>
+                                            <td class="customfield_10004"></td>
+                                            <td class="customfield_10000">
+
+
+</td>
+                    </tr>
+
+
+                <tr id="issuerow22486" rel="22486" data-issuekey="FOURTYFIVE-12" class="issuerow">
+                                            <td class="project">    IFB299 045
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="FOURTYFIVE-12" href="https://sefteach01.qut.edu.au/jira/browse/FOURTYFIVE-12">FOURTYFIVE-12</a>
+</td>
+                                            <td class="summary"><p>
+                Remove Saved Places
+    </p>
+</td>
+                                            <td class="issuetype"> Story</td>
+                                            <td class="status">
+                Open
+    </td>
+                                            <td class="priority">   Should Have
+</td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="assignee">    <em>Unassigned</em>
+</td>
+                                            <td class="reporter">            Sandra Finow
+    </td>
+                                            <td class="creator">            Sandra Finow
+    </td>
+                                            <td class="created"> 09/Aug/17 10:59 AM </td>
+                                            <td class="lastViewed"> 30/Aug/17 3:59 PM </td>
+                                            <td class="updated"> 30/Aug/17 3:59 PM </td>
+                                            <td class="resolutiondate"> &nbsp; </td>
+                                            <td class="versions">    &nbsp;
+</td>
+                                            <td class="fixVersions">    &nbsp;
+</td>
+                                            <td class="components">    &nbsp;
+</td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                                            <td class="votes">0</td>
+                                            <td class="watches">1</td>
+                                            <td class="thumbnail"></td>
+                                            <td class="timeoriginalestimate"></td>
+                                            <td class="timeestimate"></td>
+                                            <td class="timespent"></td>
+                                            <td class="workratio">&nbsp;
+</td>
+                                            <td class="subtasks">                </td>
+                                            <td class="issuelinks">                </td>
+                                            <td class="environment"></td>
+                                            <td class="description">      User Story:<br/>
+- As a user I want to remove saved places from my saved list so that I can clean the list and organize to suit my interest. <br/>
+<br/>
+Assessment Criteria:<br/>
+- If the user presses the button labelled &quot;Page saved&quot; the button will revert to the button labelled &quot;Save page&quot;. This will delete the URL from the user&#39;s SQL database.<br/>
+- There will be button labelled &quot;Remove&quot; next to the places in the &quot;Saved places&quot; menu that will remove a page from the user&#39;s &quot;Saved places&quot;.<br/>
+- A popup prompt will be given to the user to confirm that the user wants to remove the place/page from their &quot;Saved places&quot;. The popup will have a button to accept or decline the action, displayed as &quot;Yes&quot; or &quot;No&quot; buttons. If the user declines, the page will not be removed. If the user accepts, the page will be removed.
+  </td>
+                                            <td class="security"></td>
+                                            <td class="progress">     
+</td>
+                                            <td class="aggregateprogress">     
+</td>
+                                            <td class="aggregatetimespent"></td>
+                                            <td class="aggregatetimeestimate"></td>
+                                            <td class="aggregatetimeoriginalestimate"></td>
+                                            <td class="labels">    </td>
+                                            <td class="customfield_10009">      0|ywo4et:
+  </td>
+                                            <td class="customfield_10005"></td>
+                                            <td class="customfield_10001">    </td>
+                                            <td class="customfield_10004"></td>
+                                            <td class="customfield_10000">
+
+
+</td>
+                    </tr>
+
+
+                <tr id="issuerow22485" rel="22485" data-issuekey="FOURTYFIVE-11" class="issuerow">
+                                            <td class="project">    IFB299 045
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="FOURTYFIVE-11" href="https://sefteach01.qut.edu.au/jira/browse/FOURTYFIVE-11">FOURTYFIVE-11</a>
+</td>
+                                            <td class="summary"><p>
+                Saved Places/Pages
+    </p>
+</td>
+                                            <td class="issuetype"> Story</td>
+                                            <td class="status">
+                Open
+    </td>
+                                            <td class="priority">   Should Have
+</td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="assignee">    <em>Unassigned</em>
+</td>
+                                            <td class="reporter">            Sandra Finow
+    </td>
+                                            <td class="creator">            Sandra Finow
+    </td>
+                                            <td class="created"> 09/Aug/17 10:59 AM </td>
+                                            <td class="lastViewed"> 30/Aug/17 3:59 PM </td>
+                                            <td class="updated"> 30/Aug/17 3:59 PM </td>
+                                            <td class="resolutiondate"> &nbsp; </td>
+                                            <td class="versions">    &nbsp;
+</td>
+                                            <td class="fixVersions">    &nbsp;
+</td>
+                                            <td class="components">    &nbsp;
+</td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                                            <td class="votes">0</td>
+                                            <td class="watches">1</td>
+                                            <td class="thumbnail"></td>
+                                            <td class="timeoriginalestimate"></td>
+                                            <td class="timeestimate"></td>
+                                            <td class="timespent"></td>
+                                            <td class="workratio">&nbsp;
+</td>
+                                            <td class="subtasks">                </td>
+                                            <td class="issuelinks">                </td>
+                                            <td class="environment"></td>
+                                            <td class="description">      User Story:<br/>
+- As a user I want to save places of interest so that I can easily go back and find the places again.<br/>
+<br/>
+Assessment Criteria:<br/>
+- Individual item page displays a button labelled &quot;Save Page&quot;<br/>
+- When &quot;Save Page&quot; is clicked and saves the page successfully, the button changes label to &quot;Saved&quot;<br/>
+- The item ID will be saved to the user&#39;s database.<br/>
+- The navigation menu bar displays a link labelled &quot;Saved Places&quot;<br/>
+- Clicking on the link will redirect me to the saved places page which displays a collection of my saved places. <br/>
+- Each saved place will be linked to its individual item page.<br/>
+- Clicking on each saved place will redirect me to the individual item page. <br/>
+<br/>
+Tasks:<br/>
+- Add button to item page. (10min)<br/>
+- Change text on button when clicked. (10min)<br/>
+- Save location ID to the user database. (30min)<br/>
+- Add a link to the navigation menu to the saved places page. (10min)<br/>
+- Create a .html page for saved places. (2hr)<br/>
+- Populate saved places page with location names of the saved locations with links to their individual item page. (1hr)
+  </td>
+                                            <td class="security"></td>
+                                            <td class="progress">     
+</td>
+                                            <td class="aggregateprogress">     
+</td>
+                                            <td class="aggregatetimespent"></td>
+                                            <td class="aggregatetimeestimate"></td>
+                                            <td class="aggregatetimeoriginalestimate"></td>
+                                            <td class="labels">    </td>
+                                            <td class="customfield_10009">      0|ywo4el:
+  </td>
+                                            <td class="customfield_10005"></td>
+                                            <td class="customfield_10001">    </td>
+                                            <td class="customfield_10004"></td>
+                                            <td class="customfield_10000">
+
+
+</td>
+                    </tr>
+
+
+                <tr id="issuerow22507" rel="22507" data-issuekey="FOURTYFIVE-32" class="issuerow">
+                                            <td class="project">    IFB299 045
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="FOURTYFIVE-32" href="https://sefteach01.qut.edu.au/jira/browse/FOURTYFIVE-32">FOURTYFIVE-32</a>
+</td>
+                                            <td class="summary"><p>
+                Remove User Account
+    </p>
+</td>
+                                            <td class="issuetype"> Story</td>
+                                            <td class="status">
+                Open
+    </td>
+                                            <td class="priority">   Could Have
+</td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="assignee">    <em>Unassigned</em>
+</td>
+                                            <td class="reporter">            Sandra Finow
+    </td>
+                                            <td class="creator">            Sandra Finow
+    </td>
+                                            <td class="created"> 09/Aug/17 11:27 AM </td>
+                                            <td class="lastViewed"> 30/Aug/17 4:06 PM </td>
+                                            <td class="updated"> 30/Aug/17 3:59 PM </td>
+                                            <td class="resolutiondate"> &nbsp; </td>
+                                            <td class="versions">    &nbsp;
+</td>
+                                            <td class="fixVersions">    &nbsp;
+</td>
+                                            <td class="components">    &nbsp;
+</td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                                            <td class="votes">0</td>
+                                            <td class="watches">1</td>
+                                            <td class="thumbnail"></td>
+                                            <td class="timeoriginalestimate"></td>
+                                            <td class="timeestimate"></td>
+                                            <td class="timespent"></td>
+                                            <td class="workratio">&nbsp;
+</td>
+                                            <td class="subtasks">                </td>
+                                            <td class="issuelinks">                </td>
+                                            <td class="environment"></td>
+                                            <td class="description">      User Story:<br/>
+- As a user, I want to be able to remove my account so that I remove my personal details from the website when I decide not to use it anymore. <br/>
+<br/>
+Acceptance Criteria:<br/>
+- A button labelled &quot;Delete Account&quot; will be displayed on the users individual account information page. <br/>
+- When pressed, the button will prompt an &quot;Are you sure?&quot; pop up, which the user will be able to chose by pressing a button either labelled &quot;Yes&quot; or &quot;No&quot;. <br/>
+- When the &quot;Yes&quot; button is pressed, the users stored information such as their name, email, and password are to be removed from the web systems SQL database. If they user provided any other information such as, but not limited to, their address or phone number, these will also be removed. <br/>
+- If the &quot;No&quot; button is selected, the pop up simply disappears and the user will just return back to the user account page they were originally on.<br/>
+<br/>
+Tasks:<br/>
+- Add button to delete account. (10min)<br/>
+- Create pop up with options. (10min)<br/>
+- Write code in django to remove a user from the database. (30min)<br/>
+
+  </td>
+                                            <td class="security"></td>
+                                            <td class="progress">     
+</td>
+                                            <td class="aggregateprogress">     
+</td>
+                                            <td class="aggregatetimespent"></td>
+                                            <td class="aggregatetimeestimate"></td>
+                                            <td class="aggregatetimeoriginalestimate"></td>
+                                            <td class="labels">    </td>
+                                            <td class="customfield_10009">      0|ywo4j9:
+  </td>
+                                            <td class="customfield_10005"></td>
+                                            <td class="customfield_10001">    </td>
+                                            <td class="customfield_10004"></td>
+                                            <td class="customfield_10000">
+
+
+</td>
+                    </tr>
+
+
+                <tr id="issuerow22505" rel="22505" data-issuekey="FOURTYFIVE-30" class="issuerow">
+                                            <td class="project">    IFB299 045
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="FOURTYFIVE-30" href="https://sefteach01.qut.edu.au/jira/browse/FOURTYFIVE-30">FOURTYFIVE-30</a>
+</td>
+                                            <td class="summary"><p>
+                Link to SNS
+    </p>
+</td>
+                                            <td class="issuetype"> Story</td>
+                                            <td class="status">
+                Open
+    </td>
+                                            <td class="priority">   Could Have
+</td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="assignee">    <em>Unassigned</em>
+</td>
+                                            <td class="reporter">            Sandra Finow
+    </td>
+                                            <td class="creator">            Sandra Finow
+    </td>
+                                            <td class="created"> 09/Aug/17 11:27 AM </td>
+                                            <td class="lastViewed"> 30/Aug/17 4:06 PM </td>
+                                            <td class="updated"> 30/Aug/17 4:06 PM </td>
+                                            <td class="resolutiondate"> &nbsp; </td>
+                                            <td class="versions">    &nbsp;
+</td>
+                                            <td class="fixVersions">    &nbsp;
+</td>
+                                            <td class="components">    &nbsp;
+</td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                                            <td class="votes">0</td>
+                                            <td class="watches">1</td>
+                                            <td class="thumbnail"></td>
+                                            <td class="timeoriginalestimate"></td>
+                                            <td class="timeestimate"></td>
+                                            <td class="timespent"></td>
+                                            <td class="workratio">&nbsp;
+</td>
+                                            <td class="subtasks">                </td>
+                                            <td class="issuelinks">                </td>
+                                            <td class="environment"></td>
+                                            <td class="description">      User Story<br/>
+- As a user, I want to share places I found to my social network so that I can let people I know about the placed I found. <br/>
+<br/>
+Acceptance Criteria:<br/>
+- For every place/destination, a button labelled &quot;Share on Facebook&quot; will be displayed.<br/>
+- Clicking on the &quot;Share on Facebook&quot; button will create a popup window labelled &quot;Post to Facebook&quot;. <br/>
+- The popup window will display the following: <br/>
+   1) An option to post on my timeline or my friend&#39;s timeline presented via a drop down menu.<br/>
+   2) A text box field to enter a user comment. <br/>
+   3) A &quot;Post to Facebook&quot; button.<br/>
+- Clicking on the &quot;Post to Facebook&quot; button will post my comment with the link to the place/destination on the website to the users Facebook timeline specified. 
+  </td>
+                                            <td class="security"></td>
+                                            <td class="progress">     
+</td>
+                                            <td class="aggregateprogress">     
+</td>
+                                            <td class="aggregatetimespent"></td>
+                                            <td class="aggregatetimeestimate"></td>
+                                            <td class="aggregatetimeoriginalestimate"></td>
+                                            <td class="labels">    </td>
+                                            <td class="customfield_10009">      0|ywo4it:
+  </td>
+                                            <td class="customfield_10005"></td>
+                                            <td class="customfield_10001">    </td>
+                                            <td class="customfield_10004"></td>
+                                            <td class="customfield_10000">
+
+
+</td>
+                    </tr>
+
+
+                <tr id="issuerow22502" rel="22502" data-issuekey="FOURTYFIVE-27" class="issuerow">
+                                            <td class="project">    IFB299 045
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="FOURTYFIVE-27" href="https://sefteach01.qut.edu.au/jira/browse/FOURTYFIVE-27">FOURTYFIVE-27</a>
+</td>
+                                            <td class="summary"><p>
+                Show reviews/rating
+    </p>
+</td>
+                                            <td class="issuetype"> Story</td>
+                                            <td class="status">
+                Open
+    </td>
+                                            <td class="priority">   Could Have
+</td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="assignee">    <em>Unassigned</em>
+</td>
+                                            <td class="reporter">            Andrew Grant
+    </td>
+                                            <td class="creator">            Andrew Grant
+    </td>
+                                            <td class="created"> 09/Aug/17 11:24 AM </td>
+                                            <td class="lastViewed"> 30/Aug/17 4:07 PM </td>
+                                            <td class="updated"> 30/Aug/17 4:07 PM </td>
+                                            <td class="resolutiondate"> &nbsp; </td>
+                                            <td class="versions">    &nbsp;
+</td>
+                                            <td class="fixVersions">    &nbsp;
+</td>
+                                            <td class="components">    &nbsp;
+</td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                                            <td class="votes">0</td>
+                                            <td class="watches">1</td>
+                                            <td class="thumbnail"></td>
+                                            <td class="timeoriginalestimate"></td>
+                                            <td class="timeestimate"></td>
+                                            <td class="timespent"></td>
+                                            <td class="workratio">&nbsp;
+</td>
+                                            <td class="subtasks">                </td>
+                                            <td class="issuelinks">                </td>
+                                            <td class="environment"></td>
+                                            <td class="description">      User Story:<br/>
+- As a user, I want to see reviews for each place so that I can make my decision based on other’s experiences<br/>
+<br/>
+Acceptance Criteria:<br/>
+- When a user is on an individual destination/place web page, they will be able to see a rating (out of 5) and typed review which other users have provided for the destination/place based on their experiences there.<br/>
+- If no reviews have been provided by users, a text box stating “No reviews provided” will be displayed.<br/>
+- If no rating have been provided by users, a text stating &quot;no ratings provide&quot; will be displayed.
+  </td>
+                                            <td class="security"></td>
+                                            <td class="progress">     
+</td>
+                                            <td class="aggregateprogress">     
+</td>
+                                            <td class="aggregatetimespent"></td>
+                                            <td class="aggregatetimeestimate"></td>
+                                            <td class="aggregatetimeoriginalestimate"></td>
+                                            <td class="labels">    </td>
+                                            <td class="customfield_10009">      0|ywo4i5:
+  </td>
+                                            <td class="customfield_10005"></td>
+                                            <td class="customfield_10001">    </td>
+                                            <td class="customfield_10004"></td>
+                                            <td class="customfield_10000">
+
+
+</td>
+                    </tr>
+
+
+                <tr id="issuerow22500" rel="22500" data-issuekey="FOURTYFIVE-25" class="issuerow">
+                                            <td class="project">    IFB299 045
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="FOURTYFIVE-25" href="https://sefteach01.qut.edu.au/jira/browse/FOURTYFIVE-25">FOURTYFIVE-25</a>
+</td>
+                                            <td class="summary"><p>
+                Write User Reviews
+    </p>
+</td>
+                                            <td class="issuetype"> Story</td>
+                                            <td class="status">
+                Open
+    </td>
+                                            <td class="priority">   Could Have
+</td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="assignee">    <em>Unassigned</em>
+</td>
+                                            <td class="reporter">            Andrew Grant
+    </td>
+                                            <td class="creator">            Andrew Grant
+    </td>
+                                            <td class="created"> 09/Aug/17 11:23 AM </td>
+                                            <td class="lastViewed"> 30/Aug/17 4:07 PM </td>
+                                            <td class="updated"> 30/Aug/17 4:07 PM </td>
+                                            <td class="resolutiondate"> &nbsp; </td>
+                                            <td class="versions">    &nbsp;
+</td>
+                                            <td class="fixVersions">    &nbsp;
+</td>
+                                            <td class="components">    &nbsp;
+</td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                                            <td class="votes">0</td>
+                                            <td class="watches">1</td>
+                                            <td class="thumbnail"></td>
+                                            <td class="timeoriginalestimate"></td>
+                                            <td class="timeestimate"></td>
+                                            <td class="timespent"></td>
+                                            <td class="workratio">&nbsp;
+</td>
+                                            <td class="subtasks">                </td>
+                                            <td class="issuelinks">                </td>
+                                            <td class="environment"></td>
+                                            <td class="description">      User Story:<br/>
+- As a user I want to submit reviews to places so that I can share my experience with other users.<br/>
+<br/>
+Acceptance Criteria:<br/>
+- On an individual place/destination page a button labelled &quot;Write Review&quot; will be displayed on the page.<br/>
+- When the &quot;Write Review&quot; button is clicked, a pop up window will load with the following information on it:<br/>
+1) A text box where the user is able to type a text review.<br/>
+2) A drop down menu with numbers ranging from 0 - 5 which users may select to leave a rating to go with their review<br/>
+3) A button labelled &quot;Submit review&quot; which users will click once they are ready to submit their review and rating.<br/>
+- Once the &quot;Submit Review&quot; button is pressed, the pop up will disappear and their review will appear on the webpage once the user reloads the individual destination page. <br/>
+- On the pop up window will also be a &quot;Close Window&quot; button incase the user does not want to leave a review anymore.<br/>
+
+  </td>
+                                            <td class="security"></td>
+                                            <td class="progress">     
+</td>
+                                            <td class="aggregateprogress">     
+</td>
+                                            <td class="aggregatetimespent"></td>
+                                            <td class="aggregatetimeestimate"></td>
+                                            <td class="aggregatetimeoriginalestimate"></td>
+                                            <td class="labels">    </td>
+                                            <td class="customfield_10009">      0|ywo4hp:
+  </td>
+                                            <td class="customfield_10005"></td>
+                                            <td class="customfield_10001">    </td>
+                                            <td class="customfield_10004"></td>
+                                            <td class="customfield_10000">
+
+
+</td>
+                    </tr>
+
+
+                <tr id="issuerow22494" rel="22494" data-issuekey="FOURTYFIVE-19" class="issuerow">
+                                            <td class="project">    IFB299 045
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="FOURTYFIVE-19" href="https://sefteach01.qut.edu.au/jira/browse/FOURTYFIVE-19">FOURTYFIVE-19</a>
+</td>
+                                            <td class="summary"><p>
+                Nearby Geolocation Search
+    </p>
+</td>
+                                            <td class="issuetype"> Story</td>
+                                            <td class="status">
+                Open
+    </td>
+                                            <td class="priority">   Could Have
+</td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="assignee">    <em>Unassigned</em>
+</td>
+                                            <td class="reporter">            Andrew Grant
+    </td>
+                                            <td class="creator">            Andrew Grant
+    </td>
+                                            <td class="created"> 09/Aug/17 11:12 AM </td>
+                                            <td class="lastViewed"> 30/Aug/17 4:07 PM </td>
+                                            <td class="updated"> 30/Aug/17 4:07 PM </td>
+                                            <td class="resolutiondate"> &nbsp; </td>
+                                            <td class="versions">    &nbsp;
+</td>
+                                            <td class="fixVersions">    &nbsp;
+</td>
+                                            <td class="components">    &nbsp;
+</td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                                            <td class="votes">0</td>
+                                            <td class="watches">1</td>
+                                            <td class="thumbnail"></td>
+                                            <td class="timeoriginalestimate"></td>
+                                            <td class="timeestimate"></td>
+                                            <td class="timespent"></td>
+                                            <td class="workratio">&nbsp;
+</td>
+                                            <td class="subtasks">                </td>
+                                            <td class="issuelinks">                </td>
+                                            <td class="environment"></td>
+                                            <td class="description">      User Story:<br/>
+- As a user, I want to be able to search for places nearby my geo-location to find new places to go to around my area.<br/>
+<br/>
+Acceptance Criteria:<br/>
+- Next to the search bar, there should be displayed a button labelled &quot;Use my location&quot;.<br/>
+- Clicking on the &quot;Use my location&quot; button will display a popup message asking if the user wants to use their current location on the web system, and two buttons: &quot;Allow&quot; and &quot;Close&quot; to see if the user allows the web system to access and use such information. <br/>
+- Clicking on &quot;Allow&quot; will enable the website to cache the users location information. <br/>
+- Once allowed, clicking on the search button will display a list all places within certain distance (10 km) from the users location. <br/>
+
+  </td>
+                                            <td class="security"></td>
+                                            <td class="progress">     
+</td>
+                                            <td class="aggregateprogress">     
+</td>
+                                            <td class="aggregatetimespent"></td>
+                                            <td class="aggregatetimeestimate"></td>
+                                            <td class="aggregatetimeoriginalestimate"></td>
+                                            <td class="labels">    </td>
+                                            <td class="customfield_10009">      0|ywo4gd:
+  </td>
+                                            <td class="customfield_10005"></td>
+                                            <td class="customfield_10001">    </td>
+                                            <td class="customfield_10004"></td>
+                                            <td class="customfield_10000">
+
+
+</td>
+                    </tr>
+
+
+                <tr id="issuerow22503" rel="22503" data-issuekey="FOURTYFIVE-28" class="issuerow">
+                                            <td class="project">    IFB299 045
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="FOURTYFIVE-28" href="https://sefteach01.qut.edu.au/jira/browse/FOURTYFIVE-28">FOURTYFIVE-28</a>
+</td>
+                                            <td class="summary"><p>
+                SNS Sign Up
+    </p>
+</td>
+                                            <td class="issuetype"> Story</td>
+                                            <td class="status">
+                Open
+    </td>
+                                            <td class="priority">   Won&#39;t Have
+</td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="assignee">    <em>Unassigned</em>
+</td>
+                                            <td class="reporter">            Sandra Finow
+    </td>
+                                            <td class="creator">            Sandra Finow
+    </td>
+                                            <td class="created"> 09/Aug/17 11:25 AM </td>
+                                            <td class="lastViewed"> 30/Aug/17 4:06 PM </td>
+                                            <td class="updated"> 30/Aug/17 4:06 PM </td>
+                                            <td class="resolutiondate"> &nbsp; </td>
+                                            <td class="versions">    &nbsp;
+</td>
+                                            <td class="fixVersions">    &nbsp;
+</td>
+                                            <td class="components">    &nbsp;
+</td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                                            <td class="votes">0</td>
+                                            <td class="watches">1</td>
+                                            <td class="thumbnail"></td>
+                                            <td class="timeoriginalestimate"></td>
+                                            <td class="timeestimate"></td>
+                                            <td class="timespent"></td>
+                                            <td class="workratio">&nbsp;
+</td>
+                                            <td class="subtasks">                </td>
+                                            <td class="issuelinks">                </td>
+                                            <td class="environment"></td>
+                                            <td class="description">      User Story:<br/>
+- As a user I want to sign up to the system using my Facebook or Google account so that I do not have to go through the registration process manually. <br/>
+<br/>
+Acceptance Criteria:<br/>
+- A button labelled &quot;Sign up with Facebook&quot; is displayed on the signup page.<br/>
+- Clicking on &quot;Sign up with Facebook&quot; redirects users to Facebook&#39;s authorisation page, that shows an authorisation button for users to click.<br/>
+- Clicking on the authorisation button will redirect users to the login page of the website and registers users to the system with their personal information obtained directly from Facebook.
+  </td>
+                                            <td class="security"></td>
+                                            <td class="progress">     
+</td>
+                                            <td class="aggregateprogress">     
+</td>
+                                            <td class="aggregatetimespent"></td>
+                                            <td class="aggregatetimeestimate"></td>
+                                            <td class="aggregatetimeoriginalestimate"></td>
+                                            <td class="labels">    </td>
+                                            <td class="customfield_10009">      0|ywo4id:
+  </td>
+                                            <td class="customfield_10005"></td>
+                                            <td class="customfield_10001">    </td>
+                                            <td class="customfield_10004"></td>
+                                            <td class="customfield_10000">
+
+
+</td>
+                    </tr>
+
+
+                <tr id="issuerow22501" rel="22501" data-issuekey="FOURTYFIVE-26" class="issuerow">
+                                            <td class="project">    IFB299 045
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="FOURTYFIVE-26" href="https://sefteach01.qut.edu.au/jira/browse/FOURTYFIVE-26">FOURTYFIVE-26</a>
+</td>
+                                            <td class="summary"><p>
+                SNS login
+    </p>
+</td>
+                                            <td class="issuetype"> Story</td>
+                                            <td class="status">
+                Open
+    </td>
+                                            <td class="priority">   Won&#39;t Have
+</td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="assignee">    <em>Unassigned</em>
+</td>
+                                            <td class="reporter">            Sandra Finow
+    </td>
+                                            <td class="creator">            Sandra Finow
+    </td>
+                                            <td class="created"> 09/Aug/17 11:24 AM </td>
+                                            <td class="lastViewed"> 30/Aug/17 4:06 PM </td>
+                                            <td class="updated"> 30/Aug/17 4:06 PM </td>
+                                            <td class="resolutiondate"> &nbsp; </td>
+                                            <td class="versions">    &nbsp;
+</td>
+                                            <td class="fixVersions">    &nbsp;
+</td>
+                                            <td class="components">    &nbsp;
+</td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                                            <td class="votes">0</td>
+                                            <td class="watches">1</td>
+                                            <td class="thumbnail"></td>
+                                            <td class="timeoriginalestimate"></td>
+                                            <td class="timeestimate"></td>
+                                            <td class="timespent"></td>
+                                            <td class="workratio">&nbsp;
+</td>
+                                            <td class="subtasks">                </td>
+                                            <td class="issuelinks">                </td>
+                                            <td class="environment"></td>
+                                            <td class="description">      User Story:<br/>
+- As a user I want to login using my Facebook or Google account so that I don’t have to remember a separate login information and go through the login process manually. <br/>
+<br/>
+Acceptance Criteria:<br/>
+- A button labelled &quot;Log in with Facebook&quot; is displayed.<br/>
+- Clicking on &quot;Log in with Facebook&quot; redirects users to Facebook&#39;s authorisation page, that shows an authorisation button for users to click. <br/>
+- Clicking on the authorisation button redirects users back to the homepage of the website. <br/>
+- The website will show the users name on the navigation bar to confirm that they have successfully logged in. 
+  </td>
+                                            <td class="security"></td>
+                                            <td class="progress">     
+</td>
+                                            <td class="aggregateprogress">     
+</td>
+                                            <td class="aggregatetimespent"></td>
+                                            <td class="aggregatetimeestimate"></td>
+                                            <td class="aggregatetimeoriginalestimate"></td>
+                                            <td class="labels">    </td>
+                                            <td class="customfield_10009">      0|ywo4hx:
+  </td>
+                                            <td class="customfield_10005"></td>
+                                            <td class="customfield_10001">    </td>
+                                            <td class="customfield_10004"></td>
+                                            <td class="customfield_10000">
+
+
+</td>
+                    </tr>
+
+
+                <tr id="issuerow22496" rel="22496" data-issuekey="FOURTYFIVE-21" class="issuerow">
+                                            <td class="project">    IFB299 045
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="FOURTYFIVE-21" href="https://sefteach01.qut.edu.au/jira/browse/FOURTYFIVE-21">FOURTYFIVE-21</a>
+</td>
+                                            <td class="summary"><p>
+                Journey planner
+    </p>
+</td>
+                                            <td class="issuetype"> Story</td>
+                                            <td class="status">
+                Open
+    </td>
+                                            <td class="priority">   Won&#39;t Have
+</td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="assignee">    <em>Unassigned</em>
+</td>
+                                            <td class="reporter">            Andrew Grant
+    </td>
+                                            <td class="creator">            Andrew Grant
+    </td>
+                                            <td class="created"> 09/Aug/17 11:22 AM </td>
+                                            <td class="lastViewed"> 30/Aug/17 4:06 PM </td>
+                                            <td class="updated"> 30/Aug/17 4:06 PM </td>
+                                            <td class="resolutiondate"> &nbsp; </td>
+                                            <td class="versions">    &nbsp;
+</td>
+                                            <td class="fixVersions">    &nbsp;
+</td>
+                                            <td class="components">    &nbsp;
+</td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                                            <td class="votes">0</td>
+                                            <td class="watches">1</td>
+                                            <td class="thumbnail"></td>
+                                            <td class="timeoriginalestimate"></td>
+                                            <td class="timeestimate"></td>
+                                            <td class="timespent"></td>
+                                            <td class="workratio">&nbsp;
+</td>
+                                            <td class="subtasks">                </td>
+                                            <td class="issuelinks">                </td>
+                                            <td class="environment"></td>
+                                            <td class="description">      User Story:<br/>
+- As a user I want to there to be a function to so that I can organise and list the places I need to visit with respective times.<br/>
+<br/>
+Acceptance Criteria: <br/>
+- On individual item page, the google map will be updated so that user&#39;s current location and the item&#39;s address is used to generate google map&#39;s route planner.<br/>
+- If access to user&#39;s geolocation has not been allowed yet, display a popup asking users for their permission.<br/>
+- If allowed, continue with generating route planner.<br/>
+- If not allowed, do not generate route planner.<br/>
+
+  </td>
+                                            <td class="security"></td>
+                                            <td class="progress">     
+</td>
+                                            <td class="aggregateprogress">     
+</td>
+                                            <td class="aggregatetimespent"></td>
+                                            <td class="aggregatetimeestimate"></td>
+                                            <td class="aggregatetimeoriginalestimate"></td>
+                                            <td class="labels">    </td>
+                                            <td class="customfield_10009">      0|ywo4gt:
+  </td>
+                                            <td class="customfield_10005"></td>
+                                            <td class="customfield_10001">    </td>
+                                            <td class="customfield_10004"></td>
+                                            <td class="customfield_10000">
+
+
+</td>
+                    </tr>
+
+
+                <tr id="issuerow22492" rel="22492" data-issuekey="FOURTYFIVE-17" class="issuerow">
+                                            <td class="project">    IFB299 045
+</td>
+                                            <td class="issuekey">
+
+    <a class="issue-link" data-issue-key="FOURTYFIVE-17" href="https://sefteach01.qut.edu.au/jira/browse/FOURTYFIVE-17">FOURTYFIVE-17</a>
+</td>
+                                            <td class="summary"><p>
+                Secure Socket Layer
+    </p>
+</td>
+                                            <td class="issuetype"> Story</td>
+                                            <td class="status">
+                Open
+    </td>
+                                            <td class="priority">   Won&#39;t Have
+</td>
+                                            <td class="resolution">    <em>Unresolved</em>
+</td>
+                                            <td class="assignee">    <em>Unassigned</em>
+</td>
+                                            <td class="reporter">            Andrew Grant
+    </td>
+                                            <td class="creator">            Andrew Grant
+    </td>
+                                            <td class="created"> 09/Aug/17 11:10 AM </td>
+                                            <td class="lastViewed"> 30/Aug/17 4:06 PM </td>
+                                            <td class="updated"> 30/Aug/17 4:06 PM </td>
+                                            <td class="resolutiondate"> &nbsp; </td>
+                                            <td class="versions">    &nbsp;
+</td>
+                                            <td class="fixVersions">    &nbsp;
+</td>
+                                            <td class="components">    &nbsp;
+</td>
+                                            <td class="duedate">    &nbsp;
+</td>
+                                            <td class="votes">0</td>
+                                            <td class="watches">1</td>
+                                            <td class="thumbnail"></td>
+                                            <td class="timeoriginalestimate"></td>
+                                            <td class="timeestimate"></td>
+                                            <td class="timespent"></td>
+                                            <td class="workratio">&nbsp;
+</td>
+                                            <td class="subtasks">                </td>
+                                            <td class="issuelinks">                </td>
+                                            <td class="environment"></td>
+                                            <td class="description">      User Story:<br/>
+-As a user, I want to communicate with the service securely over a SSL so that the information that I provide to the service is unknown to anyone else.<br/>
+<br/>
+Acceptance Criteria<br/>
+- By typing the URL of the website on a browser, users will be directed to a website with protocol of https instead of http.<br/>
+
+  </td>
+                                            <td class="security"></td>
+                                            <td class="progress">     
+</td>
+                                            <td class="aggregateprogress">     
+</td>
+                                            <td class="aggregatetimespent"></td>
+                                            <td class="aggregatetimeestimate"></td>
+                                            <td class="aggregatetimeoriginalestimate"></td>
+                                            <td class="labels">    </td>
+                                            <td class="customfield_10009">      0|ywo4fx:
+  </td>
+                                            <td class="customfield_10005"></td>
+                                            <td class="customfield_10001">    </td>
+                                            <td class="customfield_10004"></td>
+                                            <td class="customfield_10000">
+
+
+</td>
+                    </tr>
+                </tbody>
+    </table>
+    <div class="end-of-stable-message"></div>
+            <table border="1" >
+<tr>
+    <td bgcolor="#dddddd" colspan="41"><font size="1">
+        Generated at Wed Aug 30 16:07:35 EST 2017 by Gyeongmin Jee using JIRA 6.2.7#6265-sha1:91604a8de81892a3e362e0afee505432f29579b0.
+    </font></td>
+</tr>
+</table>
+
+</body>
+</html>
