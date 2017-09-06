@@ -26,6 +26,8 @@ class User(models.Model):
     lastName = models.CharField(max_length=100)
     emailAddress = models.CharField(max_length=100)
     password = models.CharField(max_length=100)
+    address = models.CharField(max_length=200)
+    postcode = models.IntegerField()
     role = models.CharField(
         max_length=2,
         choices=(
@@ -45,7 +47,7 @@ class City(models.Model):
         max_length=2,
         choices=STATES,
     )
-    
+
 class Place(models.Model):
     name = models.CharField(max_length=200)
     address = models.CharField(max_length=200)
