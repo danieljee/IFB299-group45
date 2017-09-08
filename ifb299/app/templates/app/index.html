@@ -3,6 +3,20 @@
   {% include './head.html' %}
   <body>
     {% include './header.html' %}
-    <h1>This is the index page!</h1>
+    <div class="row" id='welcomePage'>
+      <div class="col-md-6">
+      </div>
+      <div class="col-md-6">
+        <form>
+          <div id='loginDiv'>
+            <label for="email">Email:</label>
+            <input type='text' id='email' class="form-control" placeholder="example@email.com"/>
+            <label for="password">Password:</label>
+            <input type='text' id='password' class="form-control" placeholder="password"/>
+            <button id="submit" class='btn btn-info'>Login</button>
+          </div>
+        </form>
+      </div>
+    </div>
   </body>
 </html>
