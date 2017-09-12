@@ -1,0 +1,73 @@
+
+{% extends 'polls/base.html' %}
+
+{% block body %}
+
+<h1 style="padding-top: 30px; text-align: center;"> WELCOME TO SMARTCITY </h1>
+<div class="container-fluid">
+	<div class="panel panel-default" style="position: relative; padding-left: 25%; padding-top: 40px; float: left">
+		<div class="signup-panel-body">
+			<h2 style="text-align: center">Signup</h2>
+			{% if error_message %}
+				<p><strong>{{ error_message }}</strong></p>
+			{% endif %}
+        <form>
+			<div id='signupDiv' style="width: 250px">
+				{% csrf_token %} 
+				<div class='inputFieldDiv'>
+					<label for="username">Username:</label>
+					<input type='text'  id='username' class="form-control"/>
+				</div>
+				<div class='inputFieldDiv'>
+					<label for="email">Email:</label>
+					<input type='text' id='email' class="form-control" placeholder="example@email.com"/>
+				</div>
+				<div class='inputFieldDiv'>
+					<label for="first_name">First Name:</label>
+					<input type='text' id='first_name' class="form-control"/>
+				</div>
+				<div class='inputFieldDiv'>
+					<label for="last_name">Last Name:</label>
+					<input type='text' id='last_name' class="form-control"/>
+				</div>
+				<div class='inputFieldDiv'>
+					<label for="password">Password:</label>
+					<input type='text' id='password' class="form-control"/>
+				</div>
+					<label for="account_type">Account Type:</label><br>
+					<input type='radio' value="Student" name='account_type'> Student<br>
+					<input type='radio' value="Tourist" name='account_type'> Tourist<br>
+					<input type='radio' value="Business" name='account_type'> Business<br>
+				<br>
+				<button id="submit" class='btn btn-success' style="width: 100%">Signup</button>
+			</div>
+        </form>
+		</div>
+	</div>
+</div>
+
+<div class="container-fluid">
+	<div class="panel panel-default" style="position: relative; padding-left: 100px; padding-top:40px; width: 150px; float: left">
+		<div class="login-panel-body">
+			<h2 style="text-align: center">Login</h2>
+			{% if error_message %}
+				<p><strong>{{ error_message }}</strong></p>
+			{% endif %}
+        <form>
+          <div id='loginDiv' style="width: 250px">
+            <div class='inputFieldDiv'>
+              <label for="email">Email:</label>
+              <input type='text' id='email' class="form-control" placeholder="example@email.com"/>
+            </div>
+            <div class='inputFieldDiv'>
+              <label for="password">Password:</label>
+              <input type='text' id='password' class="form-control"/>
+            </div><br>
+            <button id="submit" class='btn btn-success' style="width: 100%">Login</button>
+          </div>
+        </form>
+		</div>
+	</div>
+</div>
+
+{% endblock %}
