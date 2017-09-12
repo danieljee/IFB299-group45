@@ -1,0 +1,6 @@
+1. If database migration is not working:
+    Reset all migration using
+    python manage.py migrate --fake app zero
+    Then
+    python manage.py migrate
+  
