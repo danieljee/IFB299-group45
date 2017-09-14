@@ -1,10 +1,7 @@
 
 from django.http import HttpResponseRedirect, HttpResponse
-from django.http import Http404
 from django.shortcuts import render, redirect
 from .models import Choice, Question, Users
-from django.shortcuts import get_object_or_404, render
-from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
 
@@ -46,23 +43,23 @@ class ResultsView(generic.DetailView):
 
 def vote(request, question_id):
     return HttpResponse("You're voting on question %s." % question_id)
-		
+
 class UserFormView(View):
 	form_class = UserForm
 	template_name = 'polls/signup_forms.html'
-	
+
 	#display blank form
 	def get(self, request):
 		form = self.form_class(None)
 		return render(request, self.template_name, {'form': form})
-	
+
 	#process form data
 	def post(self, request):
 		form = self.form_class(request.POST)
-		
+
 		if form.is_valid():
 			user = form.save(commit=False)
-			
+
 			#clean data
 			username = form.cleaned_data['username']
 			first_name = form.cleaned_data['first_name']
@@ -74,10 +71,10 @@ class UserFormView(View):
 			user.set_password(password)
 			account_type = form.cleaned_data['account_type']
 			user.save()
-			
-			#returns user objects if creditentials are valid 
+
+			#returns user objects if creditentials are valid
 			user = authenticate(username=username, password=password)
-			
+
 			if not user:
 				raise forms.ValidationError("This user does not exist")
 			if not user.check_password(password):
@@ -87,6 +84,3 @@ class UserFormView(View):
 					login(request, user)
 					#when added to welcome page, change template name to welcome page html^
 					return render(request, self.template_name, {'form': form})
-
-
-	

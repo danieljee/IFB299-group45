@@ -3,27 +3,98 @@
   {% include './head.html' %}
   <body>
     {% include './header.html' %}
-    <div class="row" id='welcomePage'>
-      <div class="col-md-6">
+    <div class="row text-center" id='welcomePage'>
+      <div class="col-md-4" style="padding:0">
+        <div class="hidden" id='introText' style="margin-left:40px">
+          <h4>Welcome</h4>
+          <div class="hidden">
+            <h5>
+              Lorem ipsum dolor sit amet, vel commodo wisi tempor libero pede dui,
+              massa dui vel quis et, maecenas et, blandit vivamus est lacinia non,
+              non lacinia quam ornare tempor lorem sapien. Consectetur vestibulum magnis.
+              Non cras lobortis leo.
+            </h5>
+          </div>
+        </div>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-4" style="padding:0">
+        <form action='/signUp' method='POST'>
+          {% csrf_token %}
+          <div id='loginDiv' style="margin-right:0">
+            <div id='loginDivHeader'>
+              Sign Up
+            </div>
+            <div class='inputFieldDiv'>
+              {{signUpForm.firstName.errors}}
+              <label for={{signUpForm.firstName.id_for_label}}>First Name:</label>
+              {{signUpForm.firstName}}
+            </div>
+            <div class='inputFieldDiv'>
+              {{signUpForm.lastName.errors}}
+              <label for={{signUpForm.lastName.id_for_label}}>Last Name:</label>
+              {{signUpForm.lastName}}
+            </div>
+            <div class='inputFieldDiv'>
+              {{signUpForm.email.errors}}
+              <label for={{signUpForm.email.id_for_label}}>Email:</label>
+              {{signUpForm.email}}
+            </div>
+            <div class='inputFieldDiv'>
+              {{signUpForm.password.errors}}
+              <label for={{signUpForm.password.id_for_label}}>Password:</label>
+              {{signUpForm.password}}
+            </div>
+            <div class='inputFieldDiv'>
+              {{signUpForm.address.errors}}
+              <label for={{signUpForm.address.id_for_label}}>Address:</label>
+              {{signUpForm.address}}
+            </div>
+            <div class='inputFieldDiv'>
+              {{signUpForm.postcode.errors}}
+              <label for={{signUpForm.postcode.id_for_label}}>Post Code:</label>
+              {{signUpForm.postcode}}
+            </div>
+            <div class='inputFieldDiv'>
+              {{signUpForm.account_type.errors}}
+              <label for={{signUpForm.account_type.id_for_label}}>Account Type:</label>
+              {{signUpForm.account_type}}
+            </div>
+            <button id="submit" class='btn btn-info'>Sign Up</button>
+          </div>
+        </form>
+      </div>
+      <div class="col-md-4" style="padding:0">
+        {{loginForm.non_field_errors}}
         <form>
+          {% csrf_token %}
           <div id='loginDiv'>
             <div id='loginDivHeader'>
               Login
             </div>
             <div class='inputFieldDiv'>
-              <label for="email">Email:</label>
-              <input type='text' id='email' class="form-control" placeholder="example@email.com"/>
+              {{loginForm.email.errors}}
+              <label for={{loginForm.email.id_for_label}}>Email:</label>
+              {{loginForm.email}}
             </div>
             <div class='inputFieldDiv'>
-              <label for="password">Password:</label>
-              <input type='text' id='password' class="form-control" placeholder="password"/>
+              {{loginForm.password.errors}}
+              <label for={{loginForm.password.id_for_label}}>Password:</label>
+              {{loginForm.password}}
             </div>
             <button id="submit" class='btn btn-info'>Login</button>
           </div>
         </form>
       </div>
     </div>
+
+    <script type='text/javascript'>
+      $(document).ready(function(){
+          $('#introText').fadeIn(1500).removeClass('hidden');
+          setTimeout(()=>{
+            $('#introText .hidden').fadeIn(1500).removeClass('hidden');
+          }, 1500);
+
+      });
+    </script>
   </body>
 </html>

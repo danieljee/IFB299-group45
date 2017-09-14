@@ -1,8 +1,10 @@
-
 #welcomePage{
   margin-top:100px;
 }
 
+.hidden{
+  display:none;
+}
 
 /*
   Inputs
@@ -45,7 +47,7 @@
   margin: auto;
 }
 #loginDiv{
-  width: 60%;
+  width: 350px;
   margin:auto;
   text-align: center;
   border: 1px solid #ccc;

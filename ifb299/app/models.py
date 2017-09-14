@@ -2,26 +2,16 @@ from django.db import models
 from django.utils import timezone
 import datetime
 
-QLD = 'QLD'
-NSW = 'NSW'
-SA = 'SA'
-TAS = 'TAS'
-WA = 'WA'
-VIC = 'VIC'
 STATES = (
-    (QLD, 'QLD'),
-    (NSW, 'NSW'),
-    (SA, 'SA'),
-    (TAS, 'TAS'),
-    (WA, 'WA'),
-    (VIC, 'VIC')
+    ('QLD', 'QLD'),
+    ('NSW', 'NSW'),
+    ('SA', 'SA'),
+    ('TAS', 'TAS'),
+    ('WA', 'WA'),
+    ('VIC', 'VIC')
 )
 
 class User(models.Model):
-    STUDENT = 'STUDENT'
-    BUSINESSMAN = 'BUSINESSMAN'
-    TOURIST = 'TOURIST'
-    ADMIN = 'ADMIN'
     firstName = models.CharField(max_length=100)
     lastName = models.CharField(max_length=100)
     emailAddress = models.CharField(max_length=100)
@@ -29,12 +19,11 @@ class User(models.Model):
     address = models.CharField(max_length=100)
     postcode = models.IntegerField()
     role = models.CharField(
-        max_length=2,
+        max_length=20,
         choices=(
-            (STUDENT, 'STUDENT'),
-            (BUSINESSMAN, 'BUSINESSMAN'),
-            (TOURIST, 'TOURIST'),
-            (ADMIN, 'ADMIN')
+            ('STUDENT', 'STUDENT'),
+            ('BUSINESSMAN', 'BUSINESSMAN'),
+            ('TOURIST', 'TOURIST'),
         )
     )
     date = models.DateTimeField('Date registered')
@@ -47,6 +36,8 @@ class City(models.Model):
         max_length=2,
         choices=STATES,
     )
+    def __str__(self):
+        return self.name
 
 class Place(models.Model):
     name = models.CharField(max_length=200)
@@ -59,4 +50,4 @@ class Place(models.Model):
     city = models.ForeignKey(City, on_delete=models.CASCADE)
     date = models.DateTimeField('Date Uploaded')
     def __str__(self):
-        return self.choice_text
+        return self.name
