@@ -45,8 +45,7 @@ class Search(generic.ListView):
         context['query'] = self.query
         return context
 
-class PlaceDetail(View):
-    def get(self, request):
-        todo = 'todo'
-    def put(self, request):
-        todo = 'todo'
+class PlaceDetail(generic.DetailView):
+    model = Place
+    template_name = 'placeDetail.html'
+    context_object_name = 'place'

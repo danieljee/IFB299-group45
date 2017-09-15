@@ -57,7 +57,7 @@ class Place(models.Model):
          """
          Returns the url to access a particular instance of MyModelName.
          """
-         return reverse('place_detail_view', args=[str(self.id)])
+         return reverse('app:place_detail', args=[self.id])
 
     def __str__(self):
         return self.name

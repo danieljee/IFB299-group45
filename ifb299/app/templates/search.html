@@ -5,7 +5,7 @@
   {% if place_list %}
     {% for place in place_list%}
       <!-- After implementing individual item page, href=" place.get_absolute_url }}" -->
-      <a class="resultItem" >
+      <a class="resultItem" href="{{place.get_absolute_url}}">
         {{place.name}}
       </a>
     {% endfor %}
