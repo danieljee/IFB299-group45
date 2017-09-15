@@ -1,0 +1,16 @@
+{% extends "base_template.html" %}
+
+{% block content %}
+<div style="margin-top:100px; margin:auto">
+  {% if place_list %}
+    {% for place in place_list%}
+      <!-- After implementing individual item page, href=" place.get_absolute_url }}" -->
+      <a class="resultItem" >
+        {{place.name}}
+      </a>
+    {% endfor %}
+  {% else %}
+    <h2>No results available for '{{query}}'</h2>
+  {% endif %}
+</div>
+{% endblock %}

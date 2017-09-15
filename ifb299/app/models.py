@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.core.urlresolvers import reverse
 import datetime
 
 STATES = (
@@ -14,28 +15,30 @@ STATES = (
 class User(models.Model):
     firstName = models.CharField(max_length=100)
     lastName = models.CharField(max_length=100)
-    emailAddress = models.CharField(max_length=100)
+    emailAddress = models.EmailField()
     password = models.CharField(max_length=100)
     address = models.CharField(max_length=100)
     postcode = models.IntegerField()
+    CHOICES = (('STUDENT', 'Student'),('BUSINESSMAN', 'Businessman'),('TOURIST', 'Tourist'))
     role = models.CharField(
         max_length=20,
-        choices=(
-            ('STUDENT', 'STUDENT'),
-            ('BUSINESSMAN', 'BUSINESSMAN'),
-            ('TOURIST', 'TOURIST'),
-        )
+        blank=False,
+        default='STUDENT',
+        choices=CHOICES,
     )
     date = models.DateTimeField('Date registered')
     def __str__(self):
         return self.emailAddress
 
+class State(models.Model):
+    name = models.CharField(max_length=200)
+    def __str__(self):
+        return self.name
+
 class City(models.Model):
     name = models.CharField(max_length=200)
-    state = models.CharField(
-        max_length=2,
-        choices=STATES,
-    )
+    #  on_delete=models.CASCADE is the default for ForeignKey
+    state = models.ForeignKey(State)
     def __str__(self):
         return self.name
 
@@ -43,11 +46,18 @@ class Place(models.Model):
     name = models.CharField(max_length=200)
     address = models.CharField(max_length=200)
     postcode = models.IntegerField()
-    state = models.CharField(
-        max_length=2,
-        choices=STATES,
-    )
-    city = models.ForeignKey(City, on_delete=models.CASCADE)
+    #  on_delete=models.CASCADE is the default for ForeignKey
+    city = models.ForeignKey(City)
     date = models.DateTimeField('Date Uploaded')
+
+    class Meta:
+        ordering = ['date']
+
+    def get_absolute_url(self):
+         """
+         Returns the url to access a particular instance of MyModelName.
+         """
+         return reverse('place_detail_view', args=[str(self.id)])
+
     def __str__(self):
         return self.name
