@@ -3,4 +3,3 @@
     python manage.py migrate --fake app zero
     Then
     python manage.py migrate
-  

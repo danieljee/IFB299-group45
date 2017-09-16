@@ -17,69 +17,16 @@
     </div>
   </div>
   <div class="col-md-4" style="padding:0">
+    {% if error %}
+      {{error}}
+    {% endif %}
     <form action='/signUp' method='POST'>
       {% csrf_token %}
       <div id='loginDiv' style="margin-right:0">
         <div id='loginDivHeader'>
           Sign Up
         </div>
-        <div class='inputFieldDiv'>
-          <label for={{signUpForm.firstName.id_for_label}}>First Name:</label>
-          {{signUpForm.firstName}}
-          {{signUpForm.firstName.errors}}
-        </div>
-        <div class='inputFieldDiv'>
-          <label for={{signUpForm.lastName.id_for_label}}>Last Name:</label>
-          {{signUpForm.lastName}}
-          {{signUpForm.lastName.errors}}
-        </div>
-        <div class='inputFieldDiv'>
-          <label for={{signUpForm.emailAddress.id_for_label}}>Email:</label>
-          {{signUpForm.emailAddress}}
-          {{signUpForm.emailAddress.errors}}
-        </div>
-        <div class='inputFieldDiv'>
-          <label for={{signUpForm.password.id_for_label}}>Password:</label>
-          {{signUpForm.password}}
-          {{signUpForm.password.errors}}
-        </div>
-        <div class='inputFieldDiv'>
-          <label for={{signUpForm.address.id_for_label}}>Address:</label>
-          {{signUpForm.address}}
-          {{signUpForm.address.errors}}
-        </div>
-        <div class='inputFieldDiv'>
-          <label for={{signUpForm.postcode.id_for_label}}>Post Code:</label>
-          {{signUpForm.postcode}}
-          {{signUpForm.postcode.errors}}
-        </div>
-        <div class='inputFieldDiv'>
-          <label for={{signUpForm.account_type.id_for_label}}>Account Type:</label>
-          {{signUpForm.role}}
-          {{signUpForm.role.errors}}
-        </div>
-        <button id="submit" class='btn btn-info'>Sign Up</button>
-      </div>
-    </form>
-  </div>
-  <div class="col-md-4" style="padding:0">
-    {{loginForm.non_field_errors}}
-    <form>
-      {% csrf_token %}
-      <div id='loginDiv'>
-        <div id='loginDivHeader'>
-          Login
-        </div>
-        <div class='inputFieldDiv'>
-          <label for={{loginForm.email.id_for_label}}>Email:</label>
-          {{loginForm.email}}
-          {{loginForm.email.errors}}
-        </div>
-        <div class='inputFieldDiv'>
-          <label for={{loginForm.password.id_for_label}}>Password:</label>
-          {{loginForm.password}}
-          {{loginForm.password.errors}}
-        </div>
+        {{ signUpForm }}
         <button id="submit" class='btn btn-info'>Login</button>
       </div>
     </form>
