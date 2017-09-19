@@ -6,8 +6,8 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
     </ul>
-    <form action='/search' method='GET' class="form-inline my-2 my-lg-0" style ="margin: 0; position: absolute; top: 50%; left: 50%; margin-right: -50%; transform: translate(-50%, -50%)">
-      <input name='q' class="form-control mr-sm-2" size="40" type="text" placeholder="Search">
+    <form class="form-inline my-2 my-lg-0" style ="margin: 0; position: absolute; top: 50%; left: 50%; margin-right: -50%; transform: translate(-50%, -50%)">
+      <input class="form-control mr-sm-2" size="40" type="text" placeholder="Search">
       <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Search</button>
     </form>
 	<ul class="navbar-nav" style ="margin-right: 50px">
@@ -18,6 +18,9 @@
             User: {{ user.get_username }}
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            {% if user.is_superuser %}
+      			<a class="dropdown-item" href="{% url 'admin:index' %}">Admin Settings</a>
+      		  {% endif %}
             <a class="dropdown-item" href="#">Account Settings</a>
             <a class="dropdown-item" href="#">Saved PLaces</a>
             <a class="dropdown-item" href="{% url 'logout'%}?next={{request.path}}">Logout</a>
