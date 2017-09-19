@@ -82,6 +82,10 @@ class State(models.Model):
     def __str__(self):
         return self.name
 
+class Category(models.Model):
+    name = models.CharField(max_length=200)
+    def __str__(self):
+        return self.name
 # To get a list of places in a city, get a city object c and c.place_set.all()
 class City(models.Model):
     name = models.CharField(max_length=200)
@@ -94,8 +98,8 @@ class Place(models.Model):
     name = models.CharField(max_length=200)
     address = models.CharField(max_length=200)
     postcode = models.IntegerField()
-    #  on_delete=models.CASCADE is the default for ForeignKey
-    city = models.ForeignKey(City)
+    city_id = models.ForeignKey(City)
+    category_id = models.ForeignKey(Category)
     date = models.DateTimeField('Date Uploaded')
 
     class Meta:
