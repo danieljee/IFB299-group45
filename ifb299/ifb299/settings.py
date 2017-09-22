@@ -54,11 +54,11 @@ ROOT_URLCONF = 'ifb299.urls'
 
 LOGIN_REDIRECT_URL = '/'
 
-AUTH_USER_MODEL = 'app.User'
-AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend',
-    'app.backends.CustomUserAuth',
-)
+# AUTH_USER_MODEL = 'app.User'
+# AUTHENTICATION_BACKENDS = (
+#     'django.contrib.auth.backends.ModelBackend',
+#     'app.backends.CustomUserAuth',
+# )
 
 TEMPLATES = [
     {

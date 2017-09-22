@@ -17,19 +17,6 @@
     </div>
   </div>
   <div class="col-md-4" style="padding:0">
-    {% if error %}
-      {{error}}
-    {% endif %}
-    <form action='/signUp' method='POST'>
-      {% csrf_token %}
-      <div id='loginDiv' style="margin-right:0">
-        <div id='loginDivHeader'>
-          Sign Up
-        </div>
-        {{ signUpForm }}
-        <button id="submit" class='btn btn-info'>Login</button>
-      </div>
-    </form>
   </div>
 </div>
 

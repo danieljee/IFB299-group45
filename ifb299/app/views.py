@@ -1,59 +1,60 @@
-from django.shortcuts import render
-from django.http import HttpResponse
-from django.views import View, generic
-from django.contrib import messages
+from django.shortcuts import render_to_response, render
+from django.http import HttpResponseRedirect
+from django.views import generic
+from django.contrib import auth
 from django.contrib.auth import authenticate, login
 from django.template.context_processors import csrf
-from .forms import LogInForm, SignUpForm
+from .forms import MyRegistrationForm
+
 
 from .models import Place
 
-class Index(View):
-    template_name='index.html';
-    login_form_class = LogInForm
-    signUp_form_class = SignUpForm
-    def get(self, request):
-        loginForm = self.login_form_class(None);
-        signUpForm = self.signUp_form_class(None);
-        return render(request, self.template_name, {'loginForm': loginForm, 'signUpForm': signUpForm})
+def index(request):
+    if request.method == 'GET':
+        return render(request, 'index.html')
 
-class SignUp(View):
-    login_form_class = LogInForm
-    def post(self, request):
-        if request.user.is_authenticated():
-            return HttpResponseRedirect('/')
-        else :
-            loginForm = self.login_form_class(None);
-            form = SignUpForm(request.POST)
-            if form.is_valid():
-                form.save()
-                user = authenticate(email=request.POST.get('email'), password=request.POST.get('password'))
-                print('email submitted: '+request.POST.get('email'))
-                print('password submitted: ' + request.POST.get('password'))
-                print(user)
-                if user:
-                    messages.success(request, "Successfully Registered")
-                    return render(request, 'signUpSuccess.html')
-                else:
-                    messages.error(request, "Unable to log you in at this time!")
-                    args = {'loginForm': loginForm, 'signUpForm':form, 'error': 'Sign up error: cannot log in'}
-                    args.update(csrf(request))
-                    return render(request, 'index.html', args)
-
-class Login(View):
-    def post(self, request):
-        form = LogInForm(request.POST)
+def register_user(request):
+    if request.method == 'POST':
+        form = MyRegistrationForm(request.POST)
         if form.is_valid():
-            user = auth.authenticate(email=request.POST.get('email'),
-                                    password=request.POST.get('password'))
+            new_user = form.save()
+            new_user = auth.authenticate(username=request.POST['username'], password=request.POST['password1'])
+            auth.login(request, new_user)
+            return HttpResponseRedirect('/account/register_success')
+    args = {}
+    args.update(csrf(request))
+    args['form'] = MyRegistrationForm()
+    return render(request, 'register.html', args)
 
-        # user = authenticate(username=username, password=password)
-            if user is not None:
-                login(request, user)
-                return HttpResponseRedirect('/')
-            else:
-                return HttpResponseRedirect('/')
 
+def register_success(request):
+    return render(request, 'register_success.html')
+
+
+def login_view(request):
+    c = {}
+    c.update(csrf(request))
+    return render(request, 'login.html', c)
+
+def auth_view(request):
+    username = request.POST.get('username', '')
+    password = request.POST.get('password', '')
+    user = auth.authenticate(username=username, password=password)
+    if user is not None:
+        auth.login(request, user)
+        return HttpResponseRedirect('/account/loggedIn')
+    else:
+        return HttpResponseRedirect('/account/invalid')
+
+def loggedIn(request):
+    return render(request, 'loggedIn.html', {'username': request.user.username})
+
+def invalid(request):
+    return render(request, 'invalidLogin.html')
+
+def logout(request):
+    auth.logout(request)
+    return render(request, 'logout.html')
 
 class Search(generic.ListView):
     model = Place

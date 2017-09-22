@@ -1,0 +1,67 @@
+{% extends "base_template.html" %}
+
+{% block content %}
+  <div>
+    <form action='/account/register' method='POST'>{% csrf_token %}
+      <div id='loginDiv' style="margin-right:0">
+        <div id='loginDivHeader'>
+          Sign Up
+        </div>
+        {{form}}
+        <!-- <div class='inputFieldDiv'>
+          <label for={{RegistrationForm.username.id_for_label}}>Username:</label>
+          {{RegistrationForm.username}}
+          {{RegistrationForm.username.errors}}
+        </div>
+        <div class='inputFieldDiv'>
+          <label for={{RegistrationForm.password1.id_for_label}}>Password:</label>
+          {{RegistrationForm.password1}}
+          {{RegistrationForm.password1.errors}}
+        </div>
+        <div class='inputFieldDiv'>
+          <label for={{RegistrationForm.password2.id_for_label}}>Confirm password:</label>
+          {{RegistrationForm.password2}}
+          {{RegistrationForm.password2.errors}}
+        </div>
+        <div class='inputFieldDiv'>
+          <label for={{RegistrationForm.first_name.id_for_label}}>First Name:</label>
+          {{RegistrationForm.first_name}}
+          {{RegistrationForm.first_name.errors}}
+        </div>
+        <div class='inputFieldDiv'>
+          <label for={{RegistrationForm.last_Name.id_for_label}}>Last Name:</label>
+          {{RegistrationForm.last_name}}
+          {{RegistrationForm.last_name.errors}}
+        </div>
+        <div class='inputFieldDiv'>
+          <label for={{RegistrationForm.email.id_for_label}}>Email:</label>
+          {{RegistrationForm.email}}
+          {{RegistrationForm.email.errors}}
+        </div> -->
+        <!-- <div class='inputFieldDiv'>
+          <label for={{RegistrationForm.address.id_for_label}}>Address:</label>
+          {{RegistrationForm.address}}
+          {{RegistrationForm.address.errors}}
+        </div>
+        <div class='inputFieldDiv'>
+          <label for={{RegistrationForm.postcode.id_for_label}}>Post Code:</label>
+          {{RegistrationForm.postcode}}
+          {{RegistrationForm.postcode.errors}}
+        </div>
+        <div class='inputFieldDiv'>
+          <label for={{RegistrationForm.phone_number.id_for_label}}>Phone Number:</label>
+          {{RegistrationForm.phone_number}}
+          {{RegistrationForm.phone_number.errors}}
+        </div>
+        <div class='inputFieldDiv'>
+          <label for={{RegistrationForm.account_type.id_for_label}}>Account Type:</label>
+          {{RegistrationForm.role}}
+          {{RegistrationForm.role.errors}}
+        </div> -->
+        <button id="submit" class='btn btn-info'>Sign Up</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+{% endblock %}
