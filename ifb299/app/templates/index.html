@@ -3,6 +3,10 @@
 {% block content %}
 
 <div class="row text-center" id='welcomePage'>
+  {% if user.is_authenticated %}
+  <!-- This is where we should include recommended things -->
+  
+  {% else %}
   <div class="col-md-4" style="padding:0">
     <div class="hidden" id='introText' style="margin-left:40px">
       <h4>Welcome</h4>
@@ -16,10 +20,20 @@
       </div>
     </div>
   </div>
+
   <div class="col-md-4" style="padding:0">
+    {% include './registerForm.html' %}
   </div>
+  <div class="col-md-4" style="padding:0">
+    {% include './loginForm.html' %}
+  </div>
+
+  {% endif %}
 </div>
 
+{% if user.is_authenticated %}
+
+{% else %}
 <script type='text/javascript'>
   $(document).ready(function(){
       $('#introText').fadeIn(1500).removeClass('hidden');
@@ -29,5 +43,6 @@
 
   });
 </script>
+{% endif %}
 
 {% endblock %}

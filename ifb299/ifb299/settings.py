@@ -60,6 +60,8 @@ LOGIN_REDIRECT_URL = '/'
 #     'app.backends.CustomUserAuth',
 # )
 
+
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',

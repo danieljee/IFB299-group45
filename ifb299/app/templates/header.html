@@ -23,10 +23,10 @@
       		  {% endif %}
             <a class="dropdown-item" href="#">Account Settings</a>
             <a class="dropdown-item" href="#">Saved PLaces</a>
-            <a class="dropdown-item" href="{% url 'logout'%}?next={{request.path}}">Logout</a>
+            <a class="dropdown-item" href={% url 'app:logout' %}>Logout</a>
           </div>
         {% else %}
-          <a class="nav-link" href="/accounts/login" aria-haspopup="true" aria-expanded="false">
+          <a class="nav-link" href="/account/login" aria-haspopup="true" aria-expanded="false">
             Login
           </a>
         {% endif %}

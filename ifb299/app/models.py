@@ -7,8 +7,8 @@ from django.utils.translation import ugettext_lazy as _
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
-    phone_number = models.IntegerField(null=True)
-    address = models.CharField(max_length=200, null=True)
+    phone_number = models.IntegerField(null=True, blank=True)
+    address = models.CharField(max_length=200, null=True, blank=True)
     postcode = models.IntegerField(null=True)
     CHOICES = (('STUDENT', 'Student'),('BUSINESSMAN', 'Businessman'),('TOURIST', 'Tourist'))
     role = models.CharField(
@@ -17,6 +17,9 @@ class UserProfile(models.Model):
         default='STUDENT',
         choices=CHOICES,
     )
+    def __str__(self):
+        return self.user.email
+
 
 class State(models.Model):
     name = models.CharField(max_length=200)

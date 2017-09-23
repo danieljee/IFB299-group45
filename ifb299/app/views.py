@@ -4,39 +4,42 @@ from django.views import generic
 from django.contrib import auth
 from django.contrib.auth import authenticate, login
 from django.template.context_processors import csrf
-from .forms import MyRegistrationForm
+from .forms import MyRegistrationForm, UserProfileForm
 
 
 from .models import Place
 
 def index(request):
     if request.method == 'GET':
-        return render(request, 'index.html')
+        args = {}
+        args.update(csrf(request))
+        args['user_form'] = MyRegistrationForm()
+        args['profile_form'] = UserProfileForm()
+        return render(request, 'index.html', args)
 
 def register_user(request):
     if request.method == 'POST':
-        form = MyRegistrationForm(request.POST)
-        if form.is_valid():
-            new_user = form.save()
-            new_user = auth.authenticate(username=request.POST['username'], password=request.POST['password1'])
-            auth.login(request, new_user)
+        user_form = MyRegistrationForm(data = request.POST)
+        profile_form = UserProfileForm(data = request.POST)
+        if user_form.is_valid() and profile_form.is_valid():
+            new_user = user_form.save()
+            new_user.set_password(new_user.password)
+            new_user.save()
+            profile = profile_form.save(commit = False)
+            profile.user = new_user
+            profile.save()
             return HttpResponseRedirect('/account/register_success')
-    args = {}
-    args.update(csrf(request))
-    args['form'] = MyRegistrationForm()
-    return render(request, 'register.html', args)
 
 
 def register_success(request):
+    if request.user.is_authenticated():
+        return HttpResponseRedirect('/')
     return render(request, 'register_success.html')
 
 
-def login_view(request):
-    c = {}
-    c.update(csrf(request))
-    return render(request, 'login.html', c)
-
 def auth_view(request):
+    if request.user.is_authenticated():
+        return HttpResponseRedirect('/')
     username = request.POST.get('username', '')
     password = request.POST.get('password', '')
     user = auth.authenticate(username=username, password=password)
@@ -47,14 +50,25 @@ def auth_view(request):
         return HttpResponseRedirect('/account/invalid')
 
 def loggedIn(request):
+    if request.user.is_authenticated():
+        return HttpResponseRedirect('/')
     return render(request, 'loggedIn.html', {'username': request.user.username})
 
-def invalid(request):
+def invalidLogin(request):
+    if request.user.is_authenticated():
+        return HttpResponseRedirect('/')
     return render(request, 'invalidLogin.html')
 
 def logout(request):
+    if not request.user.is_authenticated():
+        return HttpResponseRedirect('/')
     auth.logout(request)
     return render(request, 'logout.html')
+
+def search_ordered(request):
+    if request.method == 'GET':
+        query = request.GET.get('q')
+        # places = Place.objects.filter(name_icontains=query).order_by()
 
 class Search(generic.ListView):
     model = Place
