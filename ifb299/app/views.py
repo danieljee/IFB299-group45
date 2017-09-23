@@ -78,13 +78,11 @@ class Search(generic.ListView):
     def get_queryset(self):
         self.query = self.request.GET.get('q')
         return Place.objects.filter(name__icontains=self.query)
-        # queryParamter = request.GET.get('q', None) get the query parameter
-        # and do results = Places.objects.filter(name__contains=queryParamter) to obtain the list of results
-        # if (results.count() == 0)
     def get_context_data(self, **kwargs):
-        context = super(Search, self).get_context_data(**kwargs)
-        context['query'] = self.query
-        return context
+        ctx = super(Search, self).get_context_data(**kwargs)
+        ctx['pagination'] = self.paginate_by
+        ctx['count'] = self.get_queryset().count()
+        return ctx
 
 class PlaceDetail(generic.DetailView):
     model = Place
