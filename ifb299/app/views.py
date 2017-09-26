@@ -2,6 +2,7 @@ from django.shortcuts import render_to_response, render
 from django.http import HttpResponseRedirect
 from django.views import generic
 from django.contrib import auth
+from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.template.context_processors import csrf
 from .forms import MyRegistrationForm, UserProfileForm
@@ -88,3 +89,10 @@ class PlaceDetail(generic.DetailView):
     model = Place
     template_name = 'placeDetail.html'
     context_object_name = 'place'
+    
+class AccountInformation(generic.ListView):
+    model = UserProfile
+    template_name = 'AccountInformation.html'
+    context_object_name = 'users'
+    def get_queryset(self):
+        return UserProfile.objects.filter(user=self.request.user)
