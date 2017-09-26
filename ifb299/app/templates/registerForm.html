@@ -1,6 +1,6 @@
 <form action='/account/register' method='POST'>{% csrf_token %}
   <div id='loginDiv' style="margin-right:0">
-    {% if form.errors %}
+    {% if user_form.errors %}
         {% for field in form %}
             {% for error in field.errors %}
                 <div class="alert alert-danger">
@@ -8,7 +8,7 @@
                 </div>
             {% endfor %}
         {% endfor %}
-        {% for error in form.non_field_errors %}
+        {% for error in user_form.non_field_errors %}
             <div class="alert alert-danger">
                 <strong>{{ error|escape }}</strong>
             </div>
