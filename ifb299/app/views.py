@@ -96,3 +96,10 @@ class AccountInformation(generic.ListView):
     context_object_name = 'users'
     def get_queryset(self):
         return UserProfile.objects.filter(user=self.request.user)
+    
+class EditAccountInformation(generic.ListView):
+    model = UserProfile
+    template_name = 'EditAccount.html'
+    context_object_name = 'users'
+    def get_queryset(self):
+        return UserProfile.objects.filter(user=self.request.user)
