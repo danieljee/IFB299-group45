@@ -4,15 +4,15 @@
   {% endif %}
   <form action='/account/auth' method='POST'>{% csrf_token %}
     {% csrf_token %}
-    <div id='loginDiv' style="margin-right:0">
+    <div id='loginDiv'>
       <div id='loginDivHeader'>
         Login
       </div>
       <div class='inputFieldDiv'>
         <label for='username'>Username:</label>
-        <input type='text' className='form-control' name='username' id='username'/>
+        <input type='text' class='form-control' name='username' id='username'/>
         <label for='password'>Password:</label>
-        <input type='password' className='form-control' name='password' id='password'/>
+        <input type='password' class='form-control' name='password' id='password'/>
       </div>
 
       <button id="submit" class='btn btn-info'>Login</button>

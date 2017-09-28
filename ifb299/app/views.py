@@ -18,10 +18,13 @@ def index(request):
         return render(request, 'index.html', args)
 
 def register_user(request):
+
     if request.method == 'POST':
         user_form = MyRegistrationForm(data = request.POST)
         profile_form = UserProfileForm(data = request.POST)
+        print('i received request')
         if user_form.is_valid() and profile_form.is_valid():
+            print('form was valid');
             new_user = user_form.save()
             new_user.set_password(new_user.password)
             new_user.save()
@@ -29,10 +32,16 @@ def register_user(request):
             profile.user = new_user
             profile.save()
             return HttpResponseRedirect('/account/register_success')
+    args = {}
+    args.update(csrf(request))
+    args['user_form'] = user_form
+    args['profile_form'] = profile_form
+    return render(request, 'index.html', args)
 
 
 def register_success(request):
     if request.user.is_authenticated():
+        print('user is authenticated')
         return HttpResponseRedirect('/')
     return render(request, 'register_success.html')
 

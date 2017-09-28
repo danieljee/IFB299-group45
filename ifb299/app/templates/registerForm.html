@@ -1,7 +1,7 @@
 <form action='/account/register' method='POST'>{% csrf_token %}
-  <div id='loginDiv' style="margin-right:0">
+  <div id='loginDiv'>
     {% if user_form.errors %}
-        {% for field in form %}
+        {% for field in user_form %}
             {% for error in field.errors %}
                 <div class="alert alert-danger">
                     <strong>{{ error|escape }}</strong>

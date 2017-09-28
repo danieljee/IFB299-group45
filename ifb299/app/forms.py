@@ -5,26 +5,24 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.utils.translation import ugettext_lazy as _
 
 class MyRegistrationForm(forms.ModelForm):
-    password = forms.CharField(widget=forms.PasswordInput())
-    email = forms.EmailField(required=True)
-    first_name = forms.CharField(max_length=30, required=False)
-    last_name = forms.CharField(max_length=30, required=False)
+    email = forms.EmailField(required=True, widget=forms.TextInput(attrs={'class':'form-control'}))
     class Meta:
         model = User
         fields = ('username', 'email', 'first_name', 'last_name', 'password')
-
-    # def save(self, commit=True):
-    #     user = super(UserCreationForm, self).save(commit=False)
-    #     user.set_password(self.cleaned_data["password1"])
-    #     user.email = self.cleaned_data['email']
-    #     user.first_name = self.cleaned_data['first_name']
-    #     user.last_name = self.cleaned_data['last_name']
-    #     if commit:
-    #         user.save()
-    #
-    #     return user
+        widgets = {
+            'first_name': forms.TextInput(attrs={'class':'form-control'}),
+            'last_name': forms.TextInput(attrs={'class':'form-control'}),
+            'password': forms.PasswordInput(attrs={'class':'form-control'}),
+            'username': forms.TextInput(attrs={'class':'form-control'}),
+        }
 
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         fields = ('address', 'phone_number', 'postcode', 'role')
+        widgets = {
+            'address': forms.TextInput(attrs={'class':'form-control'}),
+            'phone_number': forms.NumberInput(attrs={'class':'form-control'}),
+            'postcode': forms.NumberInput(attrs={'class':'form-control'}),
+            'role': forms.Select(attrs={'class':'form-control'}),
+        }
