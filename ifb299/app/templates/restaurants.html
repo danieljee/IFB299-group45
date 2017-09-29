@@ -1,0 +1,24 @@
+{% extends "base_template.html" %}
+{% load static %}
+
+{% block content %}
+<h1><center> Restaurants </center></h1>
+<h3><center>This is a list of all the restaurants on SmartCity</center></h3>
+<ul>
+
+
+{% for place in place_list %}
+	{% if place.category_id.name == 'restaurant' %}
+		<div class="categoryListContainer">
+		<li>
+		<a href="#">
+		<img src={% static 'restaurant.png' %} class="categoryIcon" alt="restaurantIcon" /> <h5><b>{{ place.name }}</b> | {{ place.address }} </h5>
+		</a>
+		</li>
+		</div>
+	{% endif %}
+{% empty %}
+    <li>No places yet.</li>
+{% endfor %}
+</ul>
+{% endblock %}

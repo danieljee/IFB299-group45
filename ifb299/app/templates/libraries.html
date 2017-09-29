@@ -1,0 +1,24 @@
+{% extends "base_template.html" %}
+{% load static %}
+
+{% block content %}
+<h1><center> Libraries </center></h1>
+<h3><center>This is a list of all the libraries on SmartCity</center></h3>
+<ul>
+
+
+{% for place in place_list %}
+	{% if place.category_id.name == 'libraries' %}
+		<div class="categoryListContainer">
+		<li>
+		<a href="#">
+		<img src={% static 'library.png' %} class="categoryIcon" alt="libraryIcon" /> <h5><b>{{ place.name }}</b> | {{ place.address }} </h5>
+		</a>
+		</li>
+		</div>
+	{% endif %}
+{% empty %}
+    <li>No places yet.</li>
+{% endfor %}
+</ul>
+{% endblock %}
