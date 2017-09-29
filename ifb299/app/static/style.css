@@ -149,6 +149,19 @@ body{
   height: 70px;
 }
 
+img.categoryIcon {
+	height: 40px;
+	width: 60px; 
+}
+
+.categoryListContainer { 
+	width: 100%;
+	margin: 0 auto;
+	text-align: center;
+    padding: 1em;
+    overflow: hidden;
+}
+
 @media only screen and (max-width: 550px){
 }
 
