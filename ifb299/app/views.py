@@ -17,14 +17,67 @@ class HttpResponseUnauthorized(HttpResponseRedirect):
 class HttpResponseNotFound(HttpResponseRedirect):
     status_code = 404
 
-def index(request):
-    if request.method == 'GET':
-        args = {}
-        args.update(csrf(request))
-        args['user_form'] = MyRegistrationForm()
-        args['profile_form'] = UserProfileForm()
-        return render(request, 'index.html', args)
+#def index(request):
+#    if request.method == 'GET':
+#        args = {}
+#        args.update(csrf(request))
+#        args['user_form'] = MyRegistrationForm()
+#        args['profile_form'] = UserProfileForm()
+#        return render(request, 'index.html', args)
 
+def index(request):
+	if request.method == 'POST':
+		if request.POST.get(industries):
+			return HttpResponseRedirect('industries')
+		elif requrest.POST.get(hotels):
+			return HttpResponseRedirect('hotels')
+		elif request.POST.get(parks):
+			return HttpResponseRedirect('parks')
+		elif request.POST.get(malls):
+			return HttpResponseRedirect('malls')
+		elif request.POST.get(zoos):
+			return HttpResponseRedirect('zoos')
+		elif request.POST.get(colleges):
+			return HttpResponseRedirect('colleges')
+		elif request.POST.get(restaurants):
+			return HttpResponseRedirect('restaurants')
+		elif request.POST.get(libraries):
+			return HttpResponseRedirect('libraries')
+		else: 
+			return HttpResponseRedirect('museums')
+	elif request.method == 'GET':
+		args = {}
+		args.update(csrf(request))
+		args['user_form'] = MyRegistrationForm()
+		args['profile_form'] = UserProfileForm()
+		return render(request, 'index.html', args)
+
+def restaurants(request):
+	return render(request, 'restaurants.html')
+	
+def malls(request):
+	return HttpResponseRedirect('malls')
+	
+def zoos(request):
+	return HttpResponseRedirect('zoos')
+	
+def parks(request):
+	return render(request, 'parks.html')
+	
+def libraries(request):
+	return render(request, 'libraries.html')
+	
+def colleges(request):
+	return render(request, 'colleges.html')
+	
+def industries(request):
+	return render(request, 'industries.html')
+
+def hotels(request):
+	return render(request, 'hotels.html')
+
+def museums(request):
+	return render(request, 'museums.html')
 def register_user(request):
 
     if request.method == 'POST':
