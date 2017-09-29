@@ -9,7 +9,6 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from .forms import MyRegistrationForm, UserProfileForm
 
-
 from .models import Place
 
 class HttpResponseUnauthorized(HttpResponseRedirect):
@@ -119,3 +118,48 @@ class EditAccountInformation(generic.ListView):
     context_object_name = 'users'
     def get_queryset(self):
         return UserProfile.objects.filter(user=self.request.user)
+
+class RestaurantCategory(generic.ListView):
+	model = Place
+	template_name = 'restaurants.html'
+	context_object_name = 'place_list'
+	
+class IndustryCategory(generic.ListView):
+	model = Place
+	template_name = 'industries.html'
+	context_object_name = 'place_list'
+	
+class MallCategory(generic.ListView):
+	model = Place
+	template_name = 'malls.html'
+	context_object_name = 'place_list'
+
+class LibraryCategory(generic.ListView):
+	model = Place
+	template_name = 'libraries.html'
+	context_object_name = 'place_list'
+
+class ZooCategory(generic.ListView):
+	model = Place
+	template_name = 'zoos.html'
+	context_object_name = 'place_list'
+	
+class CollegeCategory(generic.ListView):
+	model = Place
+	template_name = 'colleges.html'
+	context_object_name = 'place_list'
+	
+class MuseumCategory(generic.ListView):
+	model = Place
+	template_name = 'museums.html'
+	context_object_name = 'place_list'
+
+class HotelCategory(generic.ListView):
+	model = Place
+	template_name = 'hotels.html'
+	context_object_name = 'place_list'
+
+class ParkCategory(generic.ListView):
+	model = Place
+	template_name = 'parks.html'
+	context_object_name = 'place_list'
