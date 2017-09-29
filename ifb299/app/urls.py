@@ -9,7 +9,6 @@ urlpatterns = [
     url(r'^account/register$', views.register_user, name='register'),
     url(r'^account/register_success$', views.register_success, name='register_success'),
     url(r'^account/auth$', views.auth_view, name='auth'),
-    url(r'^account/loggedIn$', views.loggedIn, name='loggedIn'),
     url(r'^account/logout$', views.logout, name='logout'),
     url(r'^account/invalid$', views.invalidLogin, name='invalid'),
 

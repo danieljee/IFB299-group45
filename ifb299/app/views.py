@@ -1,13 +1,21 @@
 from django.shortcuts import render_to_response, render
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.views import generic
 from django.contrib import auth
 from django.contrib.auth import authenticate, login
 from django.template.context_processors import csrf
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from .forms import MyRegistrationForm, UserProfileForm
 
 
 from .models import Place
+
+class HttpResponseUnauthorized(HttpResponseRedirect):
+    status_code = 401
+
+class HttpResponseNotFound(HttpResponseRedirect):
+    status_code = 404
 
 def index(request):
     if request.method == 'GET':
@@ -41,36 +49,30 @@ def register_user(request):
 
 def register_success(request):
     if request.user.is_authenticated():
-        print('user is authenticated')
-        return HttpResponseRedirect('/')
+        return HttpResponseNotFound('/')
     return render(request, 'register_success.html')
 
 
 def auth_view(request):
     if request.user.is_authenticated():
-        return HttpResponseRedirect('/')
+        return HttpResponseNotFound('/')
     username = request.POST.get('username', '')
     password = request.POST.get('password', '')
     user = auth.authenticate(username=username, password=password)
     if user is not None:
         auth.login(request, user)
-        return HttpResponseRedirect('/account/loggedIn')
+        return HttpResponseRedirect('/')
     else:
         return HttpResponseRedirect('/account/invalid')
 
-def loggedIn(request):
-    if request.user.is_authenticated():
-        return HttpResponseRedirect('/')
-    return render(request, 'loggedIn.html', {'username': request.user.username})
-
 def invalidLogin(request):
     if request.user.is_authenticated():
-        return HttpResponseRedirect('/')
+        return HttpResponseNotFound('/')
     return render(request, 'invalidLogin.html')
 
 def logout(request):
     if not request.user.is_authenticated():
-        return HttpResponseRedirect('/')
+        return HttpResponseNotFound('/')
     auth.logout(request)
     return render(request, 'logout.html')
 
@@ -84,6 +86,11 @@ class Search(generic.ListView):
     template_name = 'search.html'
     context_object_name = 'place_list'
     paginate_by = 10
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(Search, self).dispatch(*args, **kwargs)
+
     def get_queryset(self):
         self.query = self.request.GET.get('q')
         return Place.objects.filter(name__icontains=self.query)
