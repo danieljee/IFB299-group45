@@ -4,21 +4,19 @@
 {% block content %}
 <h1><center> Malls </center></h1>
 <h3><center>This is a list of all the malls on SmartCity</center></h3>
-<ul>
 
-
-{% for place in place_list %}
-	{% if place.category_id.name == 'malls' %}
-		<div class="categoryListContainer">
-		<li>
-		<a href="#">
-		<img src={% static 'mall.png' %} class="categoryIcon" alt="mallIcon" /> <h5><b>{{ place.name }}</b> | {{ place.address }} </h5>
-		</a>
-		</li>
-		</div>
-	{% endif %}
-{% empty %}
-    <li>No places yet.</li>
-{% endfor %}
-</ul>
+<div class="categoryListContainer">
+	<ul>
+		{% for place in place_list %}
+			{% if place.category_id.name == 'mall' %}
+				<a href="#">
+					<img src={% static 'mall.png' %} class="categoryIcon" alt="mallIcon" /> <b>{{ place.name }}</b> | {{ place.address }} 
+				</a>
+			{% endif %}
+		{% empty %}
+			No places yet.
+		{% endfor %}
+	</ul>
+</div>
 {% endblock %}
+
