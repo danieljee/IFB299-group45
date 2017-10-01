@@ -1,36 +1,47 @@
 {% extends "base_template.html" %}
-
+{% load static %}
 {% block content %}
+{% if user.is_authenticated %} 
+	{% if user.is_superuser %}
+	{% include './allCategories.html' %}
+	{% else %} 
+	<br>
+	<h2><center> RECOMMENDED CATEGORIES </center></h2>
+	<h5><center>These categories have been recommended to you based on your account type</center></h5>
+	<br>
+	{% if role == "STUDENT" %}
+		{% include './studentHome.html' %}
+	{% elif role == "TOURIST" %}
+		{% include './touristHome.html' %}
+	{% else %}
+		{% include './businessManHome.html' %}		
+	{% endif %} 
+	{% endif %}
+{% else %}
 
-<div class="row text-center" id='welcomePage'>
-  <div class="col-md-4" style="padding:0">
-    <div class="hidden" id='introText' style="margin-left:40px">
-      <h4>Welcome</h4>
-      <div class="">
-        <h5>
-          Lorem ipsum dolor sit amet, vel commodo wisi tempor libero pede dui,
-          massa dui vel quis et, maecenas et, blandit vivamus est lacinia non,
-          non lacinia quam ornare tempor lorem sapien. Consectetur vestibulum magnis.
-          Non cras lobortis leo.
-        </h5>
-      </div>
-    </div>
-  </div>
+	<div class="row text-center" id='welcomePage'>
+		<div class="hidden" id='introText' style="margin-left:40px">
+		  <h2>Welcome to <br>SmartCity</h2><br>
+		  <h5>Dedicated to helping you find <br> great destinations the city you're in </h5>
+		</div>
+		<div class="col-md-4" style="padding:0">
+			{% include './registerForm.html' %}
+		</div>
+		<div class="col-md-4" style="padding:0">
+			{% include './loginForm.html' %}
+		</div>
+	</div>
 
-  <div class="col-md-4" style="padding:0">
-    {% include './registerForm.html' %}
-  </div>
-  <div class="col-md-4" style="padding:0">
-    {% include './loginForm.html' %}
-  </div>
-</div>
-<script type='text/javascript'>
-  $(document).ready(function(){
-      $('#introText').fadeIn(1500).removeClass('hidden');
-      setTimeout(()=>{
-        $('#introText .hidden').fadeIn(2500).removeClass('hidden');
-      }, 2500);
+	
+	<script type='text/javascript'>
+		$(document).ready(function(){
+			$('#introText').fadeIn(1500).removeClass('hidden');
+			setTimeout(()=>{
+			$('#introText .hidden').fadeIn(1500).removeClass('hidden');
+			}, 1500);
+		});
+	</script>
 
-  });
-</script>
+{% endif %} 
+
 {% endblock %}
