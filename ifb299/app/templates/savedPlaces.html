@@ -1,5 +1,9 @@
+{% extends "base_template.html" %}
+
+{% block content%}
 <h2>Your Saved Places</h2>
 
-<ul class="saved-places">
-    <li class="saved-place" link="place-id">example place</li>
+<ul>
+    <li link="place-id">{{place.name}}</li>
 </ul>
+{% endblock %}
