@@ -15,7 +15,7 @@ from views.py import PlaceDetail
         
             <div id="bodyTextLeft">
                 <div id="result-title">   
-                    <h2>Result Title</h2>
+                    <h2>{{place.name}}</h2>
                 </div>
             
                 <div id="about-place">
@@ -30,35 +30,25 @@ from views.py import PlaceDetail
             </div>
             
 
-
             <div id="bodyTextCentre">
-                <div id="location-address-title">
-                    <h2>LOCATION ADDRESS</h2>
+                <div>
+                    <h2>LOCATION DETAILS</h2>
                 </div>
-                <div id="address-details">
+                <div>
                     <div class="address">
-                        <p>streetNo, street, suburb, postcode, city</p>
+                        <p>{{place.address}}</p>
                     </div>
-                    <div class="phoneNumber">
-                        <p>(07)9999 9999</p>
+                    <div class="phone">
+                        <p>{{place.phone}}</p>
                     </div>
-                    <div class="emailAddress">
+                    <div class="email">
                         <p>person@email.com</p>
                     </div>
                     <div class="industryType">
-                        <p>(if applicable) industry type</p>
+                        <p>{{place.industry}}</p>
                     </div>
                 </div>
             </div>
-
-        <ul class="list-group" {{ request.place.place_id }}>
-		    <li class="list-place-information"><b>Address: &nbsp; </b>{{ request.place.address }}</li>
-		    <li class="list-place-information"><b>Phone Number: &nbsp; </b>{{ request.place.phone_number }}</li>
-		    <li class="list-place-information"><b>Email: &nbsp; </b>{{ request.place.email }}</li>
-		    <li class="list-place-information"><b>Industry Type: &nbsp; </b>{{ request.place.industry_type }}</li>
-		    <li class="list-place-information"><b>Departments: &nbsp; </b>{{ request.place.department_id }}</li>
-		</ul>
-
 
 
             <div id="bodyTextRight">
