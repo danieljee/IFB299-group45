@@ -2,10 +2,32 @@
 
 {% block content%}
 <div>
+<center>
   <h3>{{place.name}}</h3>
-  <p>{{place.address}}</p>
-  <p>{{place.phone}}</p>
-  <p>{{place.email}}</p>
-  <p>{{place.industry}}</p>
+	{% for item in place %}
+		{% if item.category_id.name == 'college' %}
+			<img src={% static 'college.png' %} class="detailIcon" alt="collegeIcon" />
+			<p>
+				{{place.address}}
+				{{place.email}}
+				{{place.departments}}
+			</p>
+		{% elif item.category_id.name == 'industry' %}
+			<img src={% static 'industry.png' %} class="detailIcon" alt="industryIcon" />
+			<p>
+				{{place.address}}
+				{{place.email}}
+				{{place.industryType}}
+			</p>
+		{% else %} 
+			<img src={% static '{{item.category_id.name}}.png' %} class="detailIcon" alt="{{item.category_id.name}}Icon" />
+			<p>
+				{{place.address}}
+				{{place.phone}}
+				{{place.email}}
+			</p>
+		{% endif %}
+	{% endfor %}
+</center>
 </div>
 {% endblock %}
