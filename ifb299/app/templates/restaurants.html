@@ -8,7 +8,7 @@
 <div class="categoryListContainer">
 	<ul>
 		{% for place in place_list %}
-			{% if place.category_id.name == 'Restaurant' %}
+			{% if place.category_id.name == 'restaurant' %}
 				<a href="#">
 					<img src={% static 'restaurant.png' %} class="categoryIcon" alt="restaurantIcon" /> <b>{{ place.name }}</b> | {{ place.address }} 
 				</a>
