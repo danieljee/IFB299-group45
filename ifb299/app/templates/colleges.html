@@ -12,10 +12,11 @@
 				<a href="#">
 					<img src={% static 'college.png' %} class="categoryIcon" alt="collegeIcon" /> <b>{{ place.name }}</b> | {{ place.address }} 
 				</a>
+			{% else %}
+			Sorry, there are no places for this category yet.
 			{% endif %}
-		{% empty %}
-			No places yet.
 		{% endfor %}
 	</ul>
 </div>
+
 {% endblock %}

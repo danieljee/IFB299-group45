@@ -3,6 +3,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.views import generic
 from django.contrib import auth
 from django.contrib.auth.models import User
+from .models import UserProfile, Place
 from django.contrib.auth import authenticate, login
 from django.template.context_processors import csrf
 from django.contrib.auth.decorators import login_required
@@ -49,6 +50,9 @@ def index(request):
 		args.update(csrf(request))
 		args['user_form'] = MyRegistrationForm()
 		args['profile_form'] = UserProfileForm()
+		if request.user.is_authenticated() and not request.user.is_superuser:
+			profile = UserProfile.objects.filter(user=request.user).first()
+			args['role'] = profile.role
 		return render(request, 'index.html', args)
 
 def restaurants(request):
@@ -77,8 +81,8 @@ def hotels(request):
 
 def museums(request):
 	return render(request, 'museums.html')
+	
 def register_user(request):
-
     if request.method == 'POST':
         user_form = MyRegistrationForm(data = request.POST)
         profile_form = UserProfileForm(data = request.POST)
@@ -215,3 +219,13 @@ class ParkCategory(generic.ListView):
 	model = Place
 	template_name = 'parks.html'
 	context_object_name = 'place_list'
+
+#class savedPlaces(generic.Listview):
+#    model = Saved Places
+#    template_name = 'savedPlaces.html'
+#    context_object_name = 'savedPlaces'
+
+#class individualItemPage(generic.DetailView):
+#    model = Individual Item
+#    template_name = 'individualItemPage.html'
+#    context_object_name = 'individualItemPage'

@@ -1,47 +1,63 @@
-<div id="individual-item-page">
-    
-    <div class="head">
-        <h1>SMART-CITY</h1>
-    </div>
+from views.py import PlaceDetail
 
-    <div class="navbar">
-        <nav>navbar</nav>
-    </div>
-    
-    <div class="body">
-        <div id="bodyTextLeft">
-            <div id="result-title">   
-                <h2>Result Title</h2>
-            </div>
+{% extends "base_template.html" %}
+{% block content %}
+
+    <div class="individual-item-page">
         
-            <div id="about-place">
-                <div id"about-place-title">
-                    <h3>About the location:</h3>
-                </div>
-                
-                <div id="about-place-text">
-                    <p> This place is for.... and it is open from... to.... it accepts...</p>
-                </div>
-            </div>
+        <div class="head">
+            <h1>Base html thing</h1>
+        </div>
+
+        <div class="navbar">
+            <nav>navbar</nav>
         </div>
         
-        <div id="bodyTextCentre">
-            <div id="location-address-title">
-                <h2>LOCATION ADDRESS</h2>
+            <div id="bodyTextLeft">
+                <div id="result-title">   
+                    <h2>{{place.name}}</h2>
+                </div>
+            
+                <div id="about-place">
+                    <div id"about-place-title">
+                        <h3>About the location:</h3>
+                    </div>
+                    
+                    <div id="about-place-text">
+                        <p> This place is for.... and it is open from... to.... it accepts...</p>
+                    </div>
+                </div>
             </div>
-            <div id="location-address-text">
-                <p>streetNo, street, suburb, postcode, city</p>
-            </div>
-        </div>
+            
 
-        <div id="bodyTextRight">
-            <div id="map">
-                <google map linked in></google>
+            <div id="bodyTextCentre">
+                <div>
+                    <h2>LOCATION DETAILS</h2>
+                </div>
+                <div>
+                    <div class="address">
+                        <p>{{place.address}}</p>
+                    </div>
+                    <div class="phone">
+                        <p>{{place.phone}}</p>
+                    </div>
+                    <div class="email">
+                        <p>person@email.com</p>
+                    </div>
+                    <div class="industryType">
+                        <p>{{place.industry}}</p>
+                    </div>
+                </div>
             </div>
 
-            <div id="place-image">
-                image
+
+            <div id="bodyTextRight">
+                <div id="map">
+                    <google map linked in></google>
+                </div>
+                <div id="place-image">
+                    image
+                </div>
             </div>
-        </div>
     </div>
-</div>
+{% endblock %}
