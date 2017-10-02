@@ -81,7 +81,7 @@ def hotels(request):
 
 def museums(request):
 	return render(request, 'museums.html')
-	
+
 def register_user(request):
     if request.method == 'POST':
         user_form = MyRegistrationForm(data = request.POST)

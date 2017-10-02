@@ -53,10 +53,11 @@ class Place(models.Model):
     address = models.CharField(max_length=200)
     email = models.EmailField()
     postcode = models.IntegerField()
+    phone_number = models.IntegerField(null=True, blank=True)
     city_id = models.ForeignKey(City)
     category_id = models.ForeignKey(Category)
     industry = models.ForeignKey(Industry, null=True, blank=True)
-    department = models.ForeignKey(Department, null=True, blank=True)
+    department = models.ManyToManyField(Department, blank=True, null=True)
     date = models.DateTimeField('Date Uploaded')
 
     class Meta:
