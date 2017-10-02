@@ -38,6 +38,16 @@ class City(models.Model):
     def __str__(self):
         return self.name
 
+class Industry(models.Model):
+    name = models.CharField(max_length=200)
+    def __str__(self):
+        return self.name
+
+class Department(models.Model):
+    name = models.CharField(max_length=200)
+    def __str__(self):
+        return self.name
+
 class Place(models.Model):
     name = models.CharField(max_length=200)
     address = models.CharField(max_length=200)
@@ -45,6 +55,8 @@ class Place(models.Model):
     postcode = models.IntegerField()
     city_id = models.ForeignKey(City)
     category_id = models.ForeignKey(Category)
+    industry = models.ForeignKey(Industry, null=True, blank=True)
+    department = models.ForeignKey(Department, null=True, blank=True)
     date = models.DateTimeField('Date Uploaded')
 
     class Meta:
@@ -58,3 +70,10 @@ class Place(models.Model):
 
     def __str__(self):
         return self.name
+
+class SavedPlace(models.Model):
+    user = models.ForeignKey(User)
+    place = models.ForeignKey(Place)
+
+    def __str__(self):
+        return self.user.username + self.place.name

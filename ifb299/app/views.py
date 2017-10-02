@@ -8,8 +8,7 @@ from django.template.context_processors import csrf
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from .forms import MyRegistrationForm, UserProfileForm
-
-from .models import Place
+from .models import Place, UserProfile
 
 class HttpResponseUnauthorized(HttpResponseRedirect):
     status_code = 401
@@ -29,7 +28,7 @@ def index(request):
 	if request.method == 'POST':
 		if request.POST.get(industries):
 			return HttpResponseRedirect('industries')
-		elif requrest.POST.get(hotels):
+		elif request.POST.get(hotels):
 			return HttpResponseRedirect('hotels')
 		elif request.POST.get(parks):
 			return HttpResponseRedirect('parks')
@@ -43,7 +42,7 @@ def index(request):
 			return HttpResponseRedirect('restaurants')
 		elif request.POST.get(libraries):
 			return HttpResponseRedirect('libraries')
-		else: 
+		else:
 			return HttpResponseRedirect('museums')
 	elif request.method == 'GET':
 		args = {}
@@ -54,22 +53,22 @@ def index(request):
 
 def restaurants(request):
 	return render(request, 'restaurants.html')
-	
+
 def malls(request):
 	return HttpResponseRedirect('malls')
-	
+
 def zoos(request):
 	return HttpResponseRedirect('zoos')
-	
+
 def parks(request):
 	return render(request, 'parks.html')
-	
+
 def libraries(request):
 	return render(request, 'libraries.html')
-	
+
 def colleges(request):
 	return render(request, 'colleges.html')
-	
+
 def industries(request):
 	return render(request, 'industries.html')
 
@@ -157,14 +156,14 @@ class PlaceDetail(generic.DetailView):
     model = Place
     template_name = 'placeDetail.html'
     context_object_name = 'place'
-    
+
 class AccountInformation(generic.ListView):
     model = UserProfile
     template_name = 'AccountInformation.html'
     context_object_name = 'users'
     def get_queryset(self):
         return UserProfile.objects.filter(user=self.request.user)
-    
+
 class EditAccountInformation(generic.ListView):
     model = UserProfile
     template_name = 'EditAccount.html'
@@ -176,12 +175,12 @@ class RestaurantCategory(generic.ListView):
 	model = Place
 	template_name = 'restaurants.html'
 	context_object_name = 'place_list'
-	
+
 class IndustryCategory(generic.ListView):
 	model = Place
 	template_name = 'industries.html'
 	context_object_name = 'place_list'
-	
+
 class MallCategory(generic.ListView):
 	model = Place
 	template_name = 'malls.html'
@@ -196,12 +195,12 @@ class ZooCategory(generic.ListView):
 	model = Place
 	template_name = 'zoos.html'
 	context_object_name = 'place_list'
-	
+
 class CollegeCategory(generic.ListView):
 	model = Place
 	template_name = 'colleges.html'
 	context_object_name = 'place_list'
-	
+
 class MuseumCategory(generic.ListView):
 	model = Place
 	template_name = 'museums.html'
