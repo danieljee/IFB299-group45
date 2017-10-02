@@ -1,4 +1,5 @@
 {% extends "base_template.html" %}
+{% load app_filters %}
 {% load static %}
 {% block content%}
 <div>
@@ -19,7 +20,7 @@
 				Industry Type: {{place.industryType}}
 			</p>
 		{% else %} 
-			<img src= "{% static "{{ item.category_id.name }}" %}.png" class="detailIcon" alt="{{item.category_id.name}}Icon" />
+			<img src={% static place.category_id.name|category_image %} class="detailIcon" alt="categoryIcon" />
 			<p>
 				Address: {{place.address}} <br>
 				Phone Number: {{place.phone_number}} <br>
