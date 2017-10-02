@@ -1,33 +1,32 @@
 {% extends "base_template.html" %}
-
+{% load app_filters %}
+{% load static %}
 {% block content%}
 <div>
 <center>
   <h3>{{place.name}}</h3>
-	{% for item in place %}
 		{% if item.category_id.name == 'college' %}
 			<img src={% static 'college.png' %} class="detailIcon" alt="collegeIcon" />
 			<p>
-				{{place.address}}
-				{{place.email}}
-				{{place.departments}}
+				Address: {{place.address}} <br>
+				Email: {{place.email}} <br>
+				Departments: {{place.departments}}
 			</p>
 		{% elif item.category_id.name == 'industry' %}
 			<img src={% static 'industry.png' %} class="detailIcon" alt="industryIcon" />
 			<p>
-				{{place.address}}
-				{{place.email}}
-				{{place.industryType}}
+				Address: {{place.address}} <br>
+				Email: {{place.email}} <br>
+				Industry Type: {{place.industryType}}
 			</p>
 		{% else %} 
-			<img src={% static '{{item.category_id.name}}.png' %} class="detailIcon" alt="{{item.category_id.name}}Icon" />
+			<img src={% static place.category_id.name|category_image %} class="detailIcon" alt="categoryIcon" />
 			<p>
-				{{place.address}}
-				{{place.phone}}
-				{{place.email}}
+				Address: {{place.address}} <br>
+				Phone Number: {{place.phone_number}} <br>
+				Email: {{place.email}}
 			</p>
 		{% endif %}
-	{% endfor %}
 </center>
 </div>
 {% endblock %}

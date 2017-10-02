@@ -26,26 +26,7 @@ class HttpResponseNotFound(HttpResponseRedirect):
 #        return render(request, 'index.html', args)
 
 def index(request):
-	if request.method == 'POST':
-		if request.POST.get(industries):
-			return HttpResponseRedirect('industries')
-		elif request.POST.get(hotels):
-			return HttpResponseRedirect('hotels')
-		elif request.POST.get(parks):
-			return HttpResponseRedirect('parks')
-		elif request.POST.get(malls):
-			return HttpResponseRedirect('malls')
-		elif request.POST.get(zoos):
-			return HttpResponseRedirect('zoos')
-		elif request.POST.get(colleges):
-			return HttpResponseRedirect('colleges')
-		elif request.POST.get(restaurants):
-			return HttpResponseRedirect('restaurants')
-		elif request.POST.get(libraries):
-			return HttpResponseRedirect('libraries')
-		else:
-			return HttpResponseRedirect('museums')
-	elif request.method == 'GET':
+	if request.method == 'GET':
 		args = {}
 		args.update(csrf(request))
 		args['user_form'] = MyRegistrationForm()
