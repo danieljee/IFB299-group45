@@ -1,0 +1,10 @@
+{% extends "base_template.html" %}
+import SavedPlace model from models
+
+{% block content%}
+<h2>Your Saved Places</h2>
+
+<ul>
+    <li link="place-id">View {{place.name}}</li>
+</ul>
+{% endblock %}
