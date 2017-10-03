@@ -11,6 +11,7 @@ from django.utils.decorators import method_decorator
 from .forms import MyRegistrationForm, UserProfileForm, UpdateUserForm
 
 from .models import Place
+from .models import Userprofile
 
 class HttpResponseUnauthorized(HttpResponseRedirect):
     status_code = 401
