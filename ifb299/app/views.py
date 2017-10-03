@@ -181,14 +181,7 @@ class ParkCategory(generic.ListView):
 	template_name = 'parks.html'
 	context_object_name = 'place_list'
 
-class individualItemPage(generic.DetailView):
-    model = Individual Item
-    template_name = 'individualItemPage.html'
-    context_object_name = 'individualItemPage'
-
-class SavedPlace(generic.ListView):
+class SavedPlaces(generic.ListView):
     model = Place
-    template_name = 'individualItemPage.html'
+    template_name = 'saved_places.html'
     context_object_name = 'place'
-    def get_queryset(self):
-        return UserProfile.objects.filter(user=self.request.user)
