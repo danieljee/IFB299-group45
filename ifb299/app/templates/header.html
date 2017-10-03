@@ -22,8 +22,8 @@
             {% if user.is_superuser %}
       			<a class="dropdown-item" href="{% url 'admin:index' %}">Admin Settings</a>
       		  {% endif %}
-            <a class="dropdown-item" href="#">Account Settings</a>
-            <a class="dropdown-item" href="#">Saved PLaces</a>
+            <a class="dropdown-item" href=href={% url 'app:account'%}>Account Settings</a>
+            <a class="dropdown-item" href="#">Saved Places</a>
             <a class="dropdown-item" href={% url 'app:logout' %}>Logout</a>
           </div>
         {% endif %}

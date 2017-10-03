@@ -1,8 +1,32 @@
 {% extends "base_template.html" %}
-
+{% load app_filters %}
+{% load static %}
 {% block content%}
 <div>
+<center>
   <h3>{{place.name}}</h3>
-  <p>{{place.address}}</p>
+		{% if item.category_id.name == 'college' %}
+			<img src={% static 'college.png' %} class="detailIcon" alt="collegeIcon" />
+			<p>
+				Address: {{place.address}} <br>
+				Email: {{place.email}} <br>
+				Departments: {{place.departments}}
+			</p>
+		{% elif item.category_id.name == 'industry' %}
+			<img src={% static 'industry.png' %} class="detailIcon" alt="industryIcon" />
+			<p>
+				Address: {{place.address}} <br>
+				Email: {{place.email}} <br>
+				Industry Type: {{place.industryType}}
+			</p>
+		{% else %} 
+			<img src={% static place.category_id.name|category_image %} class="detailIcon" alt="categoryIcon" />
+			<p>
+				Address: {{place.address}} <br>
+				Phone Number: {{place.phone_number}} <br>
+				Email: {{place.email}}
+			</p>
+		{% endif %}
+</center>
 </div>
 {% endblock %}

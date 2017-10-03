@@ -1,0 +1,40 @@
+{% load static %}
+
+<div class='row'>
+	<div class='col-4'>
+		<a href="/hotels">
+			<img src={% static 'hotel1.jpeg' %} alt="hotelCategory" style='width:100%'/>
+		</a>
+	</div>
+	<div class='col-4'>
+		<a href="/restaurants">
+			<img src={% static 'restaurant1.jpeg' %}  alt="restaurantCategory" style='width:100%'/>
+		</a>
+	</div>
+	<div class='col-4'>
+		<a href "/allCategories">
+			<img src={% static 'city1.jpeg' %} alt="cityCategory" style='width:100%'/>
+		</a>
+	</div>
+</div>
+
+<div class='row'>
+	<div class='col-4'>
+		<a href="/hotels">
+			<button type="button" style="width: 100%;" >Hotels</button>
+		</a>
+	</div>
+	<div class='col-4'>
+		<a href="/restaurants">
+			<button type="button" style="width: 100%;" >Restaurants</button>
+		</a>
+	</div>
+	<div class='col-4'>
+		<a href="/allCategories">
+			<button type="button" style="width: 100%;" >Other City Information</button>
+		</a>
+	</div>
+</div>
+
+
+
