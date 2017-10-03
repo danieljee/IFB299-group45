@@ -13,6 +13,7 @@ urlpatterns = [
     url(r'^account/invalid$', views.invalidLogin, name='invalid'),
     url(r'^account/information$', views.AccountInformation.as_view(), name='account'),
     url(r'^account/edit$', views.EditAccountInformation.as_view(), name='edit_account'),
+    url(r'^account/saved_places/$', views.SavedPlace.as_view(), name='saved_places'),
 
     url(r'^search/$', views.Search.as_view(), name='search'),
     url(r'^search/(?P<order>)/$', views.search_ordered, name='search_ordered'),
