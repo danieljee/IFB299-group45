@@ -8,7 +8,7 @@ from django.contrib.auth import authenticate, login
 from django.template.context_processors import csrf
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from .forms import MyRegistrationForm, UserProfileForm
+from .forms import MyRegistrationForm, UserProfileForm, UpdateUserForm
 
 from .models import Place
 
