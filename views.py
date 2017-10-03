@@ -174,3 +174,8 @@ class ParkCategory(generic.ListView):
 	model = Place
 	template_name = 'parks.html'
 	context_object_name = 'place_list'
+
+class SavedPlaces(generic.ListView):
+	model = UserProfile
+	template_name = 'saved_places.html'
+	context_object_name = 'users'
