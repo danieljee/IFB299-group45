@@ -123,12 +123,18 @@ class AccountInformation(generic.ListView):
     def get_queryset(self):
         return UserProfile.objects.filter(user=self.request.user)
     
-class EditAccountInformation(generic.ListView):
-    model = UserProfile
-    template_name = 'EditAccount.html'
-    context_object_name = 'users'
-    def get_queryset(self):
-        return UserProfile.objects.filter(user=self.request.user)
+def edit_profile(request):
+    args = {}
+    user = request.user
+    form = UpdateUserForm(request.POST, instance=request.user)
+    if request.method == 'POST':
+        if form.is_valid():
+            user.first_name = request.POST['first_name']
+            user.last_name = request.POST['last_name']
+            user.email = request.POST['email']
+            user.save()
+            return HttpResponseRedirect('information')
+    return render(request, 'EditAccount.html')
 
 class RestaurantCategory(generic.ListView):
 	model = Place
