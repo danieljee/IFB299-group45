@@ -58,3 +58,10 @@ class Place(models.Model):
 
     def __str__(self):
         return self.name
+
+class SavedPlace(models.Model):
+    user = models.ForeignKey(User)
+    place = models.ForeignKey(Place)
+
+    def __str__(self):
+        return self.user.username + self.place.name
