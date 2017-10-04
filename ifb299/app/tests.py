@@ -3,7 +3,7 @@ from django.test import Client
 from django.urls import reverse
 from app.forms import MyRegistrationForm
 from django.contrib.auth.models import User
-from .models import Place, UserProfile, City, Category, State
+from .models import Place, UserProfile, City, Category, State, SavedPlace
 from django.utils import timezone
 import datetime
 
@@ -134,12 +134,55 @@ class modelsTest(TestCase):
         self.assertTrue(isinstance(place, Place))
         self.assertEqual(place.__str__(), place.name)
 
+    def test_saved_place_creation(self):
+        user1 = User.objects.create_user('temporary', 'temporary@gmail.com', 'temporary')
+        today = timezone.now()
+        state1 = State.objects.create(name='qld')
+        city = City.objects.create(name='brisbane', state=state1)
+        category = Category.objects.create(name='restaurant')
+        place1 = Place.objects.create(name='KFC', address='1 Queen St', email='KFC@KFC.com', postcode='4000', city_id=city, category_id=category, date=today)
+        saved_place = SavedPlace.objects.create(user = user1, place = place1)
+        self.assertTrue(saved_place.__str__(), saved_place.user.username + saved_place.place.name)
+
 class individualCategoryTest(TestCase):
-    def test_no_inputs_displays_no_places_added(self):
-        place = {}
-        counter = 0
-        for all in place:
-            counter = counter + 1
-        if counter == 0:
-            return "no places added yet"
-        self.assertTrue(counter == 0)
+    def test_displaying_selected_library_category(test):
+        today = timezone.now()
+        state1 = State.objects.create(name='qld')
+        city = City.objects.create(name='brisbane', state=state1)
+        category = Category.objects.create(name='restaurant')
+        category2 = Category.objects.create(name='library')
+        place = Place.objects.create(name='SLQ', address='1 Stanley St', email='SQL@SQL.com', postcode='4000', city_id=city, category_id=category2, date=today)
+        place2 = Place.objects.create(name='KFC', address='1 Queen St', email='KFC@KFC.com', postcode='4000', city_id=city, category_id=category, date=today)
+        places = { place, place2 }
+        for item in places:
+            if item.category_id.name == 'library':
+                return item.name
+        self.assertEqual(place.__str__(), item.name)
+
+    def test_displaying_selected_restaurant_category(test):
+        today = timezone.now()
+        state1 = State.objects.create(name='qld')
+        city = City.objects.create(name='brisbane', state=state1)
+        category = Category.objects.create(name='restaurant')
+        category2 = Category.objects.create(name='library')
+        place = Place.objects.create(name='SLQ', address='1 Stanley St', email='SQL@SQL.com', postcode='4000', city_id=city, category_id=category2, date=today)
+        place2 = Place.objects.create(name='KFC', address='1 Queen St', email='KFC@KFC.com', postcode='4000', city_id=city, category_id=category, date=today)
+        places = { place, place2 }
+        for item in places:
+            if item.category_id.name == 'restaurant':
+                return item.name
+        self.assertEqual(place2.__str__(), item.name)
+
+    def test_displaying_selected_museum_category(test):
+        today = timezone.now()
+        state1 = State.objects.create(name='qld')
+        city = City.objects.create(name='brisbane', state=state1)
+        category = Category.objects.create(name='museum')
+        category2 = Category.objects.create(name='library')
+        place = Place.objects.create(name='Science Museum', address='1 Stanley St', email='museum@museum.com', postcode='4000', city_id=city, category_id=category2, date=today)
+        place2 = Place.objects.create(name='KFC', address='1 Queen St', email='KFC@KFC.com', postcode='4000', city_id=city, category_id=category, date=today)
+        places = { place, place2 }
+        for item in places:
+            if item.category_id.name == 'museum':
+                return item.name
+        self.assertEqual(place.__str__(), item.name)

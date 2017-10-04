@@ -5,28 +5,78 @@
 <div>
 <center>
   <h3>{{place.name}}</h3>
+    <img src={% static place.category_id.name|category_image %} class="detailIcon" alt="categoryIcon" />
 		{% if item.category_id.name == 'college' %}
-			<img src={% static 'college.png' %} class="detailIcon" alt="collegeIcon" />
 			<p>
 				Address: {{place.address}} <br>
 				Email: {{place.email}} <br>
 				Departments: {{place.departments}}
 			</p>
 		{% elif item.category_id.name == 'industry' %}
-			<img src={% static 'industry.png' %} class="detailIcon" alt="industryIcon" />
 			<p>
 				Address: {{place.address}} <br>
 				Email: {{place.email}} <br>
 				Industry Type: {{place.industryType}}
 			</p>
-		{% else %} 
-			<img src={% static place.category_id.name|category_image %} class="detailIcon" alt="categoryIcon" />
+		{% else %}
 			<p>
 				Address: {{place.address}} <br>
 				Phone Number: {{place.phone_number}} <br>
 				Email: {{place.email}}
 			</p>
 		{% endif %}
+    <input type ='hidden' value={{place.id}} name='pk' id='pk'>
+    {% if saved %}
+      <button id="addButton" class='btn btn-success' onclick="removePlace()">Saved</button>
+    {% else %}
+      <button id="addButton" class='btn btn-info' onclick="addPlace()">Save Place</button>
+    {% endif %}
+    <!-- <h5 id='saveError' class='text-center text-danger'>Already Saved</h5> -->
 </center>
 </div>
+
+<script>
+  function addPlace(){
+    if (this.innerHTML === 'Saved'){
+      return;
+    }
+    var pk = document.getElementById('pk').value;
+    var params = `pk=${pk}`;
+    var XHR = new XMLHttpRequest();
+    XHR.open('POST', 'http://localhost:8000/account/add_place', true);
+    XHR.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    XHR.onreadystatechange = function(){
+      if (XHR.readyState == 4 && XHR.status == 200) {
+        var button = document.getElementById('addButton');
+        button.classList.remove('btn-info');
+        button.classList.add('btn-success');
+        button.innerHTML = 'Saved';
+        button.setAttribute('onclick', "removePlace()");
+      } else if (XHR.readyState == 4 && XHR.status == 403){
+        return;
+      }
+    };
+    XHR.send(params);
+  }
+
+  function removePlace(){
+    var pk = document.getElementById('pk').value;
+    var params = `pk=${pk}`;
+    var XHR = new XMLHttpRequest();
+    XHR.open('POST', 'http://localhost:8000/account/remove_place', true);
+    XHR.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    XHR.onreadystatechange = function(){
+      if (XHR.readyState == 4 && XHR.status == 200) {
+        var button = document.getElementById('addButton');
+        button.classList.remove('btn-success');
+        button.classList.add('btn-info');
+        button.innerHTML = 'Save Place';
+        button.setAttribute('onclick', "addPlace()");
+      } else if (XHR.readyState == 4 && XHR.status == 403){
+        return;
+      }
+    };
+    XHR.send(params);
+  }
+</script>
 {% endblock %}

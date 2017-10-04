@@ -86,6 +86,8 @@ class Place(models.Model):
 # A place can be saved by multiple users
 ###################
 class SavedPlace(models.Model):
+    class Meta:
+        unique_together = (('user', 'place'),)
     user = models.ForeignKey(User)
     place = models.ForeignKey(Place)
 

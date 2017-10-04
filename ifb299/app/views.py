@@ -1,5 +1,5 @@
 from django.shortcuts import render_to_response, render
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, HttpResponseForbidden
 from django.views import generic
 from django.contrib import auth
 from django.contrib.auth.models import User
@@ -8,8 +8,9 @@ from django.contrib.auth import authenticate, login
 from django.template.context_processors import csrf
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
 from .forms import MyRegistrationForm, UserProfileForm
-from .models import Place, UserProfile
+from .models import Place, UserProfile, SavedPlace
 
 class HttpResponseUnauthorized(HttpResponseRedirect):
     status_code = 401
@@ -157,6 +158,17 @@ class PlaceDetail(generic.DetailView):
     model = Place
     template_name = 'placeDetail.html'
     context_object_name = 'place'
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(PlaceDetail, self).dispatch(*args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        ctx = super(PlaceDetail, self).get_context_data(**kwargs)
+        place = Place.objects.get(pk=self.kwargs['pk'])
+        savedPlace = SavedPlace.objects.filter(user=self.request.user, place=place).first()
+        if savedPlace:
+            ctx['saved'] = True
+        return ctx
 
 class AccountInformation(generic.ListView):
     model = UserProfile
@@ -183,7 +195,35 @@ def edit_profile(request):
             return HttpResponseRedirect('information')
     return render(request, 'EditAccount.html')
 
+@csrf_exempt
+def add_place(request):
+    if request.method == 'GET' or not request.user.is_authenticated:
+        return HttpResponseRedirect('/')
+    if request.method == 'POST':
+        place = Place.objects.get(pk=request.POST['pk'])
+        savedPlace = SavedPlace.objects.filter(user=request.user, place=place).first()
+        if savedPlace:
+            return HttpResponseForbidden()
+        else:
+            SavedPlace.objects.create(place=place, user=request.user)
+            return HttpResponse();
+
+@csrf_exempt
+def remove_place(request):
+    if request.method == 'GET' or not request.user.is_authenticated:
+        return HttpResponseRedirect('/')
+    if request.method == 'POST':
+        place = Place.objects.get(pk=request.POST['pk'])
+        savedPlace = SavedPlace.objects.filter(user=request.user, place=place).first()
+        if not savedPlace:
+            return HttpResponseForbidden()
+        else:
+            savedPlace.delete()
+            return HttpResponse()
+
 class SavedPlaces(generic.ListView):
-    model = Place
+    model = SavedPlace
     template_name = 'saved_places.html'
-    context_object_name = 'savedPlace'
+    context_object_name = 'savedPlaces'
+    def get_queryset(self):
+        return self.model.objects.filter(user=self.request.user)

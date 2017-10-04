@@ -1,11 +1,36 @@
 {% extends "base_template.html" %}
-
+{% load static %}
+{% load app_filters %}
 {% block content %}
 <h1><center> Your Saved Places </center></h1>
 
 <div class="categoryListContainer">
+  {% if savedPlaces %}
+    {% for place in savedPlaces %}
+      <a class="resultItem" href="{{place.place.get_absolute_url}}">
+        <div class='row'>
+          <div class='col-2'>
+              <img class='icon' src={% static place.place.category_id.name|category_image %}/>
+          </div>
+          <div class='col-10'>
+            <div class='row'>
+              <div class='col-7'>
+                {{place.place.name}}
+              </div>
+              <div class='col-5'>
+                <div>{{place.place.city_id}}</div>
+                <div>{{place.place.address}}</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </a>
+    {% endfor %}
+  {% else %}
+  {% endif %}
     <ul>
-        <li></li>    
+        <li></li>
     </ul>
 </div>
 {% endblock %}
