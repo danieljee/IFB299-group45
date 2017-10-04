@@ -30,6 +30,64 @@
 			  </div>
 			</div>
 			
+			<div class="form-group row">
+			  <label for="phone_number" class="col-2 col-form-label">Phone Number:</label>
+			  <div class="col-10">
+				<input id="phone_number" type="text" name="phone_number" value={{ request.user.userprofile.phone_number }}>
+			  </div>
+			</div>
+			
+			<div class="form-group row">
+			  <label for="address" class="col-2 col-form-label"> Address: </label>
+			  <div class="col-10">
+				<input id="address" type="text" name="address" value={{ request.user.userprofile.address }}>
+			  </div>
+			</div>
+			
+			<div class="form-group row">
+			  <label for="postcode" class="col-2 col-form-label">Postcode:</label>
+			  <div class="col-10">
+				<input id="postcode" type="text" name="postcode" value={{ request.user.userprofile.postcode }}>
+			  </div>
+			</div>
+			
+			<fieldset class="form-group row">
+			  <legend class="col-form-legend col-sm-2">Account Type</legend>
+			  <div style = "margin-left: 140px">
+			  <div class="col-sm-10">
+				<div class="form-check">
+				  <label class="form-check-label" for="role">
+					<input class="form-check-input" type="radio" name="role" id="role" value="STUDENT" 
+					{%if request.user.userprofile.role == "STUDENT" %}
+					checked="checked"
+					{%endif%}
+					>
+					Student
+				  </label>
+				</div>
+				<div class="form-check">
+				  <label class="form-check-label" for="role">
+					<input class="form-check-input" type="radio" name="role" id="role" value="BUSINESSMAN"
+					{%if request.user.userprofile.role == "BUSINESSMAN" %}
+					checked ="checked"
+					{%endif%}
+					>
+					Business
+				  </label>
+				</div>
+				<div class="form-check">
+				  <label class="form-check-label" for="role">
+					<input class="form-check-input" type="radio" name="role" id="role" value="TOURIST"
+					{%if request.user.userprofile.role == "TOURIST" %}
+					checked ="checked"
+					{%endif%}
+					>
+					Tourist
+				  </label>
+				</div>
+			  </div>
+			</fieldset>
+			
 			<button type="submit" class="btn btn-primary">Submit</button>
 		</form>
 		<div style="margin-left: 10px">
