@@ -33,4 +33,5 @@ class UpdateUserForm(forms.ModelForm):
     last_name = forms.CharField(max_length=30, required=False)
     class Meta:
         model = User
-        fields = ('email', 'first_name', 'last_name')
+        model = UserProfile
+        fields = ('email', 'first_name', 'last_name', 'phone_number','phone_number', 'postcode', 'role')
