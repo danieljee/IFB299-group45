@@ -14,6 +14,7 @@ urlpatterns = [
     url(r'^account/information$', views.AccountInformation.as_view(), name='account'),
     url(r'^account/edit$', views.edit_profile, name='edit_account'),
     url(r'^account/saved_places$', views.SavedPlaces.as_view(), name='saved_places'),
+    url(r'^account/save_place$', views.SavePlace.as_view(), name='save_place'),
 
     url(r'^search/$', views.Search.as_view(), name='search'),
     url(r'^search/(?P<order>)/$', views.search_ordered, name='search_ordered'),
