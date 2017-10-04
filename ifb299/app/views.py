@@ -36,6 +36,11 @@ def index(request):
 			args['role'] = profile.role
 		return render(request, 'index.html', args)
 
+class AllCategories(generic.ListView):
+    model = Place
+    template_name = 'allCategories.html'
+    context_object_name = 'place_list'
+
 def restaurants(request):
 	return render(request, 'restaurants.html')
 
@@ -148,7 +153,7 @@ class AccountInformation(generic.ListView):
     context_object_name = 'users'
     def get_queryset(self):
         return UserProfile.objects.filter(user=self.request.user)
-    
+
 def edit_profile(request):
     args = {}
     user = request.user

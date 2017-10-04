@@ -19,6 +19,7 @@ urlpatterns = [
     url(r'^search/(?P<order>)/$', views.search_ordered, name='search_ordered'),
     url(r'^place/(?P<pk>\d+)/$', views.PlaceDetail.as_view(), name='place_detail'),
 
+    url(r'^allCategories/$', views.AllCategories.as_view(), name ='restaurant'),
     url(r'^restaurants/$', views.RestaurantCategory.as_view(), name ='restaurant'),
 	url(r'^malls/$', views.MallCategory.as_view(), name ='malls'),
 	url(r'^industries/$', views.IndustryCategory.as_view(), name ='industries'),
