@@ -9,7 +9,8 @@ from django.template.context_processors import csrf
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from .forms import MyRegistrationForm, UserProfileForm
-from .models import Place, UserProfile
+
+from .models import Place
 
 class HttpResponseUnauthorized(HttpResponseRedirect):
     status_code = 401
@@ -35,34 +36,7 @@ def index(request):
 			profile = UserProfile.objects.filter(user=request.user).first()
 			args['role'] = profile.role
 		return render(request, 'index.html', args)
-
-def restaurants(request):
-	return render(request, 'restaurants.html')
-
-def malls(request):
-	return HttpResponseRedirect('malls')
-
-def zoos(request):
-	return HttpResponseRedirect('zoos')
-
-def parks(request):
-	return render(request, 'parks.html')
-
-def libraries(request):
-	return render(request, 'libraries.html')
-
-def colleges(request):
-	return render(request, 'colleges.html')
-
-def industries(request):
-	return render(request, 'industries.html')
-
-def hotels(request):
-	return render(request, 'hotels.html')
-
-def museums(request):
-	return render(request, 'museums.html')
-
+	
 def register_user(request):
     if request.method == 'POST':
         user_form = MyRegistrationForm(data = request.POST)
@@ -141,7 +115,7 @@ class PlaceDetail(generic.DetailView):
     model = Place
     template_name = 'placeDetail.html'
     context_object_name = 'place'
-
+    
 class AccountInformation(generic.ListView):
     model = UserProfile
     template_name = 'AccountInformation.html'
@@ -149,34 +123,23 @@ class AccountInformation(generic.ListView):
     def get_queryset(self):
         return UserProfile.objects.filter(user=self.request.user)
     
-def edit_profile(request):
-    args = {}
-    user = request.user
-    form = UpdateUserForm(request.POST, instance=request.user)
-    if request.method == 'POST':
-        if form.is_valid():
-            user.first_name = request.POST['first_name']
-            user.last_name = request.POST['last_name']
-            user.email = request.POST['email']
-            user.userprofile.phone_number = request.POST['phone_number']
-            user.userprofile.address = request.POST['address']
-            user.userprofile.postcode = request.POST['postcode']
-            user.userprofile.role = request.POST['role']
-            user.save()
-            user.userprofile.save()
-            return HttpResponseRedirect('information')
-    return render(request, 'EditAccount.html')
+class EditAccountInformation(generic.ListView):
+    model = UserProfile
+    template_name = 'EditAccount.html'
+    context_object_name = 'users'
+    def get_queryset(self):
+        return UserProfile.objects.filter(user=self.request.user)
 
 class RestaurantCategory(generic.ListView):
 	model = Place
 	template_name = 'restaurants.html'
 	context_object_name = 'place_list'
-
+	
 class IndustryCategory(generic.ListView):
 	model = Place
 	template_name = 'industries.html'
 	context_object_name = 'place_list'
-
+	
 class MallCategory(generic.ListView):
 	model = Place
 	template_name = 'malls.html'
@@ -191,12 +154,12 @@ class ZooCategory(generic.ListView):
 	model = Place
 	template_name = 'zoos.html'
 	context_object_name = 'place_list'
-
+	
 class CollegeCategory(generic.ListView):
 	model = Place
 	template_name = 'colleges.html'
 	context_object_name = 'place_list'
-
+	
 class MuseumCategory(generic.ListView):
 	model = Place
 	template_name = 'museums.html'
@@ -213,6 +176,6 @@ class ParkCategory(generic.ListView):
 	context_object_name = 'place_list'
 
 class SavedPlaces(generic.ListView):
-    model = Place
-    template_name = 'saved_places.html'
-    context_object_name = 'savedPlace'
+	model = UserProfile
+	template_name = 'saved_places.html'
+	context_object_name = 'users'

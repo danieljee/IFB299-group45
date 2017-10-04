@@ -1,3 +1,4 @@
+
 html{
   display:flex;
 }
@@ -102,15 +103,6 @@ body{
   flex:4;
 }
 
-.pagination{
-  margin-top: 50px;
-}
-
-.page-links{
-  display:block;
-  margin: auto;
-}
-
 #sidebar {
     position: sticky;
     top: 15px;
@@ -149,6 +141,7 @@ body{
   height: 70px;
 }
 
+<<<<<<< HEAD
 img.categoryIcon {
 	height: 40px;
 	width: 60px; 
@@ -161,6 +154,9 @@ img.categoryIcon {
     padding: 1em;
     overflow: hidden;
 }
+=======
+
+>>>>>>> cd8f33b3598ee6f470f9398ae27d42f32d4a005c
 
 @media only screen and (max-width: 550px){
 }
@@ -187,6 +183,38 @@ img.categoryIcon {
   }
 }
 
+img.categoryIcon {
+	height: 40px;
+	width: 60px; 
+}
+
+img.detailIcon {
+	height: 200px;
+	width: 300px;
+	position: center;
+}
+
+.categoryListContainer { 
+	width: 100%;
+	margin: 0 auto;
+	text-align: center;
+    padding: 1em;
+    overflow: hidden;
+}
+
+#footer { 
+    width: 100%;
+    height: 50px;
+	text-align: center;
+	background: #d3d3d3;
+	bottom: 0;
+	position: relative;
+}
+
+#pageContainer {
+	min-height: 100%;
+}
+
 @media only screen and (min-width: 760px) and (max-width: 1100px){
   .searchResultHead{
     width: 80%;
@@ -195,3 +223,8 @@ img.categoryIcon {
     width: 80%;
   }
 }
+
+
+
+
+
