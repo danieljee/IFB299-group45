@@ -72,7 +72,7 @@ class Place(models.Model):
     def __str__(self):
         return self.name
 
-class SavedPlace(models.Model):
+class SavedPlaces(models.Model):
     user = models.ForeignKey(User)
     place = models.ForeignKey(Place)
 
