@@ -27,6 +27,9 @@
 				Email: {{place.email}}
 			</p>
 		{% endif %}
+		<form action='account/save_place' method='POST'>
+			<input type='hidden'><button id="add_to_saved_places" class='btn btn-info'>Add to Saved Places</button>
+		</form>
 </center>
 </div>
 {% endblock %}
