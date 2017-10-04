@@ -1,6 +1,6 @@
 <div>
   {% if loginError %}
-    <p class="error">{{loginError}}</p>
+    <p class="text-danger">{{loginError}}</p>
   {% endif %}
   <form action='/account/auth' method='POST'>{% csrf_token %}
     {% csrf_token %}
@@ -13,6 +13,7 @@
         <input type='text' class='form-control' name='username' id='username'/>
         <label for='password'>Password:</label>
         <input type='password' class='form-control' name='password' id='password'/>
+        <input type='hidden' value={{redirect}} name='redirectUri'/>
       </div>
 
       <button id="submit" class='btn btn-info'>Login</button>

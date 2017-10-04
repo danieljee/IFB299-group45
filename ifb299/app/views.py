@@ -17,25 +17,29 @@ class HttpResponseUnauthorized(HttpResponseRedirect):
 class HttpResponseNotFound(HttpResponseRedirect):
     status_code = 404
 
-#def index(request):
-#    if request.method == 'GET':
-#        args = {}
-#        args.update(csrf(request))
-#        args['user_form'] = MyRegistrationForm()
-#        args['profile_form'] = UserProfileForm()
-#        return render(request, 'index.html', args)
-
+###################
+# Some view functions will redirect users to index if they are not logged in
+# In that case, next parameter will be appended with the redirect uri.
+# This uri will be passed to a hidden input field in loginForm to be sent to the auth view function
+###################
 def index(request):
-	if request.method == 'GET':
-		args = {}
-		args.update(csrf(request))
-		args['user_form'] = MyRegistrationForm()
-		args['profile_form'] = UserProfileForm()
-		if request.user.is_authenticated() and not request.user.is_superuser:
-			profile = UserProfile.objects.filter(user=request.user).first()
-			args['role'] = profile.role
-		return render(request, 'index.html', args)
+    if request.method == 'GET':
+        args = {}
+        args.update(csrf(request))
+        args['user_form'] = MyRegistrationForm()
+        args['profile_form'] = UserProfileForm()
+        if (request.GET.get('next')):
+            args['redirect'] = request.GET.get('next')
+        if request.user.is_authenticated() and not request.user.is_superuser:
+            profile = UserProfile.objects.filter(user=request.user).first()
+            args['role'] = profile.role
+        return render(request, 'index.html', args)
 
+###################
+# Uses custom query_set
+# Retrieve parameter from URL using self.kwargs[paramname]
+# filter accepts variable names separated by __
+###################
 class Category(generic.ListView):
     model = Place
     template_name = 'category.html'
@@ -54,7 +58,16 @@ class AllCategories(generic.ListView):
     template_name = 'allCategories.html'
     context_object_name = 'place_list'
 
+###################
+# This view function is called when user submits the registration form
+# Only if the form is valid the detail will be save to the database.
+# Otherwise, index.html will be rendered with the forms (with error messages)
+###################
 def register_user(request):
+    args = {}
+    args.update(csrf(request))
+    if (request.method == 'GET' or request.user.is_authenticated):
+        return HttpResponseRedirect('/')
     if request.method == 'POST':
         user_form = MyRegistrationForm(data = request.POST)
         profile_form = UserProfileForm(data = request.POST)
@@ -67,28 +80,30 @@ def register_user(request):
             profile = profile_form.save(commit = False)
             profile.user = new_user
             profile.save()
-            return HttpResponseRedirect('/account/register_success')
-    args = {}
-    args.update(csrf(request))
+            args['successMessage'] = "You have successfully registered"
+            user_form = MyRegistrationForm()
+            profile_form = UserProfileForm()
     args['user_form'] = user_form
     args['profile_form'] = profile_form
     return render(request, 'index.html', args)
 
-
-def register_success(request):
-    if request.user.is_authenticated():
-        return HttpResponseNotFound('/')
-    return render(request, 'register_success.html')
-
-
+###################
+# This view function is called when user submits the registration form
+# Only if the form is valid the detail will be save to the database.
+# Otherwise, index.html will be rendered with the forms (with error messages)
+###################
 def auth_view(request):
     if request.user.is_authenticated():
         return HttpResponseNotFound('/')
+
     username = request.POST.get('username', '')
     password = request.POST.get('password', '')
+    redirect = request.POST.get('redirectUri', '')
     user = auth.authenticate(username=username, password=password)
     if user is not None:
         auth.login(request, user)
+        if (redirect):
+            return HttpResponseRedirect(redirect)
         return HttpResponseRedirect('/')
     else:
         user_form = MyRegistrationForm()
@@ -100,15 +115,12 @@ def auth_view(request):
         args['loginError'] = "Sorry, that's not a valid username or password"
         return render(request, 'index.html', args)
 
-def invalidLogin(request):
-    if request.user.is_authenticated():
-        return HttpResponseNotFound('/')
-    return render(request, 'invalidLogin.html')
-
+##########################
+# This function is called when user requests /account/logout
+##########################
 def logout(request):
-    if not request.user.is_authenticated():
-        return HttpResponseNotFound('/')
-    auth.logout(request)
+    if request.user.is_authenticated():
+        auth.logout(request)
     return HttpResponseRedirect('/')
 
 def search_ordered(request):
@@ -116,6 +128,12 @@ def search_ordered(request):
         query = request.GET.get('q')
         # places = Place.objects.filter(name_icontains=query).order_by()
 
+##########################
+# This function is called when use requests /search
+# @method_decorator(login_required) will ensure that only logged in users can use this view class
+# Otherwise the user will be redirected.
+# get_context_data overrides the default method to add mroe context variables to be accessed in the template
+##########################
 class Search(generic.ListView):
     model = Place
     template_name = 'search.html'

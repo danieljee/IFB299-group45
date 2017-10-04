@@ -19,19 +19,23 @@
 	{% endif %}
 {% else %}
 
-	<div class="row text-center" id='welcomePage'>
-		<div class="hidden" id='introText' style="margin-left:40px">
-		  <h2>Welcome to <br>SmartCity</h2><br>
-		  <h5>Dedicated to helping you find <br> great destinations the city you're in </h5>
-		</div>
-		<div class="col-md-4" style="padding:0">
-			{% include './components/registerForm.html' %}
-		</div>
-		<div class="col-md-4" style="padding:0">
-			{% include './components/loginForm.html' %}
+	<div id='welcomePage'>
+		{% if successMessage %}
+			<h5 class='text-success text-center'>{{successMessage}}</h5>
+		{% endif %}
+		<div class="row text-center" >
+			<div class="hidden" id='introText' style="margin-left:40px">
+			  <h2>Welcome to <br>SmartCity</h2><br>
+			  <h5>Dedicated to helping you find <br> great destinations the city you're in </h5>
+			</div>
+			<div class="col-md-4" style="padding:0">
+				{% include './components/registerForm.html' %}
+			</div>
+			<div class="col-md-4" style="padding:0">
+				{% include './components/loginForm.html' %}
+			</div>
 		</div>
 	</div>
-
 
 	<script type='text/javascript'>
 		$(document).ready(function(){

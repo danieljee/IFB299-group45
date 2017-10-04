@@ -62,11 +62,6 @@ class FormTest(TestCase):
         }
         form = MyRegistrationForm(data = form_data)
         self.assertTrue(not form.is_valid())
-<<<<<<< HEAD
-=======
-
-
->>>>>>> cd8f33b3598ee6f470f9398ae27d42f32d4a005c
     def test_missing_field(self):
         form_data = {
             'email': 'thisIsAnEmailgmail.com',
@@ -76,8 +71,7 @@ class FormTest(TestCase):
         }
         form = MyRegistrationForm(data = form_data)
         self.assertTrue(not form.is_valid())
-<<<<<<< HEAD
-=======
+
 
 class registerTest(TestCase):
     def setUp(self):
@@ -149,4 +143,3 @@ class individualCategoryTest(TestCase):
         if counter == 0:
             return "no places added yet"
         self.assertTrue(counter == 0)
->>>>>>> cd8f33b3598ee6f470f9398ae27d42f32d4a005c

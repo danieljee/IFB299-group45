@@ -5,6 +5,9 @@ import datetime
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 
+###################
+# User profile extends User model by linking it to the User model using OneToOne relationship
+###################
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
     phone_number = models.IntegerField(null=True, blank=True)
@@ -48,6 +51,11 @@ class Department(models.Model):
     def __str__(self):
         return self.name
 
+###################
+# get_absolute_url is required to be used for easy link setup
+# If a template is passed a collection of instances of Place model,
+# simply calling placeInstance.get_absolute_url will return the absolute URL.
+###################
 class Place(models.Model):
     name = models.CharField(max_length=200)
     address = models.CharField(max_length=200)
@@ -72,6 +80,11 @@ class Place(models.Model):
     def __str__(self):
         return self.name
 
+###################
+# Saved place will have references to User model and Place models
+# A user can have multiple places saved
+# A place can be saved by multiple users
+###################
 class SavedPlace(models.Model):
     user = models.ForeignKey(User)
     place = models.ForeignKey(Place)
