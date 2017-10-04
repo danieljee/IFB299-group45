@@ -133,7 +133,12 @@ def edit_profile(request):
             user.first_name = request.POST['first_name']
             user.last_name = request.POST['last_name']
             user.email = request.POST['email']
+            user.userprofile.phone_number = request.POST['phone_number']
+            user.userprofile.address = request.POST['address']
+            user.userprofile.postcode = request.POST['postcode']
+            user.userprofile.role = request.POST['role']
             user.save()
+            user.userprofile.save()
             return HttpResponseRedirect('information')
     return render(request, 'EditAccount.html')
 
