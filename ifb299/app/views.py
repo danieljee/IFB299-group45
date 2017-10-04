@@ -36,37 +36,23 @@ def index(request):
 			args['role'] = profile.role
 		return render(request, 'index.html', args)
 
+class Category(generic.ListView):
+    model = Place
+    template_name = 'category.html'
+    context_object_name = 'place_list'
+    def get_queryset(self):
+        self.query = self.kwargs['category']
+        return Place.objects.filter(category_id__name__icontains=self.query)
+
+    def get_context_data(self, **kwargs):
+        ctx = super(Category, self).get_context_data(**kwargs)
+        ctx['category'] =self.kwargs['category']
+        return ctx
+
 class AllCategories(generic.ListView):
     model = Place
     template_name = 'allCategories.html'
     context_object_name = 'place_list'
-
-def restaurants(request):
-	return render(request, 'restaurants.html')
-
-def malls(request):
-	return HttpResponseRedirect('malls')
-
-def zoos(request):
-	return HttpResponseRedirect('zoos')
-
-def parks(request):
-	return render(request, 'parks.html')
-
-def libraries(request):
-	return render(request, 'libraries.html')
-
-def colleges(request):
-	return render(request, 'colleges.html')
-
-def industries(request):
-	return render(request, 'industries.html')
-
-def hotels(request):
-	return render(request, 'hotels.html')
-
-def museums(request):
-	return render(request, 'museums.html')
 
 def register_user(request):
     if request.method == 'POST':
@@ -105,7 +91,14 @@ def auth_view(request):
         auth.login(request, user)
         return HttpResponseRedirect('/')
     else:
-        return HttpResponseRedirect('/account/invalid')
+        user_form = MyRegistrationForm()
+        profile_form = UserProfileForm()
+        args = {}
+        args.update(csrf(request))
+        args['user_form'] = user_form
+        args['profile_form'] = profile_form
+        args['loginError'] = "Sorry, that's not a valid username or password"
+        return render(request, 'index.html', args)
 
 def invalidLogin(request):
     if request.user.is_authenticated():
@@ -116,7 +109,7 @@ def logout(request):
     if not request.user.is_authenticated():
         return HttpResponseNotFound('/')
     auth.logout(request)
-    return render(request, 'logout.html')
+    return HttpResponseRedirect('/')
 
 def search_ordered(request):
     if request.method == 'GET':
@@ -171,51 +164,6 @@ def edit_profile(request):
             user.userprofile.save()
             return HttpResponseRedirect('information')
     return render(request, 'EditAccount.html')
-
-class RestaurantCategory(generic.ListView):
-	model = Place
-	template_name = 'restaurants.html'
-	context_object_name = 'place_list'
-
-class IndustryCategory(generic.ListView):
-	model = Place
-	template_name = 'industries.html'
-	context_object_name = 'place_list'
-
-class MallCategory(generic.ListView):
-	model = Place
-	template_name = 'malls.html'
-	context_object_name = 'place_list'
-
-class LibraryCategory(generic.ListView):
-	model = Place
-	template_name = 'libraries.html'
-	context_object_name = 'place_list'
-
-class ZooCategory(generic.ListView):
-	model = Place
-	template_name = 'zoos.html'
-	context_object_name = 'place_list'
-
-class CollegeCategory(generic.ListView):
-	model = Place
-	template_name = 'colleges.html'
-	context_object_name = 'place_list'
-
-class MuseumCategory(generic.ListView):
-	model = Place
-	template_name = 'museums.html'
-	context_object_name = 'place_list'
-
-class HotelCategory(generic.ListView):
-	model = Place
-	template_name = 'hotels.html'
-	context_object_name = 'place_list'
-
-class ParkCategory(generic.ListView):
-	model = Place
-	template_name = 'parks.html'
-	context_object_name = 'place_list'
 
 class SavedPlaces(generic.ListView):
     model = Place

@@ -1,6 +1,6 @@
 <div>
-  {% if form.errors %}
-    <p class="error">Sorry, that's not a valid username or password</p>
+  {% if loginError %}
+    <p class="error">{{loginError}}</p>
   {% endif %}
   <form action='/account/auth' method='POST'>{% csrf_token %}
     {% csrf_token %}

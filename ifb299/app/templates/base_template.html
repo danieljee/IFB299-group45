@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
-  {% include './head.html' %}
+  {% include './components/head.html' %}
   <body>
-    {% include './header.html' %}
+    {% include './components/header.html' %}
     {% block content %}{% endblock %}
     {% block pagination %}
       {% if is_paginated %}
