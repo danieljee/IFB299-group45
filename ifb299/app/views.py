@@ -169,3 +169,12 @@ class SavedPlaces(generic.ListView):
     model = Place
     template_name = 'saved_places.html'
     context_object_name = 'savedPlace'
+    
+    def SavePlace(request):
+        args = {}
+        user = request.user
+        form = UpdateUserForm(request.POST, instance=request.user)
+        if request.method == 'POST':
+            if form.is_valid():
+                user.save_place = request.POST['save_place']
+                createnew line with (currentURL) in savedPlaces
