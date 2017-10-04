@@ -8,9 +8,9 @@
 <div class="categoryListContainer">
 	<ul>
 		{% for place in place_list %}
-			{% if place.category_id.name == 'Restaurant' %}
-				<a href="#">
-					<img src={% static 'restaurant.png' %} class="categoryIcon" alt="restaurantIcon" /> <b>{{ place.name }}</b> | {{ place.address }} 
+			{% if place.category_id.name == 'restaurant' %}
+				<a href="{{place.get_absolute_url}}">
+					<img src={% static 'restaurant.png' %} class="categoryIcon" alt="restaurantIcon" /> <b>{{ place.name }}</b> | {{ place.address }} <br>
 				</a>
 			{% endif %}
 		{% empty %}

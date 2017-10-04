@@ -9,12 +9,12 @@
 	<ul>
 		{% for place in place_list %}
 			{% if place.category_id.name == 'college' %}
-				<a href="#">
-					<img src={% static 'college.png' %} class="categoryIcon" alt="collegeIcon" /> <b>{{ place.name }}</b> | {{ place.address }} 
+				<a href="{{place.get_absolute_url}}">
+					<img src={% static 'college.png' %} class="categoryIcon" alt="collegeIcon" /> <b>{{ place.name }}</b> | {{ place.address }} <br>
 				</a>
-			{% else %}
-			Sorry, there are no places for this category yet.
 			{% endif %}
+		{% empty %}
+			No places yet.
 		{% endfor %}
 	</ul>
 </div>

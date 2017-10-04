@@ -9,8 +9,8 @@
 	<ul>
 		{% for place in place_list %}
 			{% if place.category_id.name == 'park' %}
-				<a href="#">
-					<img src={% static 'park.png' %} class="categoryIcon" alt="parkIcon" /> <b>{{ place.name }}</b> | {{ place.address }} 
+				<a href="{{place.get_absolute_url}}">
+					<img src={% static 'park.png' %} class="categoryIcon" alt="parkIcon" /> <b>{{ place.name }}</b> | {{ place.address }} <br>
 				</a>
 			{% endif %}
 		{% empty %}

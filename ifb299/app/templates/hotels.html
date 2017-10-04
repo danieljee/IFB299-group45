@@ -10,7 +10,7 @@
 		{% for place in place_list %}
 			{% if place.category_id.name == 'hotel' %}
 				<a href="{{place.get_absolute_url}}">
-					<img src={% static 'hotel.png' %} class="categoryIcon" alt="hotelIcon" /> <b>{{ place.name }}</b> | {{ place.address }} <br><br>
+					<img src={% static 'hotel.png' %} class="categoryIcon" alt="hotelIcon" /> <b>{{ place.name }}</b> | {{ place.address }} <br>
 				</a>
 			{% endif %}
 		{% empty %}
