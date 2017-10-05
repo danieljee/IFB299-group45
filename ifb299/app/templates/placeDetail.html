@@ -10,7 +10,12 @@
 			<p>
 				Address: {{place.address}} <br>
 				Email: {{place.email}} <br>
-				Departments: {{place.departments}}
+				Departments: 
+				{% for department in place.department.all %} 
+					<li> 
+						{{department}}
+					</li>
+				{% endfor %}
 			</p>
 		{% elif item.category_id.name == 'industry' %}
 			<p>
