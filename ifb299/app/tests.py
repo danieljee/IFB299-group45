@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.test import Client
 from django.urls import reverse
-from app.forms import MyRegistrationForm
+from app.forms import MyRegistrationForm, UpdateUserForm
 from django.contrib.auth.models import User
 from .models import Place, UserProfile, City, Category, State, SavedPlace
 from django.utils import timezone
@@ -186,3 +186,131 @@ class individualCategoryTest(TestCase):
             if item.category_id.name == 'museum':
                 return item.name
         self.assertEqual(place.__str__(), item.name)
+
+class EditUserTest(TestCase):
+    def setUp(self):
+        user = User.objects.create_user('temporary', 'temporary@gmail.com', 'temporary')
+
+    def test_account(self):
+        client = Client()
+        client.login(username='temporary', password='temporary')
+        response = client.get(reverse('app:account'))
+        self.assertTrue(response.status_code == 200)
+
+	#tests user trying to reach account info page without being logged in will return TypeError
+    def test_account(self):
+        client = Client()
+        #response = client.get(reverse('app:account'))
+        self.assertRaises(TypeError, client.get,reverse('app:account'))
+
+    #tests valid form
+    def test_valid_edit_user_form(self):
+        form_data = {
+             'first_name': 'firstName',
+             'last_name': 'lastName',
+             'email': 'thisIsAnEmail@gmail.com',
+             'phone_number': '084758393',
+             'address': '63 Some Rd',
+             'postcode': '0504',
+             'role': 'STUDENT'
+        }
+        form = UpdateUserForm(data = form_data)
+        self.assertTrue(form.is_valid())
+
+    #tests invalid first name
+    def test_invalid_edit_user_first_name(self):
+        form_data = {
+             'first_name': '-000000000000000000000000000000000000000',
+             'last_name': 'lastName',
+             'email': 'thisIsAnEmail@gmail.com',
+             'phone_number': '084758393',
+             'address': '63 Some Rd',
+             'postcode': '0504',
+             'role': 'STUDENT'
+        }
+        form = UpdateUserForm(data = form_data)
+        self.assertFalse(form.is_valid())
+		
+    #tests invalid last name
+    def test_invalid_edit_user_last_name(self):
+        form_data = {
+             'first_name': 'firstName',
+             'last_name': 'A random long sentance to show the character limit',
+             'email': 'thisIsAnEmail@gmail.com',
+             'phone_number': '084758393',
+             'address': '63 Some Rd',
+             'postcode': '0504',
+             'role': 'STUDENT'
+        }
+        form = UpdateUserForm(data = form_data)
+        self.assertFalse(form.is_valid())
+
+    #tests no role email
+    def test_invalid_edit_user_email(self):
+        form_data = {
+             'first_name': 'firstName',
+             'last_name': 'lastName',
+             'email': 'thisIsNOTAnEmail.com',
+             'phone_number': '084758393',
+             'address': '63 Some Rd',
+             'postcode': '0504',
+             'role': 'STUDENT'
+        }
+        form = UpdateUserForm(data = form_data)
+        self.assertFalse(form.is_valid())
+
+    #tests no role phone number
+    def test_invalid_edit_user_phone(self):
+        form_data = {
+             'first_name': 'firstName',
+             'last_name': 'lastName',
+             'email': 'thisIsAnEmail@gmail.com',
+             'phone_number': '080004758393',
+             'address': '63 Some Rd',
+             'postcode': '0504',
+             'role': 'STUDENT'
+        }
+        form = UpdateUserForm(data = form_data)
+        self.assertFalse(form.is_valid())
+
+    #tests invlaid postcode
+    def test_invalid_edit_user_postcode(self):
+        form_data = {
+             'first_name': 'firstName',
+             'last_name': 'lastName',
+             'email': 'thisIsAnEmail@gmail.com',
+             'phone_number': '084758393',
+             'address': '63 Some Rd',
+             'postcode': '0s504',
+             'role': 'STUDENT'
+        }
+        form = UpdateUserForm(data = form_data)
+        self.assertFalse(form.is_valid())
+
+    #tests no role input
+    def test_invalid_edit_user_role(self):
+        form_data = {
+             'first_name': 'firstName',
+             'last_name': 'lastName',
+             'email': 'thisIsAnEmail@gmail.com',
+             'phone_number': '084758393',
+             'address': '63 Some Rd',
+             'postcode': '0504',
+             'role': ''
+        }
+        form = UpdateUserForm(data = form_data)
+        self.assertFalse(form.is_valid())
+
+    #optional info (phone_number and address fields can be left blank)
+    def test_valid_edit_user_without_optional(self):
+        form_data = {
+             'first_name': 'firstName',
+             'last_name': 'lastName',
+             'email': 'thisIsAnEmail@gmail.com',
+             'phone_number': '',
+             'address': '',
+             'postcode': '4000',
+             'role': 'STUDENT'
+        }
+        form = UpdateUserForm(data = form_data)
+        self.assertTrue(form.is_valid())
