@@ -6,26 +6,27 @@
 <center>
   <h3>{{place.name}}</h3>
     <img src={% static place.category_id.name|category_image %} class="detailIcon" alt="categoryIcon" />
+    <div id="map"></div>
 		{% if item.category_id.name == 'college' %}
 			<p>
-				Address: {{place.address}} <br>
+				Address: {{place.address}} {{place.city_id}} {{place.postcode}}<br>
 				Email: {{place.email}} <br>
-				Departments: 
-				{% for department in place.department.all %} 
-					<li> 
+				Departments:
+				{% for department in place.department.all %}
+					<li>
 						{{department}}
 					</li>
 				{% endfor %}
 			</p>
 		{% elif item.category_id.name == 'industry' %}
 			<p>
-				Address: {{place.address}} <br>
+				Address: {{place.address}} {{place.city_id}} {{place.postcode}}<br>
 				Email: {{place.email}} <br>
 				Industry Type: {{place.industryType}}
 			</p>
 		{% else %}
 			<p>
-				Address: {{place.address}} <br>
+				Address: {{place.address}} {{place.city_id}} {{place.postcode}}<br>
 				Phone Number: {{place.phone_number}} <br>
 				Email: {{place.email}}
 			</p>
@@ -41,47 +42,15 @@
 </div>
 
 <script>
-  function addPlace(){
-    if (this.innerHTML === 'Saved'){
-      return;
-    }
-    var pk = document.getElementById('pk').value;
-    var params = `pk=${pk}`;
-    var XHR = new XMLHttpRequest();
-    XHR.open('POST', 'http://localhost:8000/account/add_place', true);
-    XHR.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    XHR.onreadystatechange = function(){
-      if (XHR.readyState == 4 && XHR.status == 200) {
-        var button = document.getElementById('addButton');
-        button.classList.remove('btn-info');
-        button.classList.add('btn-success');
-        button.innerHTML = 'Saved';
-        button.setAttribute('onclick', "removePlace()");
-      } else if (XHR.readyState == 4 && XHR.status == 403){
-        return;
-      }
-    };
-    XHR.send(params);
-  }
-
-  function removePlace(){
-    var pk = document.getElementById('pk').value;
-    var params = `pk=${pk}`;
-    var XHR = new XMLHttpRequest();
-    XHR.open('POST', 'http://localhost:8000/account/remove_place', true);
-    XHR.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    XHR.onreadystatechange = function(){
-      if (XHR.readyState == 4 && XHR.status == 200) {
-        var button = document.getElementById('addButton');
-        button.classList.remove('btn-success');
-        button.classList.add('btn-info');
-        button.innerHTML = 'Save Place';
-        button.setAttribute('onclick', "addPlace()");
-      } else if (XHR.readyState == 4 && XHR.status == 403){
-        return;
-      }
-    };
-    XHR.send(params);
-  }
+  const place = {};
+  place.name = "{{place.name}}"
+  place.address = "{{place.address}}";
+  place.cityName = "{{place.city_id.name}}";
+  place.postcode = "{{place.postcode}}";
+</script>
+<script src={% static "scripts/savePlace.js" %}></script>
+<script src={% static "scripts/googlemaps.js" %}></script>
+<script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyATjdsUE7bTfnHbci4Md4woaGqfJIuXbpE&callback=initMap">
 </script>
 {% endblock %}

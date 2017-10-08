@@ -14,6 +14,12 @@ body{
   display:none;
 }
 
+#map {
+  height: 300px;
+  width: 500px;
+  margin:auto;
+}
+
 /*
   Inputs
 */
