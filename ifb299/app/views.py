@@ -195,6 +195,13 @@ def edit_profile(request):
             return HttpResponseRedirect('information')
     return render(request, 'EditAccount.html')
 
+def delete_profile(request):
+    args = {}
+    user = request.user
+    form = UpdateUserForm
+    u = user.get(pk=1)
+    u.delete()
+
 @csrf_exempt
 def add_place(request):
     if request.method == 'GET' or not request.user.is_authenticated:
