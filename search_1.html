@@ -1,0 +1,124 @@
+{% extends "base_template.html" %}
+{% load static %}
+{% load app_filters %}
+{% block content %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
+<script> 
+	$(document).ready(function(){
+		$("alphabetically").click(function(){
+			$("resultsColumn").html(
+			"  
+		{% for place in place_list|dictsort:"name" %}
+        <a class="resultItem" href="{{place.get_absolute_url}}">
+          <div class='row'>
+            <div class='col-2'>
+                <img class='icon' src={% static place.category_id.name|category_image %}/>
+            </div>
+            <div class='col-10'>
+              <div class='row'>
+                <div class='col-7'>
+                  {{place.name}}
+                </div>
+                <div class='col-5'>
+                  <div>{{place.city_id|title}}</div>
+                  <div>{{place.address|title}}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </a>
+      {% endfor %}
+	 "
+			);
+		});
+	});
+	
+	
+ <!-- <script type="text/javascript">  -->
+   <!-- var default_search_results = "{{place_list}}"; -->
+   <!-- var search_results_list = default_search_results.values_list("name", flat=True) -->
+   <!-- var results = list(search_results_list) -->
+
+   	<!-- document.getElementById("alphabetically").onclick = sortAlphabetically; -->
+	<!-- document.getElementById("byDate").onclick = sortByDate; -->
+   
+   <!-- function sortAlphabetically() { -->
+		<!-- console.log("{{place_list}}"); -->
+			<!-- var sorted_search_results = results.sort();  -->
+			<!-- document.getElementById("resultsColumn").innerHTML = "sorted_search_results";  -->
+	<!-- } -->
+		
+	<!-- function sortByDate() { -->
+		<!-- document.getElementById("byDate").addEventListener("click", function(){ -->
+			<!-- console.log("{{place_list}}"); -->
+			<!-- document.getElementById("resultsColumn").innerHTML = default_search_results;	 -->
+		<!-- }); -->
+	<!-- }  -->
+<!-- </script> -->
+
+	
+	
+	
+</script>
+
+
+<div style="background: #555; color:#fff; border-bottom: 1px solid #ccc;">
+  <div class='searchResultHead'>
+    <div class='row' style='width: 100%'>
+      <div class='col-8'>
+		
+        <h4>Browsing results for: "{{request.GET.q}}"</h4>
+		Display search results: <br>
+		<form action="">
+			<input type="radio" id="alphabetically" name="sortResults" > Alphabetically</input>
+			<input type="radio" id="byDate" name="sortResults" onclick="sortByDate()" checked="checked"> By Date</input>
+		</form>
+		      </div>
+      <div class='col-4 text-right'>
+        <p>Showing 1-{{pagination}} of {{count}}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class='searchResultDiv'>
+  <div class='searchResultColumn1' id="resultsColumn">
+    {% if place_list %}
+      {% for place in place_list %}
+        <!-- After implementing individual item page, href=" place.get_absolute_url }}" -->
+        <a class="resultItem" href="{{place.get_absolute_url}}">
+          <div class='row'>
+            <div class='col-2'>
+                <img class='icon' src={% static place.category_id.name|category_image %}/>
+            </div>
+            <div class='col-10'>
+              <div class='row'>
+                <div class='col-7'>
+                  {{place.name}}
+                </div>
+                <div class='col-5'>
+                  <div>{{place.city_id|title}}</div>
+                  <div>{{place.address|title}}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </a>
+      {% endfor %}
+    {% else %}
+      <h2>No results available for '{{query}}'</h2>
+    {% endif %}
+  </div>
+  <div class='searchResultColumn2'>
+    <div id="sidebar">
+      <h5>Not here? Tell us what we're missing.</h5>
+      <div class='text-center'>
+        <button class="btn btn-info">Contact Us</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
