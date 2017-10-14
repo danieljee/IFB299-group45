@@ -2,11 +2,41 @@
 {% load app_filters %}
 {% load static %}
 {% block content%}
+  <img style="width:100%;" src={% static place.category_id.name|category_banner %}/>
+
 <div>
 <center>
-  <h3>{{place.name}}</h3>
-    <img src={% static place.category_id.name|category_image %} class="detailIcon" alt="categoryIcon" />
-    <div id="map"></div>
+  
+  <h1 style="font-family: 'Open Sans', sans-serif;">{{place.name|upper}}</h3>
+			{% if place.category_id.name == "library" %}
+			<i class="fa fa-book" style="font-size:40px"></i>		
+
+			{% elif place.category_id.name == "restaurant" %}
+			<i class="fa fa-cutlery" style="font-size:40px"></i>			
+
+			{% elif place.category_id.name == "hotel" %}
+			<i class="fa fa-building" style="font-size:40px"></i>
+			
+			{% elif place.category_id.name == "mall" %}
+			<i class="fa fa-credit-card" style="font-size:40px"></i>
+			
+			{% elif place.category_id.name == "college" %}
+			<i class="fa fa-pencil" style="font-size:40px"></i>
+			
+			{% elif place.category_id.name == "zoo" %}
+			<i class="fa fa-paw" style="font-size:40px"></i>
+			
+			{% elif place.category_id.name == "industry" %}
+			<i class="fa fa-gears" style="font-size:40px"></i>
+		
+			{% elif place.category_id.name == "museum" %}
+			<i class="fa fa-bank" style="font-size:40px"></i>
+			
+			{% elif place.category_id.name == "park" %}
+			<i class="fa fa-tree" style="font-size:40px"></i>
+			{% endif %}
+			<br> - <br>
+		<div id="map"></div>
 		{% if item.category_id.name == 'college' %}
 			<p>
 				Address: {{place.address}} {{place.city_id}} {{place.postcode}}<br>
@@ -37,6 +67,7 @@
     {% else %}
       <button id="addButton" class='btn btn-info' onclick="addPlace()">Save Place</button>
     {% endif %}
+	<br>
     <!-- <h5 id='saveError' class='text-center text-danger'>Already Saved</h5> -->
 </center>
 </div>
