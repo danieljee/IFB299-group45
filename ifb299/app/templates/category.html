@@ -2,8 +2,11 @@
 {% load static %}
 {% load app_filters %}
 {% block content %}
-<h1><center> {{category|title}} </center></h1>
-<h3><center>This is a list of all the {{category}} items on SmartCity</center></h3>
+<img style="width:100%" src={% static category|category_banner %}/>
+<h1 style="font-family: 'Open Sans', sans-serif;"><center> {{category|title}} </center></h1>
+<h3 style="font-family: 'Open Sans', sans-serif;"><center>This is a list of all the {{category}} items on SmartCity</center></h3>
+
+
 
 <div class='searchResultDiv'>
   <div class='searchResultColumn1'>
@@ -12,7 +15,42 @@
         <a class="resultItem" href="{{place.get_absolute_url}}">
           <div class='row'>
             <div class='col-2'>
-                <img class='icon' src={% static place.category_id.name|category_image %}/>
+			{% if category == "library" %}
+			<i class="fa fa-book" style="font-size:40px"></i>
+			{% endif %}			
+
+			{% if category == "restaurant" %}
+			<i class="fa fa-cutlery" style="font-size:40px"></i>
+			{% endif %}			
+
+			{% if category == "hotel" %}
+			<i class="fa fa-building" style="font-size:40px"></i>
+			{% endif %}
+			
+			{% if category == "mall" %}
+			<i class="fa fa-credit-card" style="font-size:40px"></i>
+			{% endif %}
+			
+			{% if category == "college" %}
+			<i class="fa fa-pencil" style="font-size:40px"></i>
+			{% endif %}
+			
+			{% if category == "zoo" %}
+			<i class="fa fa-paw" style="font-size:40px"></i>
+			{% endif %}
+			
+			{% if category == "industry" %}
+			<i class="fa fa-gears" style="font-size:40px"></i>
+			{% endif %}
+			
+			{% if category == "museum" %}
+			<i class="fa fa-bank" style="font-size:40px"></i>
+			{% endif %}
+			
+			{% if category == "park" %}
+			<i class="fa fa-tree" style="font-size:40px"></i>
+			{% endif %}
+			
             </div>
             <div class='col-10'>
               <div class='row'>
@@ -20,8 +58,8 @@
                   {{place.name}}
                 </div>
                 <div class='col-5'>
-                  <div>{{place.city_id|title}}</div>
-                  <div>{{place.address|title}}</div>
+                  <div style="font-family: 'Open Sans', sans-serif;">{{place.city_id|title}}</div>
+                  <div style="font-family: 'Open Sans', sans-serif;">{{place.address|title}}</div>
                 </div>
               </div>
             </div>
@@ -29,7 +67,7 @@
         </a>
       {% endfor %}
     {% else %}
-      <h2>No results available for this category, sorry!</h2>
+      <h2 style="font-family: 'Open Sans', sans-serif;">No results available for this category, sorry!</h2>
     {% endif %}
   </div>
 </div>
