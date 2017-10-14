@@ -196,9 +196,10 @@ def edit_profile(request):
     return render(request, 'EditAccount.html')
 
 def delete_profile(request):
-    args = {}
     user = request.user
-    form = UpdateUserForm
+    form = DeleteUserForm(request.DELETE)
+    request.method == 'DELETE'
+    id = deleteUser
     u = user.get(pk=1)
     u.delete()
 
