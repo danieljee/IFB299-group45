@@ -6,8 +6,10 @@
   <div class='searchResultHead'>
     <div class='row' style='width: 100%'>
       <div class='col-8'>
+        <input id='query' hidden value={{request.GET.q}}/>
         <h4>Browsing results for: "{{request.GET.q}}"</h4>
-        <h5>/This is where all the filters will go/</h5>
+  			<input type="radio" id="alphabetically" name="sortResults" onclick="query.call(event)" > Alphabetically</input>
+  			<input type="radio" id="byDate" name="sortResults" onclick="query.call(event)" checked="checked"> By Date</input>
       </div>
       <div class='col-4 text-right'>
         <p>Showing 1-{{pagination}} of {{count}}</p>
@@ -41,7 +43,7 @@
         </a>
       {% endfor %}
     {% else %}
-      <h2>No results available for '{{query}}'</h2>
+      <h2>No results available for '{{request.GET.q}}'</h2>
     {% endif %}
   </div>
   <div class='searchResultColumn2'>
@@ -53,4 +55,6 @@
     </div>
   </div>
 </div>
+
+<script src={% static "scripts/query.js" %}></script>
 {% endblock %}

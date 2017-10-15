@@ -1,9 +1,9 @@
 from django.shortcuts import render_to_response, render
-from django.http import HttpResponseRedirect, HttpResponse, HttpResponseForbidden
+from django.http import HttpResponseRedirect, HttpResponse, HttpResponseForbidden, JsonResponse
 from django.views import generic
 from django.contrib import auth
 from django.contrib.auth.models import User
-from .models import UserProfile, Place
+from .models import UserProfile, Place, Category as Category_model
 from django.contrib.auth import authenticate, login
 from django.template.context_processors import csrf
 from django.contrib.auth.decorators import login_required
@@ -124,11 +124,6 @@ def logout(request):
         auth.logout(request)
     return HttpResponseRedirect('/')
 
-def search_ordered(request):
-    if request.method == 'GET':
-        query = request.GET.get('q')
-        # places = Place.objects.filter(name_icontains=query).order_by()
-
 ##########################
 # This function is called when use requests /search
 # @method_decorator(login_required) will ensure that only logged in users can use this view class
@@ -153,6 +148,32 @@ class Search(generic.ListView):
         ctx['pagination'] = self.paginate_by
         ctx['count'] = self.get_queryset().count()
         return ctx
+
+def search_ordered(request, **kwargs):
+    if request.method == 'GET':
+        query = request.GET.get('q')
+        order = kwargs['order']
+
+        # pizzas = Pizza.objects.prefetch_related('toppings')
+
+
+
+        if (order == 'alphabetically'):
+            places = Place.objects.filter(name__icontains=query).order_by('name')
+        else:
+            places = Place.objects.filter(name__icontains=query)
+
+        places_list = [];
+        for place in places:
+            places_list.append({"id":place.id, "name":place.name, "city": place.city_id.name, "address": place.address, "category": place.category_id.name})
+
+        # places_list = [entry for entry in places]
+
+        return JsonResponse({"result" : places_list});
+    else :
+        return JsonResponse({"error":"Cannot POST to this route"});
+        # send error message
+
 
 class PlaceDetail(generic.DetailView):
     model = Place

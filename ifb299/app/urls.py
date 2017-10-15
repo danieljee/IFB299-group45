@@ -15,7 +15,7 @@ urlpatterns = [
     url(r'^account/add_place$', views.add_place, name='add_place'),
     url(r'^account/remove_place$', views.remove_place, name='remove_place'),
     url(r'^search/$', views.Search.as_view(), name='search'),
-    url(r'^search/(?P<order>)/$', views.search_ordered, name='search_ordered'),
+    url(r'^search/(?P<order>\w+)/$', views.search_ordered, name='search_ordered'),
     url(r'^place/(?P<pk>\d+)/$', views.PlaceDetail.as_view(), name='place_detail'),
 
     url(r'^category/(?P<category>\w+)/$', views.Category.as_view(), name ='category'),
