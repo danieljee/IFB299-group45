@@ -9,7 +9,7 @@ from django.template.context_processors import csrf
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
-from .forms import MyRegistrationForm, UserProfileForm, UpdateUserForm
+from .forms import MyRegistrationForm, UserProfileForm, UpdateUserForm, ReviewForm
 from .models import Place, UserProfile, SavedPlace, Review
 
 class HttpResponseUnauthorized(HttpResponseRedirect):
