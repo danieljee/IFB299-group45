@@ -5,9 +5,8 @@
   <img style="width:100%;" src={% static place.category_id.name|category_banner %}/>
 
 <div>
-<center>
-  
-  <h1 style="font-family: 'Open Sans', sans-serif;">{{place.name|upper}}</h3>
+	<center style="font-family: 'Open Sans', sans-serif;">
+		<h1 >{{place.name|upper}}</h3>
 			{% if place.category_id.name == "library" %}
 			<i class="fa fa-book" style="font-size:40px"></i>		
 
@@ -35,41 +34,61 @@
 			{% elif place.category_id.name == "park" %}
 			<i class="fa fa-tree" style="font-size:40px"></i>
 			{% endif %}
-			<br> - <br>
-		<div id="map"></div>
-		{% if item.category_id.name == 'college' %}
-			<p>
-				Address: {{place.address}} {{place.city_id}} {{place.postcode}}<br>
-				Email: {{place.email}} <br>
-				Departments:
-				{% for department in place.department.all %}
-					<li>
-						{{department}}
-					</li>
-				{% endfor %}
-			</p>
-		{% elif item.category_id.name == 'industry' %}
-			<p>
-				Address: {{place.address}} {{place.city_id}} {{place.postcode}}<br>
-				Email: {{place.email}} <br>
-				Industry Type: {{place.industryType}}
-			</p>
-		{% else %}
-			<p>
-				Address: {{place.address}} {{place.city_id}} {{place.postcode}}<br>
-				Phone Number: {{place.phone_number}} <br>
-				Email: {{place.email}}
-			</p>
-		{% endif %}
-    <input type ='hidden' value={{place.id}} name='pk' id='pk'>
-    {% if saved %}
-      <button id="addButton" class='btn btn-success' onclick="removePlace()">Saved</button>
-    {% else %}
-      <button id="addButton" class='btn btn-info' onclick="addPlace()">Save Place</button>
-    {% endif %}
-	<br>
+			<hr>
+			<div class="row">
+				<div class="col-sm-6">
+					<div id="map"></div>
+				</div>
+				<div class="col-sm-6" style="text-align: left;">
+					{% if item.category_id.name == 'college' %}
+						<p>
+							<h4>ADDRESS: </h4>
+							{{place.address}}, {{place.city_id|upper}}, {{place.postcode}}<br><br>
+							
+							<h4>EMAIL: </h4>
+							{{place.email}} <br><br>
+							
+							<h4>DEPARTMENTS: </h4>
+							{% for department in place.department.all %}
+							<li>
+								{{department}}
+							</li>
+							{% endfor %}
+						</p>
+						{% elif item.category_id.name == 'industry' %}
+							<p>
+								<h4> ADDRESS: </h4>
+								{{place.address}}, {{place.city_id|upper}}, {{place.postcode}}<br><br>
+								
+								<h4> EMAIL: </h4>
+								{{place.email}} <br><br>
+								
+								<h4>INDUSTRY TYPE: </h4>
+								{{place.industryType}}
+							</p>
+						{% else %}
+							<p>
+								<h4>ADDRESS: </h4>
+								{{place.address}}, {{place.city_id|upper}}, {{place.postcode}}<br><br>
+								
+								<h4>PHONE NUMBER: </h4>
+								{{place.phone_number}} <br><br>
+								
+								<h4>EMAIL: </h4>
+								{{place.email}}
+							</p>
+					{% endif %}
+					<input type ='hidden' value={{place.id}} name='pk' id='pk'>
+					{% if saved %}
+						<button id="addButton" class='btn btn-success' onclick="removePlace()">Saved</button>
+					{% else %}
+						<button id="addButton" class='btn btn-info' onclick="addPlace()">Save Place</button>
+					{% endif %}
+				</div>
+			</div>
+		<br>
     <!-- <h5 id='saveError' class='text-center text-danger'>Already Saved</h5> -->
-</center>
+	</center>
 </div>
 
 <script>
