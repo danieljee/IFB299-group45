@@ -153,11 +153,6 @@ def search_ordered(request, **kwargs):
     if request.method == 'GET':
         query = request.GET.get('q')
         order = kwargs['order']
-
-        # pizzas = Pizza.objects.prefetch_related('toppings')
-
-
-
         if (order == 'alphabetically'):
             places = Place.objects.filter(name__icontains=query).order_by('name')
         else:
@@ -166,9 +161,6 @@ def search_ordered(request, **kwargs):
         places_list = [];
         for place in places:
             places_list.append({"id":place.id, "name":place.name, "city": place.city_id.name, "address": place.address, "category": place.category_id.name})
-
-        # places_list = [entry for entry in places]
-
         return JsonResponse({"result" : places_list});
     else :
         return JsonResponse({"error":"Cannot POST to this route"});
@@ -216,13 +208,19 @@ def edit_profile(request):
             return HttpResponseRedirect('information')
     return render(request, 'EditAccount.html')
 
+@csrf_exempt
 def delete_profile(request):
-    user = request.user
-    form = DeleteUserForm(request.DELETE)
-    request.method == 'DELETE'
-    id = deleteUser
-    u = user.get(pk=1)
-    u.delete()
+    # should return 403
+    if request.method == 'DELETE':
+        if not request.user.is_authenticated:
+            return HttpResponseRedirect('/');
+        user = User.objects.get(pk = request.user.id)
+        user.userprofile.delete()
+        user.delete()
+        return HttpResponse()
+    else:
+        return HttpResponse()
+        # should return 404
 
 @csrf_exempt
 def add_place(request):

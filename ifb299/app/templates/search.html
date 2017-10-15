@@ -9,7 +9,7 @@
         <input id='query' hidden value={{request.GET.q}}/>
         <h4>Browsing results for: "{{request.GET.q}}"</h4>
   			<input type="radio" id="alphabetically" name="sortResults" onclick="query.call(event)" > Alphabetically</input>
-  			<input type="radio" id="byDate" name="sortResults" onclick="query.call(event)" checked="checked"> By Date</input>
+  			<input type="radio" id="byDate" name="sortResults" onclick="query.call(event)"> By Date</input>
       </div>
       <div class='col-4 text-right'>
         <p>Showing 1-{{pagination}} of {{count}}</p>
@@ -55,6 +55,9 @@
     </div>
   </div>
 </div>
-
+<script>
+    document.getElementById('byDate').checked = true;
+    document.getElementById('alphabetically').checked = false;
+</script>
 <script src={% static "scripts/query.js" %}></script>
 {% endblock %}
