@@ -3,10 +3,11 @@
 {% load static %}
 {% block content%}
   <img style="width:100%;" src={% static place.category_id.name|category_banner %}/>
-
 <div>
 	<center style="font-family: 'Open Sans', sans-serif;">
-		<h1 >{{place.name|upper}}</h3>
+		<div class="pageTitle">
+			<h1 >{{place.name|upper}}</h3>
+		</div>
 			{% if place.category_id.name == "library" %}
 			<i class="fa fa-book" style="font-size:40px"></i>		
 
@@ -42,13 +43,13 @@
 				<div class="col-sm-6" style="text-align: left;">
 					{% if item.category_id.name == 'college' %}
 						<p>
-							<h4>ADDRESS: </h4>
+							<h4><i class="fa fa-thumb-tack"></i> ADDRESS: </h4>
 							{{place.address}}, {{place.city_id|upper}}, {{place.postcode}}<br><br>
 							
-							<h4>EMAIL: </h4>
+							<h4><i class="fa fa-envelope"></i> EMAIL: </h4>
 							{{place.email}} <br><br>
 							
-							<h4>DEPARTMENTS: </h4>
+							<h4><i class="fa fa-vcard"></i> DEPARTMENTS: </h4>
 							{% for department in place.department.all %}
 							<li>
 								{{department}}
@@ -57,24 +58,24 @@
 						</p>
 						{% elif item.category_id.name == 'industry' %}
 							<p>
-								<h4> ADDRESS: </h4>
+								<h4><i class="fa fa-thumb-tack"></i> ADDRESS: </h4>
 								{{place.address}}, {{place.city_id|upper}}, {{place.postcode}}<br><br>
 								
-								<h4> EMAIL: </h4>
+								<h4><i class="fa fa-envelope"></i> EMAIL: </h4>
 								{{place.email}} <br><br>
 								
-								<h4>INDUSTRY TYPE: </h4>
+								<h4><i class="fa fa-cog"></i> INDUSTRY TYPE: </h4>
 								{{place.industryType}}
 							</p>
 						{% else %}
 							<p>
-								<h4>ADDRESS: </h4>
+								<h4><i class="fa fa-thumb-tack"></i> ADDRESS: </h4>
 								{{place.address}}, {{place.city_id|upper}}, {{place.postcode}}<br><br>
 								
-								<h4>PHONE NUMBER: </h4>
+								<h4><i class="fa fa-phone"></i> PHONE NUMBER: </h4>
 								{{place.phone_number}} <br><br>
 								
-								<h4>EMAIL: </h4>
+								<h4><i class="fa fa-envelope"></i> EMAIL: </h4>
 								{{place.email}}
 							</p>
 					{% endif %}
