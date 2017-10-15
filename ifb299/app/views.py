@@ -183,6 +183,30 @@ class PlaceDetail(generic.DetailView):
             ctx['saved'] = True
         return ctx
 
+##########################
+#PlaceDetail view Reviews (PLEASE COMMENT OUT THE VIEW ABOVE BEFORE USING)
+##########################
+#class PlaceDetail(generic.DetailView,generic.FormView):
+    # model = Place
+    # template_name = 'placeDetail.html'
+    # form_class = ReviewForm
+    # context_object_name = 'place'
+    # success_url = '/'
+    # def form_valid(self, form):
+        # user = form.cleaned_data['user']
+        # place_id = form.cleaned_data['place_id']
+        # comments = form.cleaned_data['comments']
+        # rating = form.cleaned_data['rating']
+        # review = Review(user=user,place_id=place_id,comments=comments,rating=rating)
+        # review.save()
+        # return super(PlaceDetail, self).form_valid(form)
+    # def get_context_data(self, **kwargs):
+        # context = super(PlaceDetail, self).get_context_data(**kwargs)
+        # place = Place.objects.get(pk=self.kwargs['pk'])
+        # context['review_list'] = Review.objects.all()
+        # return context
+
+
 class AccountInformation(generic.ListView):
     model = UserProfile
     template_name = 'AccountInformation.html'
