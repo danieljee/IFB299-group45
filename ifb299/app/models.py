@@ -80,6 +80,20 @@ class Place(models.Model):
     def __str__(self):
         return self.name
 
+class Review(models.Model):
+    user = models.ForeignKey(User)
+    place_id = models.ForeignKey(Place)
+    comments = models.CharField(max_length=1000)
+    CHOICES = ((1, 'One Star'),(2, 'Two Stars'),(3, 'Three Stars'),(4, 'Four Stars'),(5, 'Five Stars'))
+    rating = models.IntegerField(
+        blank = False,
+        default = 3,
+        choices = CHOICES,
+    )
+    def __str__(self):
+        return self.comments
+
+
 ###################
 # Saved place will have references to User model and Place models
 # A user can have multiple places saved
