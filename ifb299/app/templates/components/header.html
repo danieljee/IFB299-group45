@@ -2,8 +2,8 @@
   <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <a class="navbar-brand" href="/">SmartCity</a>
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+  <a class="navbar-brand" href="/" style="font-family: 'Open Sans', sans-serif;"><i class="fa fa-map-o"></i> SmartCity</a>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent" style="font-family: 'Open Sans', sans-serif;">
     <ul class="navbar-nav mr-auto">
     </ul>
     {% if user.is_authenticated %}
@@ -20,11 +20,11 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             {% if user.is_superuser %}
-      			<a class="dropdown-item" href="{% url 'admin:index' %}">Admin Settings</a>
+      			<a class="dropdown-item" href="{% url 'admin:index' %}"><i class="fa fa-desktop"></i> Admin Settings</a>
       		  {% endif %}
-            <a class="dropdown-item" href={% url 'app:account'%}>Account Settings</a>
-            <a class="dropdown-item" href={% url 'app:saved_places'%}>Saved PLaces</a>
-            <a class="dropdown-item" href={% url 'app:logout' %}>Logout</a>
+            <a class="dropdown-item" href={% url 'app:account'%}><i class="fa fa-wrench"></i> Account Settings</a>
+            <a class="dropdown-item" href={% url 'app:saved_places'%}><i class="fa fa-map-pin"></i> Saved Places</a>
+            <a class="dropdown-item" href={% url 'app:logout' %}><i class="fa fa-sign-out"></i> Logout</a>
           </div>
         {% endif %}
       </li>
