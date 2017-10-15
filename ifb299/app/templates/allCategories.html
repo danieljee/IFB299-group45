@@ -1,16 +1,16 @@
 
 {% load static %}
 {% block content %}
-
+<center style="font-family: 'Open Sans', sans-serif;">
 <br>
-<h2><center> ALL CATEGORIES </center></h2>
-<h5><center>These are all the categories available</center></h5>
+<h2 ><center> ALL CATEGORIES </center></h2>
+<h5 ><center>These are all the categories available</center></h5>
 <br>
 
 <div class='row'>
 	<div class='col-4'>
 		<a href="/category/hotel">
-			<img src={% static 'hotel1.jpeg' %} alt="hotelCategory" style='width:100%; height: 242px'/>
+			<img src={% static 'hotel1.jpeg' %} alt="hotelCategory" style='width:100%;'/>
 		</a>
 	</div>
 	<div class='col-4'>
@@ -20,7 +20,7 @@
 	</div>
 	<div class='col-4'>
 		<a href="/category/restaurant">
-			<img src={% static 'restaurant1.jpeg' %} alt="restaurantCategory" style='width:100%; height: 242px'/>
+			<img src={% static 'restaurant1.jpeg' %} alt="restaurantCategory" style='width:100%;'/>
 		</a>
 	</div>
 </div>
@@ -52,7 +52,7 @@
 	</div>
 	<div class='col-4'>
 		<a href="/category/park">
-			<img src={% static 'park1.jpeg' %}  alt="parksCategory" style='width:100%; height: 241.5px'/>
+			<img src={% static 'park1.jpeg' %}  alt="parksCategory" style='width:100%;'/>
 		</a>
 	</div>
 	<div class='col-4'>
@@ -90,12 +90,12 @@
 	</div>
 	<div class='col-4'>
 		<a href="/category/library">
-			<img src={% static 'library1.jpeg' %}  alt="librariesCategory" style='width:100%; height: 259px;'/>
+			<img src={% static 'library1.jpeg' %}  alt="librariesCategory" style='width:100%;'/>
 		</a>
 	</div>
 	<div class='col-4'>
 		<a href="/category/mall">
-			<img src={% static 'mall1.jpeg' %} alt="mallsCategory" style='width:100%; height: 259px'/>
+			<img src={% static 'mall1.jpeg' %} alt="mallsCategory" style='width:100%;'/>
 		</a>
 	</div>
 </div>
@@ -118,4 +118,6 @@
 	</div>
 </div>
 <br>
+
+</center>
 {% endblock %}
