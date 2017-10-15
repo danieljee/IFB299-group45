@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import UserProfile
+from .models import UserProfile, Place, Review
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.utils.translation import ugettext_lazy as _
 
@@ -26,7 +26,7 @@ class UserProfileForm(forms.ModelForm):
             'postcode': forms.NumberInput(attrs={'class':'form-control'}),
             'role': forms.Select(attrs={'class':'form-control'}),
         }
-        
+
 class UpdateUserForm(forms.ModelForm):
     email = forms.EmailField(required=True)
     first_name = forms.CharField(max_length=30, required=False)
