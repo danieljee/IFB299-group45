@@ -20,7 +20,7 @@ function query(){
         <a class="resultItem" href="/place/${place.id}/">
           <div class='row'>
             <div class='col-2'>
-                <img class='icon' src=${iconSrc}/>
+                <img class='icon'style="height=45px;" src=${iconSrc}/>
             </div>
             <div class='col-10'>
               <div class='row'>
