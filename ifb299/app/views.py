@@ -281,4 +281,4 @@ class SavedPlaces(generic.ListView):
     
     def contact(request):
     template_name = 'contact.html'
-    return HttpResponse()
+    return render_to_response('contact.html')
