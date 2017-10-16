@@ -278,3 +278,7 @@ class SavedPlaces(generic.ListView):
     context_object_name = 'savedPlaces'
     def get_queryset(self):
         return self.model.objects.filter(user=self.request.user)
+    
+    def contact(request):
+    template_name = 'contact.html'
+    return HttpResponse()
