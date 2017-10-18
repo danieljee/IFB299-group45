@@ -2,17 +2,18 @@
 {% load static %}
 {% load app_filters %}
 {% block content %}
+<img src="{% static "search_banner1.png" %}" style="width:100%;" />
 <div style="background: #555; color:#fff; border-bottom: 1px solid #ccc;">
-  <div class='searchResultHead'>
+  <div class='searchResultHead' style="font-family: 'Open Sans', sans-serif; height: 60px;" >
     <div class='row' style='width: 100%'>
       <div class='col-8'>
         <input id='query' hidden value={{request.GET.q}}/>
-        <h4>Browsing results for: "{{request.GET.q}}"</h4>
-  			<input type="radio" id="alphabetically" name="sortResults" onclick="query.call(event)" > Alphabetically</input>
-  			<input type="radio" id="byDate" name="sortResults" onclick="query.call(event)"> By Date</input>
+			<h5> Sort search results: <h5>
+  			<h6><input type="radio" id="alphabetically" name="sortResults" onclick="query.call(event)" > Alphabetically</input>
+  			<input type="radio" id="byDate" name="sortResults" onclick="query.call(event)"> By Date</input></h6>
       </div>
       <div class='col-4 text-right'>
-        <p>Showing 1-{{pagination}} of {{count}}</p>
+        <p>Showing 1-{{pagination}} of {{count}} results</p>
       </div>
     </div>
   </div>
@@ -22,19 +23,20 @@
     {% if place_list %}
       {% for place in place_list%}
         <!-- After implementing individual item page, href=" place.get_absolute_url }}" -->
-        <a class="resultItem" href="{{place.get_absolute_url}}">
+        <a class="resultItem" style="height:auto;" href="{{place.get_absolute_url}}">
           <div class='row'>
             <div class='col-2'>
-                <img class='icon' src={% static place.category_id.name|category_image %}/>
+                <img class='icon' style="height:45px;" src={% static place.category_id.name|category_image %}/>
             </div>
             <div class='col-10'>
               <div class='row'>
-                <div class='col-7'>
+                <div class='col-7' style="margin-top: auto; margin-bottom: auto;">
                   {{place.name}}
                 </div>
                 <div class='col-5'>
                   <div>{{place.city_id|title}}</div>
                   <div>{{place.address|title}}</div>
+				  <div>{{place.postcode}}</div>
                 </div>
               </div>
 
@@ -46,12 +48,14 @@
       <h2>No results available for '{{request.GET.q}}'</h2>
     {% endif %}
   </div>
-  <div class='searchResultColumn2'>
+  <div class='searchResultColumn2'  style="font-family: 'Open Sans', sans-serif'">
     <div id="sidebar">
+	  <h4 style="font-family: 'Open Sans', sans-serif;">Browsing results for: "{{request.GET.q}}"</h4>
+	  <center>---</center>
       <h5>Not finding what you are looking for? Tell us what we're missing.</h5>
       <div class='text-center'>
         <a href="/contact">
-          <button type="button">Contact Us</button>
+          <button type="btn btn-primary">Contact Us</button>
         </a>
       </div>
     </div>

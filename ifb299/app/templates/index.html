@@ -3,11 +3,12 @@
 {% block content %}
 {% if user.is_authenticated %}
 	{% if user.is_superuser %}
-	{% include './allCategories.html' %}
+		{% include './allCategoriesDisplay.html' %}
 	{% else %}
 	<br>
-	<h2><center> RECOMMENDED CATEGORIES </center></h2>
-	<h5><center>These categories have been recommended to you based on your account type</center></h5>
+	<center style="font-family: 'Open Sans', sans-serif;"> 
+	<h2>RECOMMENDED CATEGORIES</h2>
+	<h5>These categories have been recommended to you based on your account type</center></h5>
 	<br>
 	{% if role == "STUDENT" %}
 		{% include './studentHome.html' %}
