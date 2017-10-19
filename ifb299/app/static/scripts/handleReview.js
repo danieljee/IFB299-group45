@@ -18,6 +18,8 @@ function handleReview(){
             button.classList.remove('btn-primary');
             button.classList.add('btn-success');
             button.innerHTML = 'Submitted!';
+
+            loadReviews();
         } else {
             button.classList.remove('btn-primary');
             button.classList.remove('btn-success');

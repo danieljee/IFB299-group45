@@ -211,7 +211,7 @@ def handle_review(request, **kwargs):
             return HttpResponseForbidden()
         else:
             Review.objects.create(user=request.user, place_id=place,comments=comments, rating=rating)
-            return HttpResponse()
+            return JsonResponse({"name" : request.user.username, 'comment': comments, 'rating': rating})
         # review = Review(user=user,place_id=place_id,comments=comments,rating=rating)
         # review.save()
         # savedPlace = SavedPlace.objects.filter(user=request.user, place=place).first()

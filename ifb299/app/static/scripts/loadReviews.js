@@ -1,4 +1,4 @@
-(function(){
+function loadReviews(){
     var place_id = document.getElementById('pk').value;
     fetch(`/place/${place_id}/reviews`)
     .then((res) => {
@@ -7,6 +7,7 @@
     .then((jsonres) => {
         console.log(jsonres);
         var reviewsDiv = document.getElementById('reviews');
+        reviewsDiv.innerHTML = '';
         for(var i=0; i<jsonres.result.length; i++){
             reviewsDiv.innerHTML += `
                 <li class="list-group-item"> 
@@ -23,4 +24,6 @@
     .catch((err) => {
         //handle error
     });
-})();
+}
+
+loadReviews();
