@@ -18,7 +18,9 @@ urlpatterns = [
     url(r'^search/$', views.Search.as_view(), name='search'),
     url(r'^search/(?P<order>\w+)/$', views.search_ordered, name='search_ordered'),
     url(r'^place/(?P<pk>\d+)/$', views.PlaceDetail.as_view(), name='place_detail'),
-    
+    url(r'place/(?P<pk>\d+)/reviews$', views.get_review_list, name='get_review_list'),
+
+    url(r'place/(?P<pk>\d+)/review$', views.handle_review, name='handle_review'),
     url(r'^contact/$', views.contact, name='contact'),
 
     url(r'^category/(?P<category>\w+)/$', views.Category.as_view(), name ='category'),

@@ -91,23 +91,8 @@
     <!-- <h5 id='saveError' class='text-center text-danger'>Already Saved</h5> -->
 	</center>
 </div>
-
-<script>
-  const place = {};
-  place.name = "{{place.name}}"
-  place.address = "{{place.address}}";
-  place.cityName = "{{place.city_id.name}}";
-  place.postcode = "{{place.postcode}}";
-</script>
-<script src={% static "scripts/savePlace.js" %}></script>
-<script src={% static "scripts/googlemaps.js" %}></script>
-<script async defer
-  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyATjdsUE7bTfnHbci4Md4woaGqfJIuXbpE&callback=initMap">
-</script>
-<!-- 
+ 
 <div style="margin-left: 20px;">
-	<form method="POST" action="" class="">
-	{% csrf_token %}
 	  <div class="form-group">
 		<label for="user"></label>
 		<input <input id="user" type="hidden" name="user" value="{{request.user.id}}">
@@ -125,51 +110,52 @@
 		<label>User Rating:</label><br />
 		<div class="form-check form-check-inline">
 		  <label class="form-check-label" for="rating">
-			<input class="form-check-input" type="radio" name="rating" id="rating" value="1"> 1
+			<input class="form-check-input" type="radio" name="rating" value="1"> 1
 		  </label>
 		</div>
 		<div class="form-check form-check-inline">
 		  <label class="form-check-label" for="rating">
-			<input class="form-check-input" type="radio" name="rating" id="rating" value="2"> 2
+			<input class="form-check-input" type="radio" name="rating" value="2"> 2
 		  </label>
 		</div>
 		<div class="form-check form-check-inline">
 		  <label class="form-check-label" for="rating">
-			<input class="form-check-input" type="radio" name="rating" id="rating" value="3" checked="checked"> 3
+			<input class="form-check-input" type="radio" name="rating" value="3" checked="checked"> 3
 		  </label>
 		</div>
 		<div class="form-check form-check-inline">
 		  <label class="form-check-label" for="rating">
-			<input class="form-check-input" type="radio" name="rating" id="rating" value="4"> 4
+			<input class="form-check-input" type="radio" name="rating" value="4"> 4
 		  </label>
 		</div>
 		<div class="form-check form-check-inline">
 		  <label class="form-check-label" for="rating">
-			<input class="form-check-input" type="radio" name="rating" id="rating" value="5"> 5
+			<input class="form-check-input" type="radio" name="rating" value="5"> 5
 		  </label>
 		</div>
 	  </fieldset>
-	  <button type="submit" class="btn btn-primary">Submit</button>
-	</form>
-</div> -->
+	  <button class="btn btn-primary" id="reviewButton" onclick="handleReview()">Submit</button>
+</div> 
 
-<!-- <div style="margin-left: 20px; margin-top: 30px;"> -->
-	<!-- <h3> User Reviews </h3> -->
-	<!-- <ul class="list-group"> -->
-		<!-- {% if review_list %} -->
-			<!-- {% for review in review_list%} -->
-				<!-- {% ifequal review.place_id.name place.name %} -->
-					<!-- <li class="list-group-item"> -->
-						<!-- <div> -->
-							<!-- <p><b>{{review.user}}</b> <br /> -->
-							<!-- <b>Comments: </b> {{review.comments}} <br /> -->
-							<!-- <b>Rating:</b> {{review.rating}}/5 -->
-							<!-- </p> -->
-						<!-- </div> -->
-					<!-- </li> -->
-				<!-- {% endifequal %} -->
-			<!-- {% endfor %} -->
-		<!-- {% endif %} -->
-	<!-- </ul> -->
-<!-- </div>  -->
+ <div style="margin-left: 20px; margin-top: 30px;"> 
+	 <h3> User Reviews </h3> 
+	 <ul id="reviews"> 
+		 
+	 </ul> 
+ </div>  
+
+ <script>
+  const place = {};
+  place.name = "{{place.name}}"
+  place.address = "{{place.address}}";
+  place.cityName = "{{place.city_id.name}}";
+  place.postcode = "{{place.postcode}}";
+</script>
+<script src={% static "scripts/loadReviews.js" %}></script>
+<script src={% static "scripts/savePlace.js" %}></script>
+<script src={% static "scripts/googlemaps.js" %}></script>
+<script src={% static "scripts/handleReview.js" %}></script>
+<script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyATjdsUE7bTfnHbci4Md4woaGqfJIuXbpE&callback=initMap">
+</script>
 {% endblock %}

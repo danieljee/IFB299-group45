@@ -183,28 +183,53 @@ class PlaceDetail(generic.DetailView):
             ctx['saved'] = True
         return ctx
 
-##########################
-#PlaceDetail view Reviews (PLEASE COMMENT OUT THE VIEW ABOVE BEFORE USING)
-##########################
-#class PlaceDetail(generic.DetailView,generic.FormView):
-    # model = Place
-    # template_name = 'placeDetail.html'
-    # form_class = ReviewForm
-    # context_object_name = 'place'
-    # success_url = '/'
-    # def form_valid(self, form):
-        # user = form.cleaned_data['user']
-        # place_id = form.cleaned_data['place_id']
-        # comments = form.cleaned_data['comments']
-        # rating = form.cleaned_data['rating']
+class PlaceDetail(generic.DetailView):
+    model = Place
+    template_name = 'placeDetail.html'
+    context_object_name = 'place'
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(PlaceDetail, self).dispatch(*args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        ctx = super(PlaceDetail, self).get_context_data(**kwargs)
+        place = Place.objects.get(pk=self.kwargs['pk'])
+        savedPlace = SavedPlace.objects.filter(user=self.request.user, place=place).first()
+        if savedPlace:
+            ctx['saved'] = True
+        return ctx
+@csrf_exempt
+def handle_review(request, **kwargs):
+    if request.method == 'GET' or not request.user.is_authenticated:
+        return HttpResponseRedirect('/')
+    if request.method == 'POST':
+        comments = request.POST['comment']
+        rating = request.POST['rating']
+        place = Place.objects.get(pk=kwargs['pk'])
+        review = Review.objects.filter(user=request.user, place_id=place).count()
+        if review > 0:
+            return HttpResponseForbidden()
+        else:
+            Review.objects.create(user=request.user, place_id=place,comments=comments, rating=rating)
+            return HttpResponse()
         # review = Review(user=user,place_id=place_id,comments=comments,rating=rating)
         # review.save()
-        # return super(PlaceDetail, self).form_valid(form)
-    # def get_context_data(self, **kwargs):
-        # context = super(PlaceDetail, self).get_context_data(**kwargs)
-        # place = Place.objects.get(pk=self.kwargs['pk'])
-        # context['review_list'] = Review.objects.all()
-        # return context
+        # savedPlace = SavedPlace.objects.filter(user=request.user, place=place).first()
+        # if savedPlace:
+        #     return HttpResponseForbidden()
+        # else:
+        #     SavedPlace.objects.create(place=place, user=request.user)
+        #     return HttpResponse();
+
+def get_review_list(request, **kwargs):
+    if request.method == 'GET':
+        place = Place.objects.get(pk=kwargs['pk'])
+        reviews = Review.objects.filter(place_id=place)
+
+        reviews_list = []
+        for review in reviews:
+            reviews_list.append({"name": review.user.username, "comment": review.comments, "rating": review.rating})
+        return JsonResponse({"result" : reviews_list})
 
 
 class AccountInformation(generic.ListView):
@@ -257,7 +282,7 @@ def add_place(request):
             return HttpResponseForbidden()
         else:
             SavedPlace.objects.create(place=place, user=request.user)
-            return HttpResponse();
+            return HttpResponse()
 
 @csrf_exempt
 def remove_place(request):
