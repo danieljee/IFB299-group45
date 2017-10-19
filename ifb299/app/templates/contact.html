@@ -1,13 +1,16 @@
 {% extends "base_template.html" %}
 
+{% load static %}
 {% block content %}
-    <div align="center;">
-        <h1 style="text-align:center; background-color:yellow;">Contact Us</h1>
-    </div>
-    </br>
-    <div style="text-align:center;">
-        <p>Phone: (07) 3123 0067</p>
-        <p>Email: Information@SmartCity.com.au</p>
-        <img src="https://mboltman.files.wordpress.com/2014/02/nightscape-brisbane1.jpg"border="0" width="1000px">
-    </div>
+<img style="width:100%;" src="{% static 'city_banner1.png' %}" />
+<div>
+	<center>
+        <h1>Contact Us</h1>
+		<hr>
+        <h4><i class="fa fa-phone"></i> PHONE NUMBER: </h4>
+		(07) 3123 0067 <br><br>
+        <h4><i class="fa fa-envelope"></i> EMAIL: </h4>
+		Information@SmartCity.com.au</p>
+	</center>
+</div>
 {% endblock %}

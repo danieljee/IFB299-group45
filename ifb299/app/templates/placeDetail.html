@@ -41,7 +41,7 @@
 					<div id="map"></div>
 				</div>
 				<div class="col-sm-6" style="text-align: left;">
-					{% if item.category_id.name == 'college' %}
+					{% if place.category_id.name == 'college' %}
 						<p>
 							<h4><i class="fa fa-thumb-tack"></i> ADDRESS: </h4>
 							{{place.address}}, {{place.city_id|upper}}, {{place.postcode}}<br><br>
@@ -52,11 +52,11 @@
 							<h4><i class="fa fa-vcard"></i> DEPARTMENTS: </h4>
 							{% for department in place.department.all %}
 							<li>
-								{{department}}
+								{{place.department.name|title}}
 							</li>
 							{% endfor %}
 						</p>
-						{% elif item.category_id.name == 'industry' %}
+						{% elif place.category_id.name == 'industry' %}
 							<p>
 								<h4><i class="fa fa-thumb-tack"></i> ADDRESS: </h4>
 								{{place.address}}, {{place.city_id|upper}}, {{place.postcode}}<br><br>
@@ -65,7 +65,7 @@
 								{{place.email}} <br><br>
 								
 								<h4><i class="fa fa-cog"></i> INDUSTRY TYPE: </h4>
-								{{place.industryType}}
+								{{place.industry.name|title}}
 							</p>
 						{% else %}
 							<p>
@@ -81,9 +81,9 @@
 					{% endif %}
 					<input type ='hidden' value={{place.id}} name='pk' id='pk'>
 					{% if saved %}
-						<button id="addButton" class='btn btn-success' onclick="removePlace()">Saved</button>
+						<button id="addButton" class='btn btn-success' onclick="removePlace()">Place Saved</button>
 					{% else %}
-						<button id="addButton" class='btn btn-info' onclick="addPlace()">Save Place</button>
+						<button id="addButton" class='btn btn-info' onclick="addPlace()">Save Place to Profile</button>
 					{% endif %}
 				</div>
 			</div>
@@ -104,7 +104,7 @@
 <script async defer
   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyATjdsUE7bTfnHbci4Md4woaGqfJIuXbpE&callback=initMap">
 </script>
-
+<!-- 
 <div style="margin-left: 20px;">
 	<form method="POST" action="" class="">
 	{% csrf_token %}
@@ -151,25 +151,25 @@
 	  </fieldset>
 	  <button type="submit" class="btn btn-primary">Submit</button>
 	</form>
-</div>
+</div> -->
 
-<div style="margin-left: 20px; margin-top: 30px;">
-	<h3> User Reviews </h3>
-	<ul class="list-group">
-		{% if review_list %}
-			{% for review in review_list%}
-				{% ifequal review.place_id.name place.name %}
-					<li class="list-group-item">
-						<div>
-							<p><b>{{review.user}}</b> <br />
-							<b>Comments: </b> {{review.comments}} <br />
-							<b>Rating:</b> {{review.rating}}/5
-							</p>
-						</div>
-					</li>
-				{% endifequal %}
-			{% endfor %}
-		{% endif %}
-	</ul>
-</div>
+<!-- <div style="margin-left: 20px; margin-top: 30px;"> -->
+	<!-- <h3> User Reviews </h3> -->
+	<!-- <ul class="list-group"> -->
+		<!-- {% if review_list %} -->
+			<!-- {% for review in review_list%} -->
+				<!-- {% ifequal review.place_id.name place.name %} -->
+					<!-- <li class="list-group-item"> -->
+						<!-- <div> -->
+							<!-- <p><b>{{review.user}}</b> <br /> -->
+							<!-- <b>Comments: </b> {{review.comments}} <br /> -->
+							<!-- <b>Rating:</b> {{review.rating}}/5 -->
+							<!-- </p> -->
+						<!-- </div> -->
+					<!-- </li> -->
+				<!-- {% endifequal %} -->
+			<!-- {% endfor %} -->
+		<!-- {% endif %} -->
+	<!-- </ul> -->
+<!-- </div>  -->
 {% endblock %}
