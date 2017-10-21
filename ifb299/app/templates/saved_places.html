@@ -5,8 +5,8 @@
 <h1><center> Your Saved Places </center></h1>
 
 <div class="categoryListContainer">
-  {% if savedPlaces %}
-    {% for place in savedPlaces %}
+  {% if saved_places %}
+    {% for place in saved_places %}
       <a class="resultItem" href="{{place.place.get_absolute_url}}">
         <div class='row'>
           <div class='col-2'>

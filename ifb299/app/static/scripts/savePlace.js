@@ -3,9 +3,8 @@ function addPlace(){
     return;
   }
   var pk = document.getElementById('pk').value;
-  var params = `pk=${pk}`;
   var XHR = new XMLHttpRequest();
-  XHR.open('POST', 'http://localhost:8000/account/add_place', true);
+  XHR.open('POST', `http://localhost:8000/account/places/${pk}`, true);
   XHR.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
   XHR.onreadystatechange = function(){
     if (XHR.readyState == 4 && XHR.status == 200) {
@@ -18,14 +17,13 @@ function addPlace(){
       return;
     }
   };
-  XHR.send(params);
+  XHR.send();
 }
 
 function removePlace(){
   var pk = document.getElementById('pk').value;
-  var params = `pk=${pk}`;
   var XHR = new XMLHttpRequest();
-  XHR.open('POST', 'http://localhost:8000/account/remove_place', true);
+  XHR.open('DELETE', `http://localhost:8000/account/places/${pk}`, true);
   XHR.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
   XHR.onreadystatechange = function(){
     if (XHR.readyState == 4 && XHR.status == 200) {
@@ -38,5 +36,5 @@ function removePlace(){
       return;
     }
   };
-  XHR.send(params);
+  XHR.send();
 }

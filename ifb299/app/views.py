@@ -1,5 +1,6 @@
 from django.shortcuts import render_to_response, render
-from django.http import HttpResponseRedirect, HttpResponse, HttpResponseForbidden, JsonResponse
+import json
+from django.http import HttpResponseRedirect, HttpResponse, HttpResponseForbidden, JsonResponse, QueryDict
 from django.views import generic
 from django.contrib import auth
 from django.contrib.auth.models import User
@@ -212,14 +213,6 @@ def handle_review(request, **kwargs):
         else:
             Review.objects.create(user=request.user, place_id=place,comments=comments, rating=rating)
             return JsonResponse({"name" : request.user.username, 'comment': comments, 'rating': rating})
-        # review = Review(user=user,place_id=place_id,comments=comments,rating=rating)
-        # review.save()
-        # savedPlace = SavedPlace.objects.filter(user=request.user, place=place).first()
-        # if savedPlace:
-        #     return HttpResponseForbidden()
-        # else:
-        #     SavedPlace.objects.create(place=place, user=request.user)
-        #     return HttpResponse();
 
 def get_review_list(request, **kwargs):
     if request.method == 'GET':
@@ -231,6 +224,53 @@ def get_review_list(request, **kwargs):
             reviews_list.append({"name": review.user.username, "comment": review.comments, "rating": review.rating})
         return JsonResponse({"result" : reviews_list})
 
+@csrf_exempt
+def account(request, **kwargs):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('/')
+    if request.method == 'GET':
+        print(request.user.id)
+        user_profile = UserProfile.objects.get(pk=kwargs['pk'])
+        return render(request, 'AccountInformation.html', {"user_profile": user_profile})
+    elif request.method == 'PUT':
+        print(request.body)
+        data = json.loads(request.body)
+        print(data)
+        qdict = QueryDict('', mutable=True)
+        qdict.update(data)
+        print(qdict)
+        form = UpdateUserForm(qdict, instance=request.user)
+        if form.is_valid():
+            user = request.user
+            user.first_name = qdict['first_name']
+            user.last_name = qdict['last_name']
+            user.email = qdict['email']
+            user.userprofile.phone_number = qdict['phone_number']
+            user.userprofile.address = qdict['address']
+            user.userprofile.postcode = qdict['postcode']
+            user.userprofile.role = qdict['role']
+            user.save()
+            user.userprofile.save()
+            return JsonResponse({
+                "username": user.username,
+                "first_name" : user.first_name,
+                "last_name": user.last_name,
+                "email": user.email,
+                "phone_number": user.userprofile.phone_number,
+                "address": user.userprofile.address,
+                "postcode": user.userprofile.postcode,
+                "role": user.userprofile.role
+                })
+        else:
+            return HttpResponseForbidden()   
+    elif request.method == 'DELETE':
+        place = Place.objects.get(pk=kwargs['pk'])
+        savedPlace = SavedPlace.objects.filter(user=request.user, place=place).first()
+        if not savedPlace:
+            return HttpResponseForbidden()
+        else:
+            savedPlace.delete()
+            return HttpResponse()
 
 class AccountInformation(generic.ListView):
     model = UserProfile
@@ -272,37 +312,28 @@ def delete_profile(request):
         # should return 404
 
 @csrf_exempt
-def add_place(request):
-    if request.method == 'GET' or not request.user.is_authenticated:
+def saved_places(request, **kwargs):
+    if not request.user.is_authenticated:
         return HttpResponseRedirect('/')
-    if request.method == 'POST':
-        place = Place.objects.get(pk=request.POST['pk'])
+    if request.method == 'GET':
+        user_saved_places = SavedPlace.objects.filter(user=request.user)
+        return render(request, 'saved_places.html', {"saved_places": user_saved_places})
+    elif request.method == 'POST':
+        place = Place.objects.get(pk=kwargs['pk'])
         savedPlace = SavedPlace.objects.filter(user=request.user, place=place).first()
         if savedPlace:
             return HttpResponseForbidden()
         else:
             SavedPlace.objects.create(place=place, user=request.user)
             return HttpResponse()
-
-@csrf_exempt
-def remove_place(request):
-    if request.method == 'GET' or not request.user.is_authenticated:
-        return HttpResponseRedirect('/')
-    if request.method == 'POST':
-        place = Place.objects.get(pk=request.POST['pk'])
+    elif request.method == 'DELETE':
+        place = Place.objects.get(pk=kwargs['pk'])
         savedPlace = SavedPlace.objects.filter(user=request.user, place=place).first()
         if not savedPlace:
             return HttpResponseForbidden()
         else:
             savedPlace.delete()
             return HttpResponse()
-
-class SavedPlaces(generic.ListView):
-    model = SavedPlace
-    template_name = 'saved_places.html'
-    context_object_name = 'savedPlaces'
-    def get_queryset(self):
-        return self.model.objects.filter(user=self.request.user)
     
 def contact(request):
     args = {}

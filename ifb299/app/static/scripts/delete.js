@@ -1,13 +1,7 @@
-function deleteUser(){
-  // fetch('/account/delete', {method:'delete'})
-  // .then((res) => {
-  //   console.log(res);
-  // })
-  // .catch((err)=>{
-  //
-  // })
+function delete_user(){
   var XHR = new XMLHttpRequest();
-  XHR.open('DELETE', 'http://localhost:8000/account/delete', true);
+  var pk = document.getElementById('pk');
+  XHR.open('DELETE', `http://localhost:8000/account/${pk}`, true);
   XHR.onreadystatechange = function(){
     if (XHR.readyState == 4 && XHR.status == 200) {
       console.log(XHR.response);
