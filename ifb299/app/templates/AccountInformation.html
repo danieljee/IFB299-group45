@@ -2,32 +2,34 @@
 {% load static %}
 {% block content %}
 
-<div style = "margin-top: 20px; margin-bottom: 20px; margin-left: 10px" >
-	<h4>Account Information &nbsp; &nbsp;<button class="btn btn-info" onclick="edit()" id='edit_button'>Edit</button></h4>
-</div>
-<input hidden id='pk' value={{request.user.id}}></input>
-<input hidden id='username_static' value={{ user.get_username }}></input>
-<input hidden id='first_name_static' value={{request.user.first_name}}></input>
-<input hidden id='last_name_static' value={{request.user.last_name}}></input>
-<input hidden id='email_static' value={{request.user.email}}></input>
-<input hidden id='phone_number_static' value={{user_profile.phone_number}}></input>
-<input hidden id='address_static' value={{user_profile.address}}></input>
-<input hidden id='postcode_static' value={{user_profile.postcode}}></input>
-<input hidden id='role_static' value={{user_profile.role}}></input>
+<div id='accountinfoDiv'>
+	<div style = "margin-top: 20px; margin-bottom: 20px; margin-left: 10px" >
+		<h4>Account Information &nbsp; &nbsp;<button class="btn btn-info" onclick="edit()" id='edit_button'>Edit</button></h4>
+	</div>
+	<input hidden id='pk' value={{request.user.id}}></input>
+	<input hidden id='username_static' value={{ user.get_username }}></input>
+	<input hidden id='first_name_static' value={{request.user.first_name}}></input>
+	<input hidden id='last_name_static' value={{request.user.last_name}}></input>
+	<input hidden id='email_static' value={{request.user.email}}></input>
+	<input hidden id='phone_number_static' value={{user_profile.phone_number}}></input>
+	<input hidden id='address_static' value={{user_profile.address}}></input>
+	<input hidden id='postcode_static' value={{user_profile.postcode}}></input>
+	<input hidden id='role_static' value={{user_profile.role}}></input>
 
-<div id="thisIsDiv">
-	<ul class="list-group">
-		<li class="list-group-item"><b>Username: &nbsp; </b>{{ user.get_username }}</li>
-		<li class="list-group-item"><b>First Name: &nbsp; </b>{{ request.user.first_name }}</li>
-		<li class="list-group-item"><b>Last Name: &nbsp; </b>{{ request.user.last_name }}</li>
-		<li class="list-group-item"><b>Email: &nbsp; </b>{{ request.user.email }}</li>
-		{% if user_profile %}
-			<li class="list-group-item"><b>Phone Number: &nbsp; </b>{{ user_profile.phone_number }}</li>
-			<li class="list-group-item"><b>Address: &nbsp; </b>{{ user_profile.address }}</li>
-			<li class="list-group-item"><b>Post Code: &nbsp; </b>{{ user_profile.postcode }}</li>
-			<li class="list-group-item"><b>Account Type: &nbsp; </b>{{ user_profile.role }}</li>
-		{% endif %}
-	</ul>
+	<div id="thisIsDiv">
+		<ul class="list-group">
+			<li class="list-group-item"><b>Username: &nbsp; </b>{{ user.get_username }}</li>
+			<li class="list-group-item"><b>First Name: &nbsp; </b>{{ request.user.first_name }}</li>
+			<li class="list-group-item"><b>Last Name: &nbsp; </b>{{ request.user.last_name }}</li>
+			<li class="list-group-item"><b>Email: &nbsp; </b>{{ request.user.email }}</li>
+			{% if user_profile %}
+				<li class="list-group-item"><b>Phone Number: &nbsp; </b>{{ user_profile.phone_number }}</li>
+				<li class="list-group-item"><b>Address: &nbsp; </b>{{ user_profile.address }}</li>
+				<li class="list-group-item"><b>Post Code: &nbsp; </b>{{ user_profile.postcode }}</li>
+				<li class="list-group-item"><b>Account Type: &nbsp; </b>{{ user_profile.role }}</li>
+			{% endif %}
+		</ul>
+	</div>
 </div>
 
 <script src={% static "scripts/edit.js" %}></script>

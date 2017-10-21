@@ -145,7 +145,6 @@ function edit_user(){
   XHR.setRequestHeader("Content-type", "application/json");
   XHR.onreadystatechange = function(){
     if (XHR.readyState == 4 && XHR.status == 200) {
-      console.log(JSON.parse(XHR.response));
       cancel(JSON.parse(XHR.response));
     } else if (XHR.readyState == 4 && XHR.status == 403){
       return;

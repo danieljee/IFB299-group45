@@ -21,8 +21,9 @@
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             {% if user.is_superuser %}
       			<a class="dropdown-item" href="{% url 'admin:index' %}"><i class="fa fa-desktop"></i> Admin Settings</a>
-      		  {% endif %}
+            {% else %}
             <a class="dropdown-item" href={% url 'app:account' pk=user.id %}><i class="fa fa-wrench"></i> Account Settings</a>
+            {% endif %}
             <a class="dropdown-item" href={% url 'app:saved_places'%}><i class="fa fa-map-pin"></i> Saved Places</a>
             <a class="dropdown-item" href={% url 'app:logout' %}><i class="fa fa-sign-out"></i> Logout</a>
           </div>

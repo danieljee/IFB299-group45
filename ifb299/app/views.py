@@ -230,15 +230,14 @@ def account(request, **kwargs):
         return HttpResponseRedirect('/')
     if request.method == 'GET':
         print(request.user.id)
-        user_profile = UserProfile.objects.get(pk=kwargs['pk'])
+        user_profile = UserProfile.objects.filter(user_id=kwargs['pk']).first()
         return render(request, 'AccountInformation.html', {"user_profile": user_profile})
     elif request.method == 'PUT':
-        print(request.body)
+        print(request.user.id)
+        print(kwargs['pk'])
         data = json.loads(request.body)
-        print(data)
         qdict = QueryDict('', mutable=True)
         qdict.update(data)
-        print(qdict)
         form = UpdateUserForm(qdict, instance=request.user)
         if form.is_valid():
             user = request.user
@@ -264,52 +263,11 @@ def account(request, **kwargs):
         else:
             return HttpResponseForbidden()   
     elif request.method == 'DELETE':
-        place = Place.objects.get(pk=kwargs['pk'])
-        savedPlace = SavedPlace.objects.filter(user=request.user, place=place).first()
-        if not savedPlace:
-            return HttpResponseForbidden()
-        else:
-            savedPlace.delete()
-            return HttpResponse()
-
-class AccountInformation(generic.ListView):
-    model = UserProfile
-    template_name = 'AccountInformation.html'
-    context_object_name = 'users'
-    def get_queryset(self):
-        return UserProfile.objects.filter(user=self.request.user)
-
-def edit_profile(request):
-    args = {}
-    user = request.user
-    form = UpdateUserForm(request.POST, instance=request.user)
-    if request.method == 'POST':
-        if form.is_valid():
-            user.first_name = request.POST['first_name']
-            user.last_name = request.POST['last_name']
-            user.email = request.POST['email']
-            user.userprofile.phone_number = request.POST['phone_number']
-            user.userprofile.address = request.POST['address']
-            user.userprofile.postcode = request.POST['postcode']
-            user.userprofile.role = request.POST['role']
-            user.save()
-            user.userprofile.save()
-            return HttpResponseRedirect('information')
-    return render(request, 'EditAccount.html')
-
-@csrf_exempt
-def delete_profile(request):
-    # should return 403
-    if request.method == 'DELETE':
-        if not request.user.is_authenticated:
-            return HttpResponseRedirect('/');
-        user = User.objects.get(pk = request.user.id)
+        auth.logout(request)
+        user = User.objects.get(pk = kwargs['pk'])
         user.userprofile.delete()
         user.delete()
         return HttpResponse()
-    else:
-        return HttpResponse()
-        # should return 404
 
 @csrf_exempt
 def saved_places(request, **kwargs):
