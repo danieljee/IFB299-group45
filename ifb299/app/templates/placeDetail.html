@@ -40,7 +40,7 @@
 				<div class="col-sm-6">
 					<div id="map"></div>
 				</div>
-				<div class="col-sm-6" style="text-align: left;">
+				<div class="col-sm-3" style="text-align: left;">
 					{% if place.category_id.name == 'college' %}
 						<p>
 							<h4><i class="fa fa-thumb-tack"></i> ADDRESS: </h4>
@@ -85,6 +85,10 @@
 					{% else %}
 						<button id="addButton" class='btn btn-info' onclick="addPlace()">Save Place to Profile</button>
 					{% endif %}
+				</div>
+
+				<div class="col-sm-3" id="weatherDiv">
+					
 				</div>
 			</div>
 		<br>
