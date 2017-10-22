@@ -84,7 +84,7 @@ function edit(){
 			</div>
 		</fieldset>
 		<!--it is possible to have one function called with args == http method-->
-		<button class="btn btn-primary" onclick="edit_user()">Submit</button>
+		<button class="btn btn-primary" onclick="edit_user()">Update</button>
 		</br>
 
 		<button class="btn btn-danger" onclick="delete_user()">Delete</button>
@@ -102,7 +102,7 @@ function edit(){
 
 function cancel(store){
     let edit_button = document.getElementById('edit_button');
-    edit_button.innerHTML = 'save';
+    edit_button.innerHTML = 'Edit';
     edit_button.classList.remove('btn-danger');
     edit_button.classList.add('btn-info');
     edit_button.onclick = ()=>{edit()}
@@ -147,6 +147,7 @@ function edit_user(){
     if (XHR.readyState == 4 && XHR.status == 200) {
       cancel(JSON.parse(XHR.response));
     } else if (XHR.readyState == 4 && XHR.status == 403){
+		//Show error message
       return;
     }
   };

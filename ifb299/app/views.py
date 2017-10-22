@@ -1,23 +1,16 @@
-from django.shortcuts import render_to_response, render
+from django.shortcuts import render
 import json
 from django.http import HttpResponseRedirect, HttpResponse, HttpResponseForbidden, JsonResponse, QueryDict
 from django.views import generic
 from django.contrib import auth
 from django.contrib.auth.models import User
-from .models import UserProfile, Place, Category as Category_model
+from .models import UserProfile, Place, SavedPlace, Review, Category as Category_model
 from django.contrib.auth import authenticate, login
 from django.template.context_processors import csrf
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from .forms import MyRegistrationForm, UserProfileForm, UpdateUserForm, ReviewForm
-from .models import Place, UserProfile, SavedPlace, Review
-
-class HttpResponseUnauthorized(HttpResponseRedirect):
-    status_code = 401
-
-class HttpResponseNotFound(HttpResponseRedirect):
-    status_code = 404
 
 ###################
 # Some view functions will redirect users to index if they are not logged in
@@ -73,9 +66,7 @@ def register_user(request):
     if request.method == 'POST':
         user_form = MyRegistrationForm(data = request.POST)
         profile_form = UserProfileForm(data = request.POST)
-        print('i received request')
         if user_form.is_valid() and profile_form.is_valid():
-            print('form was valid');
             new_user = user_form.save()
             new_user.set_password(new_user.password)
             new_user.save()
@@ -96,7 +87,7 @@ def register_user(request):
 ###################
 def auth_view(request):
     if request.user.is_authenticated():
-        return HttpResponseNotFound('/')
+        return HttpResponseForbidden();
 
     username = request.POST.get('username', '')
     password = request.POST.get('password', '')
@@ -150,6 +141,10 @@ class Search(generic.ListView):
         ctx['count'] = self.get_queryset().count()
         return ctx
 
+##########################
+# This view function is for an AJAX request from the search page to 
+# Request the same search result but in different order. 
+##########################
 def search_ordered(request, **kwargs):
     if request.method == 'GET':
         query = request.GET.get('q')
@@ -199,10 +194,19 @@ class PlaceDetail(generic.DetailView):
         if savedPlace:
             ctx['saved'] = True
         return ctx
+
+##########################
+# This function handles all requests for reviews
+##########################
 @csrf_exempt
-def handle_review(request, **kwargs):
-    if request.method == 'GET' or not request.user.is_authenticated:
-        return HttpResponseRedirect('/')
+def reviews(request, **kwargs):
+    if request.method == 'GET':
+        place = Place.objects.get(pk=kwargs['pk'])
+        reviews = Review.objects.filter(place_id=place)
+        reviews_list = []
+        for review in reviews:
+            reviews_list.append({"name": review.user.username, "comment": review.comments, "rating": review.rating})
+        return JsonResponse({"result" : reviews_list})
     if request.method == 'POST':
         comments = request.POST['comment']
         rating = request.POST['rating']
@@ -214,16 +218,9 @@ def handle_review(request, **kwargs):
             Review.objects.create(user=request.user, place_id=place,comments=comments, rating=rating)
             return JsonResponse({"name" : request.user.username, 'comment': comments, 'rating': rating})
 
-def get_review_list(request, **kwargs):
-    if request.method == 'GET':
-        place = Place.objects.get(pk=kwargs['pk'])
-        reviews = Review.objects.filter(place_id=place)
-
-        reviews_list = []
-        for review in reviews:
-            reviews_list.append({"name": review.user.username, "comment": review.comments, "rating": review.rating})
-        return JsonResponse({"result" : reviews_list})
-
+##########################
+# This function handles all requests for account information or updates
+##########################
 @csrf_exempt
 def account(request, **kwargs):
     if not request.user.is_authenticated:
@@ -267,8 +264,11 @@ def account(request, **kwargs):
         user = User.objects.get(pk = kwargs['pk'])
         user.userprofile.delete()
         user.delete()
-        return HttpResponse()
+        return JsonResponse({"error": None, "result": 'success'})
 
+##########################
+# This function handles all requests for saved_places
+##########################
 @csrf_exempt
 def saved_places(request, **kwargs):
     if not request.user.is_authenticated:
@@ -283,7 +283,7 @@ def saved_places(request, **kwargs):
             return HttpResponseForbidden()
         else:
             SavedPlace.objects.create(place=place, user=request.user)
-            return HttpResponse()
+            return JsonResponse({"error": None, "result": 'success'})
     elif request.method == 'DELETE':
         place = Place.objects.get(pk=kwargs['pk'])
         savedPlace = SavedPlace.objects.filter(user=request.user, place=place).first()
@@ -291,7 +291,7 @@ def saved_places(request, **kwargs):
             return HttpResponseForbidden()
         else:
             savedPlace.delete()
-            return HttpResponse()
+            return JsonResponse({"error": None, "result": 'success'})
     
 def contact(request):
     args = {}
