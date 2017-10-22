@@ -3,7 +3,7 @@ from django.test import Client
 from django.urls import reverse
 from app.forms import MyRegistrationForm, UpdateUserForm
 from django.contrib.auth.models import User
-from .models import Place, UserProfile, City, Category, State, SavedPlace
+from .models import Place, UserProfile, City, Category, State, SavedPlace, Industry, Department
 from django.utils import timezone
 import datetime
 
@@ -72,6 +72,66 @@ class FormTest(TestCase):
         form = MyRegistrationForm(data = form_data)
         self.assertTrue(not form.is_valid())
 
+class IndexTests(TestCase):
+    def test_index_loggedIn_STUDENT(self):
+        user = User.objects.create_user('testUsername', 'temporary@gmail.com', 'TestPassword')
+        UserProfile.objects.create(user_id = user.id)
+        user.first_name = 'test'
+        user.last_name = 'case'
+        user.phone_number = '3673920'
+        user.address = '34 Some Rd'
+        user.postcode = '4000'
+        user.role = 'STUDENT'
+        client = Client()
+        client.login(username='testUsername', password='TestPassword')
+        response = client.get(reverse('app:index'))
+        self.assertTrue(response.status_code == 200)
+
+    def test_index_loggedIn_BUSINESSMAN(self):
+        user = User.objects.create_user('testUsername', 'temporary@gmail.com', 'TestPassword')
+        user = UserProfile.objects.create(user_id = user.id)
+        user.first_name = 'test'
+        user.last_name = 'case'
+        user.phone_number = '3673920'
+        user.address = '34 Some Rd'
+        user.postcode = '4000'
+        user.role = 'BUSINESSMAN'
+        client = Client()
+        client.login(username='testUsername', password='TestPassword')
+        response = client.get(reverse('app:index'))
+        self.assertTrue(user.role, 'BUSINESSMAN')
+        self.assertTrue(response.status_code == 200)
+
+    def test_index_loggedIn_TOURIST(self):
+        user = User.objects.create_user('testUsername', 'temporary@gmail.com', 'TestPassword')
+        user = UserProfile.objects.create(user_id = user.id)
+        user.first_name = 'test'
+        user.last_name = 'case'
+        user.phone_number = '3673920'
+        user.address = '34 Some Rd'
+        user.postcode = '4000'
+        user.role = 'TOURIST'
+        client = Client()
+        client.login(username='testUsername', password='TestPassword')
+        response = client.get(reverse('app:index'))
+        self.assertTrue(user.role, 'TOURIST')
+        self.assertTrue(response.status_code == 200)
+
+    def test_index_loggedIn_Superuser(self):
+        user1 = User.objects.create_superuser('testUsername', 'temporary@gmail.com', 'TestPassword')
+        user = UserProfile.objects.create(user_id = user1.id)
+        user.first_name = 'test'
+        user.last_name = 'case'
+        user.phone_number = '3673920'
+        user.address = '34 Some Rd'
+        user.postcode = '4000'
+        user.role = 'BUSINESSMAN'
+        client = Client()
+        client.login(username='testUsername', password='TestPassword')
+        response = client.get(reverse('app:index'))
+        self.assertTrue(user.role, 'BUSINESSMAN')
+        self.assertTrue(user1.is_superuser)
+        self.assertTrue(response.status_code == 200)
 
 class registerTest(TestCase):
     def setUp(self):
@@ -186,6 +246,162 @@ class individualCategoryTest(TestCase):
             if item.category_id.name == 'museum':
                 return item.name
         self.assertEqual(place.__str__(), item.name)
+
+    def test_displaying_selected_college_category(test):
+        today = timezone.now()
+        state1 = State.objects.create(name='qld')
+        city = City.objects.create(name='brisbane', state=state1)
+        category = Category.objects.create(name='college')
+        department1 = Department.objects.create(name = 'science')
+        department2 = Department.objects.create(name = 'engineering')
+        place = Place.objects.create(name='QUT', address='2 George st', email='qut@learning.com', postcode='4000', city_id=city, category_id=category, date=today)
+        place.department = (department1,department2)
+        places = {place}
+        for item in places:
+            if item.category_id.name == 'college':
+                return item.name
+        self.assertEqual(place.__str__(), item.name)
+
+    def test_displaying_selected_zoo_category(test):
+        today = timezone.now()
+        state1 = State.objects.create(name='qld')
+        city = City.objects.create(name='brisbane', state=state1)
+        category = Category.objects.create(name='zoo')
+        place = Place.objects.create(name='Australia Zoo', address='1 Queen St', email='zoo@cocs.com', postcode='4000', city_id=city, category_id=category, date=today)
+        places = {place}
+        for item in places:
+            if item.category_id.name == 'zoo':
+                return item.name
+        self.assertEqual(place.__str__(), item.name)
+
+    def test_displaying_selected_hotel_category(test):
+        today = timezone.now()
+        state1 = State.objects.create(name='qld')
+        city = City.objects.create(name='brisbane', state=state1)
+        category = Category.objects.create(name='hotel')
+        place = Place.objects.create(name='Grand Budapest Hotel', address='1 Queen St', email='hotel@sleep.com', postcode='4000', city_id=city, category_id=category, date=today)
+        places = {place}
+        for item in places:
+            if item.category_id.name == 'hotel':
+                return item.name
+        self.assertEqual(place.__str__(), item.name)
+
+    def test_displaying_selected_mall_category(test):
+        today = timezone.now()
+        state1 = State.objects.create(name='qld')
+        city = City.objects.create(name='brisbane', state=state1)
+        category = Category.objects.create(name='mall')
+        place = Place.objects.create(name='Queen St Mall', address='1 Queen St', email='mall@OMGLetsGoShopping.com', postcode='4000', city_id=city, category_id=category, date=today)
+        places = {place}
+        for item in places:
+            if item.category_id.name == 'mall':
+                return item.name
+        self.assertEqual(place.__str__(), item.name)
+
+    def test_displaying_selected_industry_category(test):
+        today = timezone.now()
+        state1 = State.objects.create(name='qld')
+        city = City.objects.create(name='brisbane', state=state1)
+        category = Category.objects.create(name='industry')
+        industry1 = Industry.objects.create(name = 'manufacturing')
+        place = Place.objects.create(name='KFC', address='1 Queen St', email='KFC@KFC.com', postcode='4000', city_id=city, category_id=category, industry=industry1, date=today)
+        places = {place}
+        for item in places:
+            if item.category_id.name == 'industry':
+                return item.name
+        self.assertEqual(place.__str__(), item.name)
+
+    def test_displaying_selected_park_category(test):
+        today = timezone.now()
+        state1 = State.objects.create(name='qld')
+        city = City.objects.create(name='brisbane', state=state1)
+        category = Category.objects.create(name='park')
+        place = Place.objects.create(name='KFC', address='1 Queen St', email='KFC@KFC.com', postcode='4000', city_id=city, category_id=category, date=today)
+        places = {place}
+        for item in places:
+            if item.category_id.name == 'park':
+                return item.name
+        self.assertEqual(place.__str__(), item.name)
+
+    def test_displaying_selected_empty_category(self):
+        today = timezone.now()
+        state1 = State.objects.create(name='qld')
+        city = City.objects.create(name='brisbane', state=state1)
+        category = Category.objects.create(name='restaurant')
+        category2 = Category.objects.create(name='college')
+        place = Place.objects.create(name='KFC', address='1 Queen St', email='KFC@KFC.com', postcode='4000', city_id=city, category_id=category, date=today)
+        places = {place}
+        count = 0
+        for item in places:
+            if item.category_id.name == 'college':
+                count = count + 1
+        self.assertEqual(count, 0)
+
+class SearchTest(TestCase):
+    def test_search_result(self):
+        today = timezone.now()
+        state1 = State.objects.create(name='qld')
+        city = City.objects.create(name='brisbane', state=state1)
+        category = Category.objects.create(name='college')
+        department1 = Department.objects.create(name = 'science')
+        department2 = Department.objects.create(name = 'engineering')
+        place = Place.objects.create(name='QUT', address='2 George st', email='qut@learning.com', postcode='4000', city_id=city, category_id=category, date=today)
+        place.department = (department1,department2)
+        places = {place}
+        for item in places:
+            if item.name == 'qut':
+                return item.name
+        self.assertEqual(place.__str__(), item.name)
+
+    def test_multiple_search_results(self):
+        today = timezone.now()
+        state1 = State.objects.create(name='qld')
+        city = City.objects.create(name='brisbane', state=state1)
+        category = Category.objects.create(name='college')
+        department1 = Department.objects.create(name = 'science')
+        department2 = Department.objects.create(name = 'engineering')
+        place = Place.objects.create(name='QUT', address='2 George st', email='qut@learning.com', postcode='4000', city_id=city, category_id=category, date=today)
+        place2 = Place.objects.create(name='QUT Library', address='2 George st', email='qut@learning.com', postcode='4000', city_id=city, category_id=category, date=today)
+        place.department = (department1,department2)
+        places = {place,place2}
+        count = 0
+        for item in places:
+            if 'QUT' in item.name:
+                count = count + 1
+        self.assertEqual(count, 2)
+
+    def test_filtered_search_result(self):
+        today = timezone.now()
+        state1 = State.objects.create(name='qld')
+        city = City.objects.create(name='brisbane', state=state1)
+        category = Category.objects.create(name='college')
+        department1 = Department.objects.create(name = 'science')
+        department2 = Department.objects.create(name = 'engineering')
+        place = Place.objects.create(name='QUT', address='2 George st', email='qut@learning.com', postcode='4000', city_id=city, category_id=category, date=today)
+        place2 = Place.objects.create(name='QUT Library', address='2 George st', email='qut@learning.com', postcode='4000', city_id=city, category_id=category, date=today)
+        place.department = (department1,department2)
+        places = {place,place2}
+        count = 0
+        for item in places:
+            if 'Library' in item.name:
+                count = count + 1
+        self.assertEqual(count, 1)
+
+    def test_empty_search_result(self):
+        today = timezone.now()
+        state1 = State.objects.create(name='qld')
+        city = City.objects.create(name='brisbane', state=state1)
+        category = Category.objects.create(name='college')
+        department1 = Department.objects.create(name = 'science')
+        department2 = Department.objects.create(name = 'engineering')
+        place = Place.objects.create(name='QUT', address='2 George st', email='qut@learning.com', postcode='4000', city_id=city, category_id=category, date=today)
+        place.department = (department1,department2)
+        places = {place}
+        count = 0
+        for item in places:
+            if item.name == 'school':
+                count = count + 1
+        self.assertEqual(count, 0)
 
 class EditUserTest(TestCase):
     def setUp(self):
