@@ -101,6 +101,45 @@ body{
   margin:auto;
 }
 
+#editProfileWrapper {
+	margin: auto;
+	width: 75%;
+	height: auto;
+	text-align: center;
+}
+
+form.editProfileForm {
+	width: 50%;
+	margin: auto;
+	
+} 
+
+h1.pageTitle {
+	text-align: center;
+}
+
+input.editProfileTextBox {
+	height: 27px;
+	float: left;
+	text-align: left;
+	margin: auto;
+	width: 400px;
+}
+
+
+li.list-group-item {
+	margin: auto;
+	width: 60%;
+}
+
+
+p.editLabel {
+	text-align: right;
+	width: 300px;
+	float: left;
+	font-weight: bold;
+}
+
 .searchResultColumn1{
   flex: 8;
 }
