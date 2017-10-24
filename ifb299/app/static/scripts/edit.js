@@ -16,50 +16,40 @@ function edit(){
     edit_button.onclick = ()=>{cancel(store)}
 
     document.getElementById('thisIsDiv').innerHTML = `
-        <div class="form-group row">
-			<label for="first_name" class="col-2 col-form-label">First Name:</label>
-			<div class="col-10">
-			<input id="first_name" type="text" name="first_name" value=${store.first_name}>
+		<div class="editProfileForm">
+
+			<div class="row">
+				<p class="editLabel">First Name:</p>					
+				<input class="editProfileTextBox" id="first_name" type="text" name="first_name" value=${store.first_name}>
+			</div>
+
+			<div class="row">
+				<p class="editLabel">Last Name:</p>					
+				<input class="editProfileTextBox" id="last_name" type="text" name="first_name" value=${store.last_name}>
+			</div>
+
+			<div class="row">
+				<p class="editLabel">Email:</p>					
+				<input class="editProfileTextBox" id="email" type="text" name="first_name" value=${store.email}>
+			</div>
+			
+			<div class="row">
+				<p class="editLabel">Phone Number:</p>					
+				<input class="editProfileTextBox" id="phone_number" type="text" name="first_name" value=${store.phone_number}>
+			</div>
+			
+			<div class="row">
+				<p class="editLabel">Address:</p>					
+				<input class="editProfileTextBox" id="address" type="text" name="first_name" value=${store.address}>
+			</div>
+			
+			<div class="row">
+				<p class="editLabel">Postcode:</p>					
+				<input class="editProfileTextBox" id="postcode" type="text" name="first_name" value=${store.postcode}>
 			</div>
 		</div>
-
-		<div class="form-group row">
-			<label for="last_name" class="col-2 col-form-label">Last Name:</label>
-			<div class="col-10">
-			<input id="last_name" type="text" name="last_name" value=${store.last_name}>
-			</div>
-		</div>
-
-		<div class="form-group row">
-			<label for="email" class="col-2 col-form-label">Email:</label>
-			<div class="col-10">
-			<input id="email" type="email" name="email" value=${store.email}>
-			</div>
-		</div>
-
-		<div class="form-group row">
-			<label for="phone_number" class="col-2 col-form-label">Phone Number:</label>
-			<div class="col-10">
-			<input id="phone_number" type="text" name="phone_number" value=${store.phone_number}>
-			</div>
-		</div>
-
-		<div class="form-group row">
-			<label for="address" class="col-2 col-form-label"> Address: </label>
-			<div class="col-10">
-			<input id="address" type="text" name="address" value=${store.address}>
-			</div>
-		</div>
-
-		<div class="form-group row">
-			<label for="postcode" class="col-2 col-form-label">Postcode:</label>
-			<div class="col-10">
-			<input id="postcode" type="text" name="postcode" value=${store.postcode}>
-			</div>
-		</div>
-
 		<fieldset class="form-group row">
-			<legend class="col-form-legend col-sm-2">Account Type</legend>
+			<legend class="col-form-legend col-sm-2" style="font-weight: bold;">Account Type:</legend>
 			<div style = "margin-left: 140px">
 				<div class="col-sm-10">
 					<div class="form-check">
@@ -83,13 +73,17 @@ function edit(){
 				</div>
 			</div>
 		</fieldset>
-		<!--it is possible to have one function called with args == http method-->
-		<button class="btn btn-primary" onclick="edit_user()">Update</button>
-		</br>
+		<center>
+			<!--it is possible to have one function called with args == http method-->
+			<button class="btn btn-primary" style="width: 300px;" onclick="edit_user()">Update</button>
+			</br>
+			<hr>
 
-		<button class="btn btn-danger" onclick="delete_user()">Delete</button>
-		<div style="margin-left: 10px">
-		</div>
+			Don't want an account with us anymore? Click the delete button to remove your account.<br></br>
+				<button class="btn btn-danger" style="width: 300px;" onclick="delete_user()">Delete</button>
+			<div style="margin-left: 10px">
+			</div>
+		</center>
     `;
 
     let roles = document.getElementsByName('role');
