@@ -1,11 +1,15 @@
 {% extends "base_template.html" %}
 {% load static %}
 {% block content %}
-
+<center>
+<img src="{% static "images/user_banner1.png" %}" style="width:100%;" />
+	<h1 class="pageTitle">ACCOUNT INFORMATION &nbsp; &nbsp;</h1>
+		<i class="fa fa-id-card-o" style="font-size:40px"></i><br>
+	<hr>
+		<button class="btn btn-info" style="width: 300px; margin: 10px;" onclick="edit()" id='edit_button'>Edit Information</button></h4>
+</center>
+<div id="editProfileWrapper">
 <div id='accountinfoDiv'>
-	<div style = "margin-top: 20px; margin-bottom: 20px; margin-left: 10px" >
-		<h4>Account Information &nbsp; &nbsp;<button class="btn btn-info" onclick="edit()" id='edit_button'>Edit</button></h4>
-	</div>
 	<input hidden id='pk' value={{request.user.id}}></input>
 	<input hidden id='username_static' value={{ user.get_username }}></input>
 	<input hidden id='first_name_static' value={{request.user.first_name}}></input>
@@ -30,6 +34,7 @@
 			{% endif %}
 		</ul>
 	</div>
+</div>
 </div>
 
 <script src={% static "scripts/edit.js" %}></script>
