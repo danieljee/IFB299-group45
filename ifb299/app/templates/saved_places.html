@@ -2,9 +2,9 @@
 {% load static %}
 {% load app_filters %}
 {% block content %}
-<h1><center> Your Saved Places </center></h1>
+<h2 id='savedPlaceHeading'><center> Your Saved Places </center></h2>
 
-<div class="categoryListContainer">
+<div id="categoryListContainer">
   {% if saved_places %}
     {% for place in saved_places %}
       <a class="resultItem" href="{{place.place.get_absolute_url}}">
@@ -30,7 +30,6 @@
   {% else %}
   {% endif %}
     <ul>
-        <li></li>
     </ul>
 </div>
 {% endblock %}
