@@ -18,7 +18,7 @@
 --
 -- Table structure for table `app_state`
 --
-
+USE ifb299;
 DROP TABLE IF EXISTS `app_state`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
