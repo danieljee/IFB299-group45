@@ -530,3 +530,20 @@ class EditUserTest(TestCase):
         }
         form = UpdateUserForm(data = form_data)
         self.assertTrue(form.is_valid())
+
+class Logout(TestCase):
+    def setUp(self):
+	    user = User.objects.create_user('temporary', 'temporary@gmail.com', 'temporary')
+	
+    def test_user_logged_out(self):
+        client = Client()
+        client.login(username='temporary', password='temporary')
+        user = auth.authenticate(username='temporary', password='temporary')
+        response = client.get(reverse('app:logout'))
+        self.assertEqual(response.status_code, 302)
+
+class WelcomePage(TestCase):
+    def test_welcome_page(self):
+        client = Client()
+        response = client.get(reverse('app:index'))
+        self.assertEqual(response.status_code, 200)
