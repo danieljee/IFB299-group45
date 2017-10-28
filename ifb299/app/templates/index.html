@@ -1,16 +1,16 @@
 {% extends "base_template.html" %}
 {% load static %}
 {% block content %}
+	
 {% if user.is_authenticated %}
 	{% if user.is_superuser %}
 		{% include './allCategoriesDisplay.html' %}
 	{% else %}
-	<br/>
-	<center id='indexHeader' style="font-family: 'Open Sans', sans-serif;"> 
-		<h2>RECOMMENDED CATEGORIES</h2>
-		<h5>These categories have been recommended to you based on your account type</h5>
-	</center>
-	<br/>
+	<img style="width:100%;" src="{% static 'images/index_banner1.png' %}" />
+	<br>
+	<h1 class="pageTitle">RECOMMENDED CATEGORIES</h1>
+	<h5 class="pageBlurb">These categories have been recommended to you based on your account type</h5>
+	<hr>
 	{% if role == "STUDENT" %}
 		{% include './studentHome.html' %}
 	{% elif role == "TOURIST" %}
@@ -21,14 +21,17 @@
 	{% endif %}
 {% else %}
 
-	<div id='welcomePage'>
+<div id='welcomePage'>
+		<img style="width:100%;" src="{% static 'images/welcome_banner1.png' %}" />
+
 		{% if successMessage %}
 			<h5 class='text-success text-center'>{{successMessage}}</h5>
 		{% endif %}
+
 		<div class="row text-center" >
 			<div class="hidden col-md-4" id='introText'>
-			  <h2>Welcome to <br>SmartCity</h2><br>
-			  <h5>Dedicated to helping you find <br> great destinations the city you're in </h5>
+			  <h1 class="pageTitle">Welcome to <br>SmartCity</h1><br>
+			  <h5 class="pageBlurb">Dedicated to helping you find <br> great destinations for the city you're in </h5>
 			</div>
 			<div class="col-md-3" id='registerDivColumn'>
 				{% include './components/registerForm.html' %}
@@ -37,7 +40,7 @@
 				{% include './components/loginForm.html' %}
 			</div>
 		</div>
-	</div>
+</div>
 
 	<script type='text/javascript'>
 		$(document).ready(function(){

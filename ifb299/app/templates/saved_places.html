@@ -2,7 +2,10 @@
 {% load static %}
 {% load app_filters %}
 {% block content %}
-<h2 id='savedPlaceHeading'><center> Your Saved Places </center></h2>
+<img style="width:100%;" src="{% static 'images/saved_banner1.png' %}" />
+<h1 class='pageTitle'>SAVED PLACES</h1>
+<h5 class="pageBlurb">These are all the places you saved</h5>
+<hr>
 
 <div id="categoryListContainer">
   {% if saved_places %}
@@ -29,7 +32,5 @@
     {% endfor %}
   {% else %}
   {% endif %}
-    <ul>
-    </ul>
 </div>
 {% endblock %}

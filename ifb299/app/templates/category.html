@@ -4,13 +4,11 @@
 {% block content %}
 
 <img style="width:100%" src={% static category|category_banner %}/>
-<center style="font-family: 'Open Sans', sans-serif;">
-<div class="pageTitle">
-<h1> {{category|title}}</h1>
-<h3> This is a list of all the {{category}} items on SmartCity</h3>
-</div>
+<h1 class="pageTitle"> {{category|title}}</h1>
+<h5 class="pageBlurb"> This is a list of all the {{category}} items on SmartCity</h5>
 <div class='searchResultDiv'>
   <div class='searchResultColumn1'>
+	<center>
     {% if place_list %}
       {% for place in place_list%}
         <a class="resultItem" style="height: auto;" href="{{place.get_absolute_url}}">
