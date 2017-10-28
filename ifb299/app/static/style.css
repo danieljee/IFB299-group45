@@ -6,6 +6,12 @@ body{
   flex:1;
 }
 
+h1.pageTitle, h5.pageBlurb {
+	font-family:'Open Sans', sans-serif;
+	width: 100%;
+	text-align: center; 
+}
+
 #introText{
   margin-left:40px;
 }
