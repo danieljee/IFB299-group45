@@ -39,8 +39,21 @@ INSERT INTO Place(name, address, email, postcode, phone_number, city_id, catagor
 --
 
 INSERT INTO user(username, password, first_name, last_name, email) VALUES ('admin','password','Dave','Chow','example@example.com');
+
 --
 -- User Profile Table
 --
 
-INSERT INTO UserProfile(user, phone_number, address, postcode, role) VALUES ('admin',040637827,'73 Some Rd',4000,'BUSINESSMAN');
+INSERT INTO UserProfile(user, phone_number, address, postcode, role) VALUES ('admin',040637827,'73 Some Rd',4000,'Businessman');
+
+--
+-- Saved Place Table
+--
+
+INSERT INTO SavedPlace(user, place) VALUES ('admin','QUT Gardens Point Campus');
+
+--
+-- Review Table
+--
+
+INSERT INTO Review(user, place_id) VALUES ('admin','QUT Gardens Point Campus','This is a good university','Four Stars');
