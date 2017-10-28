@@ -8,31 +8,31 @@
 		<div class="pageTitle">
 			<h1 >{{place.name|upper}}</h3>
 		</div>
-			{% if place.category_id.name == "library" %}
+			{% if place.category_id.name == "library" or place.category_id.name == "Library" %}
 			<i class="fa fa-book" style="font-size:40px"></i>		
 
-			{% elif place.category_id.name == "restaurant" %}
+			{% elif place.category_id.name == "restaurant" or place.category_id.name == "Restaurant" %}
 			<i class="fa fa-cutlery" style="font-size:40px"></i>			
 
-			{% elif place.category_id.name == "hotel" %}
+			{% elif place.category_id.name == "hotel" or place.category_id.name == "Hotel" %}
 			<i class="fa fa-building" style="font-size:40px"></i>
 			
-			{% elif place.category_id.name == "mall" %}
+			{% elif place.category_id.name == "mall" or place.category_id.name == "Mall" %}
 			<i class="fa fa-credit-card" style="font-size:40px"></i>
 			
-			{% elif place.category_id.name == "college" %}
+			{% elif place.category_id.name == "college" or place.category_id.name == "College" %}
 			<i class="fa fa-pencil" style="font-size:40px"></i>
 			
-			{% elif place.category_id.name == "zoo" %}
+			{% elif place.category_id.name == "zoo" or place.category_id.name == "Zoo" %}
 			<i class="fa fa-paw" style="font-size:40px"></i>
 			
-			{% elif place.category_id.name == "industry" %}
+			{% elif place.category_id.name == "industry" or place.category_id.name == "Industry" %}
 			<i class="fa fa-gears" style="font-size:40px"></i>
 		
-			{% elif place.category_id.name == "museum" %}
+			{% elif place.category_id.name == "museum" or place.category_id.name == "Museum" %}
 			<i class="fa fa-bank" style="font-size:40px"></i>
 			
-			{% elif place.category_id.name == "park" %}
+			{% elif place.category_id.name == "park" or place.category_id.name == "Park" %}
 			<i class="fa fa-tree" style="font-size:40px"></i>
 			{% endif %}
 			<hr>
@@ -43,7 +43,7 @@
 				<div class="col-sm-3" id="weatherDiv">
 				</div>
 				<div class="col-sm-4" style="text-align: left;" id='placeDetails'>
-					{% if place.category_id.name == 'college' %}
+					{% if place.category_id.name == 'College' or place.category_id.name == 'college'%}
 						<p>
 							<h4><i class="fa fa-thumb-tack"></i> ADDRESS: </h4>
 							{{place.address}}, {{place.city_id|upper}}, {{place.postcode}}<br><br>
@@ -54,32 +54,32 @@
 							<h4><i class="fa fa-vcard"></i> DEPARTMENTS: </h4>
 							{% for department in place.department.all %}
 							<li>
-								{{place.department.name|title}}
+								{{department.name}}
 							</li>
 							{% endfor %}
 						</p>
-						{% elif place.category_id.name == 'industry' %}
-							<p>
-								<h4><i class="fa fa-thumb-tack"></i> ADDRESS: </h4>
-								{{place.address}}, {{place.city_id|upper}}, {{place.postcode}}<br><br>
-								
-								<h4><i class="fa fa-envelope"></i> EMAIL: </h4>
-								{{place.email}} <br><br>
-								
-								<h4><i class="fa fa-cog"></i> INDUSTRY TYPE: </h4>
-								{{place.industry.name|title}}
-							</p>
-						{% else %}
-							<p>
-								<h4><i class="fa fa-thumb-tack"></i> ADDRESS: </h4>
-								{{place.address}}, {{place.city_id|upper}}, {{place.postcode}}<br><br>
-								
-								<h4><i class="fa fa-phone"></i> PHONE NUMBER: </h4>
-								{{place.phone_number}} <br><br>
-								
-								<h4><i class="fa fa-envelope"></i> EMAIL: </h4>
-								{{place.email}}
-							</p>
+					{% elif place.category_id.name == 'industry' or place.category_id.name == 'Industry' %}
+						<p>
+							<h4><i class="fa fa-thumb-tack"></i> ADDRESS: </h4>
+							{{place.address}}, {{place.city_id|upper}}, {{place.postcode}}<br><br>
+							
+							<h4><i class="fa fa-envelope"></i> EMAIL: </h4>
+							{{place.email}} <br><br>
+							
+							<h4><i class="fa fa-cog"></i> INDUSTRY TYPE: </h4>
+							{{place.industry.name}}
+						</p>
+					{% else %}
+						<p>
+							<h4><i class="fa fa-thumb-tack"></i> ADDRESS: </h4>
+							{{place.address}}, {{place.city_id|upper}}, {{place.postcode}}<br><br>
+							
+							<h4><i class="fa fa-phone"></i> PHONE NUMBER: </h4>
+							{{place.phone_number}} <br><br>
+							
+							<h4><i class="fa fa-envelope"></i> EMAIL: </h4>
+							{{place.email}}
+						</p>
 					{% endif %}
 					<input type ='hidden' value={{place.id}} name='pk' id='pk'>
 					{% if saved %}
