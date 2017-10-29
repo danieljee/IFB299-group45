@@ -2,7 +2,7 @@
 {% load static %}
 {% load app_filters %}
 {% block content %}
-<img id='searchImage' src="{% static "images/search_banner1.png" %}" style="width:100%;" />
+<img id='searchImage' src="{% static 'images/search_banner1.png' %}" style="width:100%;" />
 <div style="background: #555; color:#fff; border-bottom: 1px solid #ccc;">
   <div class='searchResultHead' style="font-family: 'Open Sans', sans-serif; height: 60px;" >
     <div class='row' style='width: 100%'>
@@ -22,7 +22,6 @@
   <div class='searchResultColumn1'>
     {% if place_list %}
       {% for place in place_list%}
-        <!-- After implementing individual item page, href=" place.get_absolute_url }}" -->
         <a class="resultItem" style="height:auto;" href="{{place.get_absolute_url}}">
           <div class='row'>
             <div class='col-2'>
@@ -30,16 +29,14 @@
             </div>
             <div class='col-10'>
               <div class='row'>
-                <div class='col-7' style="margin-top: auto; margin-bottom: auto;">
+                <div class='col-7'>
                   {{place.name}}
                 </div>
                 <div class='col-5'>
-                  <div>{{place.city_id|title}}</div>
+                  <div><i>{{place.city_id}}</i></div>
                   <div>{{place.address|title}}</div>
-				  <div>{{place.postcode}}</div>
                 </div>
               </div>
-
             </div>
           </div>
         </a>
@@ -67,3 +64,4 @@
 </script>
 <script src={% static "scripts/query.js" %}></script>
 {% endblock %}
+

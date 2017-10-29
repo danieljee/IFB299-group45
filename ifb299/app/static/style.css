@@ -6,8 +6,10 @@ body{
   flex:1;
 }
 
-#welcomePage{
-  margin-top:100px;
+h1.pageTitle, h5.pageBlurb {
+	font-family:'Open Sans', sans-serif;
+	width: 100%;
+	text-align: center; 
 }
 
 #introText{
