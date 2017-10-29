@@ -10,7 +10,7 @@
 <div id="categoryListContainer">
   {% if saved_places %}
     {% for place in saved_places %}
-      <a class="resultItem" href="{{place.place.get_absolute_url}}">
+      <a class="resultItem" href="{{place.place.get_absolute_url}}" style="height: auto;">
         <div class='row'>
           <div class='col-2'>
               <img class='icon' src={% static place.place.category_id.name|category_image %}/>
@@ -21,7 +21,7 @@
                 {{place.place.name}}
               </div>
               <div class='col-5'>
-                <div>{{place.place.city_id}}</div>
+                <div><i>{{place.place.city_id}}</i></div>
                 <div>{{place.place.address}}</div>
               </div>
             </div>
