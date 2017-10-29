@@ -17,24 +17,24 @@ function query(){
       let place = json.result[i];
       let iconSrc = '/static/'+place.category.toLowerCase() + '.png';
       parentDiv.innerHTML += `
-        <a class="resultItem" href="/place/${place.id}/">
-          <div class='row'>
-            <div class='col-2'>
-                <img class='icon'style="height=45px;" src=${iconSrc}/>
-            </div>
-            <div class='col-10'>
-              <div class='row'>
-                <div class='col-7'>
-                  ${place.name}
-                </div>
-                <div class='col-5'>
-                  <div>${place.city}</div>
-                  <div>${place.address}</div>
-                </div>
-              </div>
-
-            </div>
-          </div>
+        <a class="resultItem" href="/place/${place.id}/" style="height:auto;">
+			<div class='row' style="margin-top: auto; margin-bottom: auto;">
+				<div class='col-2'>
+					<img class='icon'style="height=45px;" src=${iconSrc}/>
+				</div>
+				
+				<div class='col-10'>
+					<div class='row'>
+						<div class='col-7'>
+							${place.name}
+						</div>
+						<div class='col-5'>
+							<div><i>${place.city}</i></div>
+							<div>${place.address}</div>
+						</div>
+					</div>
+				</div>
+			</div>
         </a>
       `
     }
