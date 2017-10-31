@@ -15,7 +15,7 @@ function query(){
     parentDiv.innerHTML = '';
     for(var i=0; i<json.result.length; i++){
       let place = json.result[i];
-      let iconSrc = '/static/'+place.category.toLowerCase() + '.png';
+      let iconSrc = '/static/images/'+place.category.toLowerCase() + '.png';
       parentDiv.innerHTML += `
         <a class="resultItem" href="/place/${place.id}/" style="height:auto;">
 			<div class='row' style="margin-top: auto; margin-bottom: auto;">
